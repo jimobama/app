@@ -1,0 +1,167 @@
+
+.form
+{
+    border:0px solid #eee;
+    border-radius:2px;
+    min-height:100px;
+    min-width:200px;
+    margin:10px 0 10px 0;
+    overflow:hidden;    
+    margin:0 auto;
+    font-size:10px;
+}
+.form fieldset
+{
+   margin:0;
+   padding:10px;
+   border:1px solid #eee;
+    border-radius:5px;
+   box-shadow: 0px 0px 1px #000;
+}
+.form legend,.form h2{
+   padding:10px;
+   background-color:#eee;
+   border-radius:5px;
+   margin:0;
+   font-size:15px;
+   
+}
+
+.form .control-wrapper
+{
+    overflow:hidden;
+    margin:0 auto;
+}
+.control-collection-horizontal 
+{
+    display:block;
+     border:0px solid #000;
+     overflow:hidden;
+
+}
+
+.control-collection-horizontal  .control
+{
+    float:right;
+    padding:5px;
+   
+}
+
+.control-collection-horizontal  .control .editor-label
+{
+    margin:0  10px 0 10px;
+}
+.form  .control
+{    
+    border:0px solid #000;
+    padding:2px 10px 2px 2px;
+    overflow:hidden;
+
+}
+.form  .control .editor-label,.form  .control .editor-space
+{
+    height:220px;
+    display:inline;
+    border:0px solid #000;
+   
+}
+
+.form  .control .editor-label label
+{
+ font-weight:100;
+}
+.form  .control .editor-field
+{
+    float:right;
+    overflow:hidden;
+    border:0px solid #000;
+    min-height:30px;
+   
+}
+
+.form  .control .editor-field .field-validation-error,.form  .control .editor-field span
+{
+    color:#943737;
+    display:block;
+    font-size:10px;
+}
+.form .control .editor-field input[type='text'],
+.form .control .editor-field input[type='password'],
+.form .control .editor-field input[type='tel'] 
+ {
+   border:1px solid #ebe4e4;
+   width:150px;   
+   height:25px;
+}
+.form .control .editor-field input[type='text']:focus,
+.form .control .editor-field input[type='password']:focus,
+.form .control .editor-field input[type='tel']:focus
+{
+  
+   cursor:text; 
+   border:0;
+   border-top:1px solid #cddef6;
+   box-shadow:0px 0px 3px #000 ; 
+   background: #f8f6f6;
+   font-size-adjust:initial;
+   font-style:inherit;
+   font-size:1.4em;
+   padding:4px;
+   width:150px;   
+}
+ select 
+ {
+   border:1px solid #ebe4e4;
+    width:150px;  
+   height:25px;
+}
+ select:focus
+ {
+   cursor:text; 
+   border:0;
+   border-top:1px solid #cddef6;
+   box-shadow:0px 0px 3px #000 ; 
+   background: #f8f6f6;
+   font-size-adjust:initial;
+   font-style:inherit;
+   font-size:1.4em;
+   padding:4px;
+   width:152px;    
+ }
+                             
+.form .control .editor-button input[type='submit'],
+.form .control .editor-button button
+{
+    float:right;
+    padding:5px;
+    margin:5px 0 0 0;
+    border:1px solid #eee;
+   
+    border-radius: 5px;
+    min-width:100px;
+    background-color:#eee;
+}
+
+.form .control .editor-button input[type='submit']:hover,
+.form .control .editor-button button:hover
+{
+     
+     cursor:pointer;
+     font-weight:bold;
+    
+}
+.form .control  .field-validation-valid
+{
+    color:#ff0000;
+
+}
+.note-wrapper
+{
+    padding:5px;
+    font-size:9px;
+    font-weight:normal;
+    font-style:italic;
+}
+
+
+

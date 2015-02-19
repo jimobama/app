@@ -1,0 +1,100 @@
+
+html,body{
+    font-family: Verdana, Geneva, sans-serif;
+    
+}
+body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    margin:0;
+    padding:0; 
+   
+    
+}
+
+#main-body-wrapper
+{
+     min-height  :200px;
+    box-shadow:0px 0px 3px #7d7777;    
+    padding:0;
+    width:800px;
+    margin :auto;
+    overflow:hidden;
+}
+.navbar-inverse
+{
+  background-color:#fff;  
+  border:0;
+  margin:0;
+  padding:0;
+}
+.page-header
+{
+  margin:0;
+  padding:0;
+    background-color:#eee;
+}
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    z-index:-1;
+    margin-top:30px;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+.container-fluid
+{
+      
+   
+   
+}
+
+
+.container .page-header{  
+   
+  margin:0;
+   min-height:100px;
+  
+}
+
+.navbar-brand img
+{
+    width:55px;
+    height:70px;
+}
+
+.navbar-nav
+{
+   margin:20px auto;
+}
+.navbar-nav .dropdown-menu
+{
+    box-shadow: 0px 0px 3px #AAA;
+    border:0px;
+    
+}
+
+.navbar-nav li a
+{
+  font-size:10px;
+}
+
+
+
+.body-content
+{
+ position:relative;
+margin-top:10px ;
+}
+
+.copyright{
+    font-size:10px;
+    padding:5px;
+}

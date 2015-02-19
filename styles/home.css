@@ -1,0 +1,48 @@
+﻿
+.message-alert
+{
+    display:block;
+    text-align:center;
+
+}
+
+#home-index
+{
+   
+    border:0px solid #000;
+    margin:0 auto;
+    overflow:hidden;   
+}
+#home-index #index-right-context 
+{
+    overflow: hidden;
+}
+#home-index #index-context #index-left-context
+{
+    position:relative;
+    display:block;
+    overflow:hidden;   
+    margin:0px;
+    padding:5px;  
+    width:38%;    
+    border:0px solid #000;
+    padding:5px;
+    clear:none;
+   
+  
+}
+
+#home-index #index-context #index-right-context
+{
+    float:right;
+    position:relative;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    border-top: 0px solid #000;
+    min-height:300px;
+    width:60.0%;
+    clear:none;
+    margin:90px auto 100px auto;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 15px;
+}
