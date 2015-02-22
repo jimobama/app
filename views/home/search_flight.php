@@ -9,7 +9,10 @@
         <fieldset>
             <h2>Search Flights</h2>
             <div cass="control-wrapper">
-
+              <?php
+               $object= new ArrayIterator();
+                $object->offsetSet("method", "post");
+                  ContextManager::BeginForm("Flight", "Index", $object)?>
                 
                 <div class="control-collection-horizontal">
                     
@@ -43,7 +46,7 @@
                         <label>From</label>
                     </div>
                     <div class="editor-field">
-                        <input type="text" name ="txtForm" id="txtForm" required="true" />
+                        <input type="text" name ="txtForm" id="txtForm" />
                         <span id="txtForm" class="error-reporter"> </span>
                     </div>
                 </div>
@@ -52,7 +55,7 @@
                          <label>To</label>
                     </div>
                     <div class="editor-field">
-                         <input type="text" name ="txtForm" id="txtTo" required="true" />
+                         <input type="text" name ="txtForm" id="txtTo"  />
                           <span id="txtTo" class="error-reporter"> </span>                      
                     </div>
                 </div>
@@ -62,7 +65,7 @@
                         <label>Departure Date</label>
                     </div>
                     <div class="editor-field">
-                        <input type="text" name ="txtDepatureDate" id="txtTo" required="true" />
+                        <input type="text" name ="txtDepatureDate" id="txtTo" />
                         <span id="txtDepatureDate" class="error-reporter"> </span>    
                        
                     </div>
@@ -74,7 +77,7 @@
                        <label>Return Date</label>
                     </div>
                     <div class="editor-field">
-                        <input type="text" name ="txtreturndate" id="txtTo" required="true" />                       
+                        <input type="text" name ="txtreturndate" id="txtTo" />                       
                         <span class="txtreturndate" id="error-reporter"> </span>    
                     </div>
                 </div>
@@ -111,7 +114,7 @@
                     </div>
                     <div class="editor-field">
                                                
-                         <input type="text" name ="txtadults" id="txtTo" required="true" /> 
+                         <input type="text" name ="txtadults" id="txtTo"  /> 
                          <span id="txtadults" class="error-reporter"> </span> 
                     </div>
                 </div>
@@ -122,7 +125,7 @@
                     </div>
                     <div class="editor-field">
                         
-                         <input type="text" name ="txtchildren" id="txtTo" required="true" /> 
+                         <input type="text" name ="txtchildren" id="txtTo" /> 
                          <span id="txtchildren" class="error-reporter"> </span> 
                        
                     </div>
@@ -136,6 +139,8 @@
                        <input type="submit" value="Search" class='btn'/>
                     </div>
                 </div>
+                
+                <?php ContextManager::EndForm() ?>
 
             </div>
 
