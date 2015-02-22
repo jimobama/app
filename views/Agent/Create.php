@@ -1,4 +1,21 @@
 <?php
+ $agent= new Agent();
+
+ if(ContextManager::$Model ==null)
+      {
+       if(is_a(ContextManager::$Model, "AgentModelView"))
+       {
+         ContextManager::$Model = new AgentModelView(); 
+         $agent = ContextManager::$Model->agent;
+       }
+      }  
+      else {
+         if(is_a(ContextManager::$Model, "AgentModelView"))
+         {
+            $agent = ContextManager::$Model->agent; 
+         }
+       }
+    
 
 ?>
 
@@ -12,7 +29,7 @@
 <link href="styles/agent.css" rel="stylesheet" type="text/css" />
 
  <div id="agent-reg-from">
-     
+  
 <div class="form">
 
             <fieldset>
@@ -23,19 +40,30 @@
                        $attr->offsetSet("method", "post");                       
                        ContextManager::BeginForm($controller,$action,$attr);
                     ?>
-
+                   
     
                            <div class="editor-field">
-                                <span class="field-validation-valid" data-valmsg-for="ErrorMessage" data-valmsg-replace="true"></span>
+                              
+                                      <?php ContextManager::ValidationFor("warning");?>
+                               
                             </div>
-                      
+                       <div class="control">
+                            <div class="editor-label">
+                                <label for="Email">Email Address</label>
+                            </div>
+                            <div class="editor-field">
+                                <input class="text-box single-line" data-val="true"  id="Email" name="Email" type="text" value="<?php  echo $agent->email;  ?>" />
+                                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
+                            </div>
+
+                        </div>
                         <div class="control">
                             <div class="editor-label">
                                 <label for="FirstName">First Name</label>
                             </div>
                             <div class="editor-field">
-                                <input class="text-box single-line" data-val="true" data-val-required="The First Name field is required." id="FirstName" name="FirstName" type="text" value="" />
-                                <span class="field-validation-valid" data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
+                                <input  id="FirstName" name="FirstName" type="text" value="<?php  echo $agent->firstname;  ?>" />
+                                <span  data-valmsg-for="FirstName" data-valmsg-replace="true"></span>
                             </div>
 
                         </div>
@@ -44,27 +72,18 @@
                                 <label for="LastName">Last Name</label>
                             </div>
                             <div class="editor-field">
-                                <input class="text-box single-line" data-val="true" data-val-required="The Last Name field is required." id="LastName" name="LastName" type="text" value="" />
-                                <span class="field-validation-valid" data-valmsg-for="LastName" data-valmsg-replace="true"></span>
+                                <input  data-val="true" id="LastName" name="LastName" type="text" value="<?php  echo $agent->lastname;  ?>" />
+                                <span   data-valmsg-for="LastName" data-valmsg-replace="true"></span>
                             </div>
 
                         </div>
-                        <div class="control">
-                            <div class="editor-label">
-                                <label for="Email">Email Address</label>
-                            </div>
-                            <div class="editor-field">
-                                <input class="text-box single-line" data-val="true" data-val-required="The Email Address field is required." id="Email" name="Email" type="text" value="" />
-                                <span class="field-validation-valid" data-valmsg-for="Email" data-valmsg-replace="true"></span>
-                            </div>
-
-                        </div>
+                       
                         <div class="control">
                             <div class="editor-label">
                                 <label for="PhoneNumber">Mobile Number</label>
                             </div>
                             <div class="editor-field">
-                                <input class="text-box single-line" data-val="true" data-val-required="The Mobile Number field is required." id="PhoneNumber" name="PhoneNumber" type="tel" value="" />
+                                <input class="text-box single-line" data-val="true"  id="PhoneNumber" name="PhoneNumber" type="tel" value="<?php  echo $agent->phonenumber;  ?>" />
                                 <span class="field-validation-valid" data-valmsg-for="PhoneNumber" data-valmsg-replace="true"></span>
                             </div>
 
@@ -74,7 +93,7 @@
                                 <label for="Password">Password</label>
                             </div>
                             <div class="editor-field">
-                                <input class="text-box single-line password" data-val="true" data-val-required="The Password field is required." id="Password" name="Password" type="password" value="" />
+                                <input class="text-box single-line password" data-val="true"  id="Password" name="Password" type="password" value="" />
                                 <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                             </div>
 

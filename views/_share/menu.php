@@ -14,14 +14,10 @@
                   <li class='dropdown'>
                       <?php 
                        
-                         ContextManager::ActionLink("Manage My Booking  <span class='caret'></span>", "Home", "ManageMyBooking",$paramsLink); 
+                         ContextManager::ActionLink("Manage My Booking", "Booking", "Index"); 
                         
                       ?>
                       
-                      <ul class='dropdown-menu'>
-                      <li><?php include_once("searchBooking.php");?></li>
-                           
-                      </ul>
                   </li>
                   
                   
@@ -59,9 +55,18 @@
      
      
       <ul class="nav navbar-nav navbar-right">
-          
+       <?php if(Session::get("db_username") ==null){?>   
         <li><?php ContextManager::ActionLink("<span class=\"glyphicon glyphicon-user\"></span> Travel Agent", "Agent", "Index")?> </li>        
         
         <li> <?php ContextManager::ActionLink("Log In <span class=\"glyphicon glyphicon-log-in\"></span>", "Agent", "Login")?></li>
+        
+        <?php 
+       }  else {
+                  
+        ?>
+          <li><?php ContextManager::ActionLink("<span class=\"glyphicon glyphicon-user\"></span> Account", "Account", "Index")?> </li>        
+        
+        <li> <?php ContextManager::ActionLink("Log Out <span class=\"glyphicon glyphicon-log-in\"></span>", "Account", "Logout")?></li>
+       <?php }?>
       </ul>
  </div>

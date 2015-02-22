@@ -84,13 +84,22 @@
     color:#943737;
     display:block;
     font-size:10px;
+    text-align: center;
+}
+
+.error{
+   padding:4px;
+   color:#943737;
+    display:block;
+    font-size:10px;
+    text-align: center;
 }
 .form .control .editor-field input[type='text'],
 .form .control .editor-field input[type='password'],
 .form .control .editor-field input[type='tel'] 
  {
    border:1px solid #ebe4e4;
-   width:150px;   
+   width:200px;   
    min-height:28px;
 }
 .form .control .editor-field input[type='text']:focus,
@@ -112,7 +121,7 @@
  select 
  {
    border:1px solid #ebe4e4;
-    width:150px;  
+    width:200px;  
    height:25px;
 }
  select:focus
@@ -126,7 +135,7 @@
    font-style:inherit;
    font-size:1.4em;
    padding:4px;
-   width:152px;    
+   width:202px;    
  }
                              
 .form .control .editor-button input[type='submit'],
@@ -150,11 +159,7 @@
      font-weight:bold;
     
 }
-.form .control  .field-validation-valid
-{
-    color:#ff0000;
 
-}
 .note-wrapper
 {
     padding:5px;

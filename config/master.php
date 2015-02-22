@@ -1,6 +1,7 @@
 <?php
 //The master file will enable you to include a paths
 require_once("helpers/Session.php");
+require_once("app_data/DbConstants.php");
 
 class GlobalMaster
 {
@@ -88,6 +89,23 @@ class GlobalMaster
         echo html_entity_decode($strLink);
     }
     
+     public static function LabelFor($name,$label, ArrayIterator $object=null)
+    {
+        $attributes="";
+        if($object !=null)
+        {
+           for($var=0; $var < $object->count(); $var++) 
+           {
+               $object->seek($var);
+               $attr = $object->key();
+               $value = $object->current();
+               $attributes = $attributes." $attr='$value'";
+           }
+        }
+        
+        $strLink= "<labe name='$name' id='$name'  $attributes >$label</label>";
+        echo html_entity_decode($strLink);
+    }
     public static function BeginForm($controller,$action, ArrayIterator $object=null)
     {
          $attributes="";
@@ -111,10 +129,40 @@ class GlobalMaster
            $form =" </form>";
            echo $form;
      }
+     
+     public static function ValidationFor($labelname,$message=null,$object=null)
+     {
+         if($message===null)
+        {
+          // try to get the view
+            
+            $bool = self::$include_global->offsetExists($labelname);
+            if($bool)
+            {
+                $message =self::$include_global->offsetGet($labelname);
+                if($object==null)
+                {
+                    $object= new ArrayIterator();
+                }
+                $object->offsetSet("class", "error");
+                self::LabelFor($labelname,  $message, $object);
+            }
+        }else
+        {
+            $bool =self::$include_global->offsetExists($labelname);
+            if($bool)
+            {
+                self::$include_global->offsetUnset($labelname);
+            }
+            
+            //set it again
+            self::$include_global->offsetSet($labelname,$message);
+        }
+     }
     
 }
-
-
+include_once("entities/object.php");
+require_once("config/Database.php");
 include_once("config/constants.php");
 include_once("helpers/Response.php");
 include_once "helpers/request.php";
@@ -122,6 +170,8 @@ include_once "config/IContextView.php";
 include_once "helpers/iview.php";
 include_once "helpers/icontroller.php";
 include_once "models/imodel.php";
+include_once "helpers/Validator.php";
 
+include_once("entities/agent.php");
 
 

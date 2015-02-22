@@ -7,6 +7,13 @@ class  ContextManager extends GlobalMaster
    private static $controller=null;
    private static $action= null; 
    private static  $context=null;
+   
+   private static  $_viewBag=null;
+   
+   public static $Model = null;
+   
+   
+   
 
    protected  function __construct()
     {
@@ -17,13 +24,36 @@ class  ContextManager extends GlobalMaster
     {
         Session::init();
         self::Initialised();
+        self::$_viewBag= new ArrayObject(); 
         self::$request = new Request();
         self::$context =new IContextView() ;
         self::$context->View();     
      
     }
 
-    
+     
+   final static function ViewBag($key,$value=null)
+    {
+        if($value ==null)
+        {
+           $bool=  self::$_viewBag->offsetExists($key);
+           if($bool)
+           {
+               return self::$_viewBag->offsetGet($key);
+           }
+           return "";
+        }
+        else
+        {
+            //set the value of the array with the key
+            $bool=  self::$_viewBag->offsetExists($key);
+            if($bool)
+            {
+                self::$_viewBag->offsetUnset($key);
+            }
+             self::$_viewBag->offsetSet($key, $value);
+        }
+    }
     public static function RenderContext()
     {  
         if(self::$request->IsValid())
@@ -57,26 +87,22 @@ class  ContextManager extends GlobalMaster
     
   static private function _exec($clsObject,$methodCall)
   {
-    
-      if(self::$request->HasParameters())
-             {
-                
-               self::$context= $clsObject->$methodCall(self::$request->Parameters());                  
-              }else
-              {
-                 self::$context= $clsObject->$methodCall();
-              }
-             self::__displayContext(self::$context);
+     $method = new  ReflectionMethod(self::$controller,self::$action);
+     
+      self::$context= $method ->invokeArgs($clsObject, self::$request->Parameters());                    
+      self::__displayContext(self::$context);
   }
     
     private static function __displayContext($context)
     {
          if(is_a($context, "IContextView"))
-            {                
+            {          
+            
                 $context->Content(); 
             } 
         else 
             {
+            
             if(is_array($context))
             {
                 print_r($context);

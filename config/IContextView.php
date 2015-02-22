@@ -17,14 +17,13 @@ class IContextView {
    private  $controller=null; 
    private $action=null;
   private  $viewFile=null;
-   private $_valid=false;
-   private $_response=null;
-   
+   private $_valid=false; 
+   private $_viewBag=null;
    
     function __construct($amodel=null,$acontroller=null,$aaction=null) 
       {
-      $this->attach($amodel,$acontroller,$aaction);     
-      
+      $this->_viewBag= new ArrayObject(); 
+      $this->attach($amodel,$acontroller,$aaction);  
      }
     
      
@@ -55,17 +54,40 @@ class IContextView {
        $this->controller =$controller;
        $this->action =$action;      
        
-       $this->_response= new Response();
    }
     final function Content()
     {
-        $this->_validate();        
-        $this->_response->LoadContext($this->viewFile);       
-                
-        $this->_response->Show($this->model);
-    }
-    final function ViewBag($key=null,$value=null)
+       
+        $this->_validate();  
+        if($this->_valid){       
+        ContextManager::$Model= $this->model;        
+        include_once($this->viewFile);
+        }
+         
+     
+   }
+    
+    
+   final function ViewBag($key,$value=null)
     {
-       return  $this->_response->ViewBag($key,$value);
+        if($value ==null)
+        {
+           $bool= $this->_viewBag->offsetExists($key);
+           if($bool)
+           {
+               return $this->_viewBag->offsetGet($key);
+           }
+           return "";
+        }
+        else
+        {
+            //set the value of the array with the key
+            $bool= $this->_viewBag->offsetExists($key);
+            if($bool)
+            {
+                $this->_viewBag->offsetUnset($key);
+            }
+            $this->_viewBag->offsetSet($key, $value);
+        }
     }
 }

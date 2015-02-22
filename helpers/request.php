@@ -21,16 +21,21 @@ class Request  {
   private $_valid;
   private $params=null;
   private  $__methodRef=null;
+  private $__parameters=null;
 
   public  function __construct() 
     {
       //get the current url and parse it to the controlelrs and the method action and parameters
+    
         $this->_website = \filter_input(INPUT_SERVER,"HTTP_HOST");
         $this->_request_array = new ArrayIterator($_REQUEST);
+        
+       
         $this->params= new ArrayIterator(array());       
-        $this->_parser();
-      
-       // $this->_reflection= new ReflectionClass($this->_controller);
+        $this->_parser();       
+       // $this->_reflection= new ReflectionClass($this->_controller);        
+        $this->__parameters= array();
+        
     }
     
 
@@ -135,25 +140,51 @@ public  function Parameters()
 }
 private function _methodBinding(ReflectionMethod $ref)
 {
+   
            $counter =$ref->getNumberOfParameters();  
+          
            $counter2 = $ref->getNumberOfRequiredParameters();
+            
            $paramCounter = $this->params->count();
+           
+           
            if( $paramCounter >= $counter2  && $paramCounter <= $counter)
            {
-              $paramter="";
-              $comma="";
+              $paramter= array();             
               for($iter=0 ; $iter < $this->params->count(); $iter++ )
               {
                  $this->params->seek($iter);
-                $paramter=$paramter.$comma.$this->params->current();
-                 $comma=",";                
+                 $value =trim($this->params->current());
+                 $key = trim($this->params->key());
+                 if($value ===null  || $value ==="")
+                 {
+                     $value="null"; 
+                     
+                 }
+                 $paramter[$key]= $value;              
+                             
               }
-              $this->__parameters = $paramter;    
-             return  $this->__parameters;
+              $this->__parameters = $paramter;  
+             
+           
            }
-    return ;
+         else
+         {
+            $this->__parameters=  $this->initialiseParameters($counter2);
+         }
+     return  $this->__parameters;
 }
 
+
+ public function initialiseParameters($counter2)
+{
+    $arry= array();
+    for($var=0; $var <$counter2; $var++)
+    {
+        $arry[$var]="";
+    }
+    return $arry;
+}
 final  public function HasParameters()
 {
     if($this->params->count()>0)

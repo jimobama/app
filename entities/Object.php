@@ -12,7 +12,7 @@
  * what to make such that all my objects have the following methods
  */
 abstract class Object {
-   
+   private $error=null;
   abstract function __construct();  
    function __destruct()
     {

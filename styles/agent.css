@@ -1,8 +1,8 @@
 #agent-reg-from{
-    width:300px;
-    border:0px solid #000;
-    margin:0 auto;
+    width:350px;
+    border:0px solid #eee;   
     z-index:8;
+    padding:10px 0;
 }
 
 #agent-reg-from .form fieldset

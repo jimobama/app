@@ -1,3 +1,16 @@
+<?php
+ $agent= new Agent();
+
+ if(ContextManager::$Model ==null)
+      {
+         ContextManager::$Model = new AgentModelView(); 
+         $agent = ContextManager::$Model->agent;
+      }  else {
+        $agent = ContextManager::$Model->agent; 
+  }
+    
+
+?>
 
 <script>
     $(document).ready(function () {
@@ -25,10 +38,7 @@
                          ContextManager::BeginForm("Agent", "Login", $object);
                      ?>
                      <div class="editor-field">
-                            <span>
-                                <span class="field-validation-valid" data-valmsg-for="Error" data-valmsg-replace="true"></span>
-                            </span>
-
+                         <?php ContextManager::ValidationFor("warning");?>
                         </div>
                    
                     <div class="control">

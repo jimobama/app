@@ -56,4 +56,9 @@
         return  $this->context->ViewBag($key, $value);
     }
     
+    public final function ReDirectTo($controller,$action)
+    {
+         header("Location:" . URL . "=$controller&action=$action");
+    }
+    
  }
