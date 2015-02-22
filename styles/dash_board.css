@@ -1,0 +1,68 @@
+#dash-board-wrapper
+{
+    
+    min-height:200px;
+    border:0px solid #eee;
+    overflow:hidden;   
+    margin:0 auto;
+    
+}
+
+﻿
+
+
+#dash-board-wrapper #profile_wrapper
+{
+    position:relative;
+    display:block;
+    overflow:hidden;   
+    margin:0px;
+    padding:5px;  
+    width:30%;    
+    border:1px solid #eee;
+    padding:5px;   
+    min-height:200px;
+   
+  
+}
+
+#dash-board-wrapper  #dash-board
+{
+    float:right;
+    position:relative;
+    border: 1px solid #eee;     
+    min-height:300px;
+    width:65.5%;
+    clear:none;
+    margin:90px 20px 100px auto;
+    border-top-left-radius: 9px;
+    border-bottom-left-radius: 15px;
+    overflow: hidden;
+   
+}
+
+#dash-board-wrapper  #dash-board legend
+{
+    padding:4px;
+    overflow: hidden;
+}
+
+#search_bar
+{
+    position:relative;
+    float:right;
+    border:0px solid #000;
+    overflow: hidden;
+}
+
+#search_bar  form{
+    display:inline; 
+}
+
+#search_bar  form input[type='text']
+{
+    min-width:500px;
+    border:1px solid #eee;
+    font-size:14px;
+    min-height:35px;
+}

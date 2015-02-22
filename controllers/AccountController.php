@@ -20,11 +20,24 @@ class AccountController extends IController {
     
    public  function Index()
     {
-      return  $this->View(null,"Account","Index");
+       if(Session::get("db_username")!=null)
+       {
+       $this->ViewBag("Title","Account");
+        return  $this->View(null,"Account","Index");
+       }
+       return $this->ReDirectTo("Home", "Index");
     }
     
-     public  function Success()
+   public  function Success()
     {
         return "Account main";
+    }
+    
+    public function Logout()
+    {
+        Session::delete("db_username");
+        Session::destroy();
+        
+        return $this->ReDirectTo("Home","Index");
     }
 }

@@ -8,7 +8,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <title>Flights-> <?php  echo $this->ViewBag("Title"); ?></title>  
+    <title>Flights-> <?php echo  $this->ViewBag("Title"); ?></title>  
      <link href="styles/bootstrap.css" rel="stylesheet" type="text/css" /> 
      <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
       <link href="styles/site.css" rel="stylesheet" type="text/css" /> 

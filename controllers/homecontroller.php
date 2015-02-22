@@ -22,7 +22,8 @@
         
      public function ContactUs()
      {
-        $this->ViewBag("Title","Contact Us");
+         $this->ViewBag("Title","Contact Page");
+         
          return $this->View(null,"home","contactus");
      }
      
