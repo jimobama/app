@@ -10,10 +10,9 @@
  *
  * @author jimobama
  */
-class Item extends Object {
-//const values
-   const BYNAME="name";
-   const BYNUMBER="number";
+class Agent extends Object {
+
+   
     //put your code here
     private $agentId;
     private $firstname;
