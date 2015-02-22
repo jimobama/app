@@ -11,7 +11,7 @@
  *
  * @author Obaro
  */
-class request {
+class Request  {
    
   private $_website=null;
   private  $_reflection=null;
@@ -20,7 +20,8 @@ class request {
   private $_action=null;
   private $_valid;
   private $params=null;
-  private $__parameters=null;
+  private  $__methodRef=null;
+
   public  function __construct() 
     {
       //get the current url and parse it to the controlelrs and the method action and parameters
@@ -28,9 +29,11 @@ class request {
         $this->_request_array = new ArrayIterator($_REQUEST);
         $this->params= new ArrayIterator(array());       
         $this->_parser();
-        $this->__parameters="";
+      
        // $this->_reflection= new ReflectionClass($this->_controller);
     }
+    
+
  private function _parser()
     {
      if(($this->_request_array != null) && ($this->_request_array->count()>0))
@@ -104,12 +107,12 @@ private function _refMethodParser(ReflectionClass $ref)
        } 
      else
      {
-        $refMethod =  $ref->getMethod($this->_action);
-        if($refMethod->isPublic())
+        $this->__methodRef =  $ref->getMethod($this->_action);
+        if($this->__methodRef->isPublic())
         {
-           $this->_valid=true;  
-          $this->_action= $refMethod->getName();
-          $this->_methodBinding($refMethod);
+          $this->_valid=true;  
+          $this->_action= $this->__methodRef->getName();
+         
         }
         else
         {
@@ -123,10 +126,12 @@ private function _refMethodParser(ReflectionClass $ref)
             
     }
 }
-public  function Params()
+public  function Parameters()
 {
-   
-    return $this->__parameters;
+   if($this->__methodRef !=null){
+        return $this->_methodBinding($this->__methodRef);
+   }
+   return ;
 }
 private function _methodBinding(ReflectionMethod $ref)
 {
@@ -143,9 +148,10 @@ private function _methodBinding(ReflectionMethod $ref)
                 $paramter=$paramter.$comma.$this->params->current();
                  $comma=",";                
               }
-              $this->__parameters=$paramter;               
+              $this->__parameters = $paramter;    
+             return  $this->__parameters;
            }
-     
+    return ;
 }
 
 final  public function HasParameters()
@@ -189,9 +195,17 @@ private function loadParams()
       return $this->_action;      
   }
   
+  final public function RequestParams($param)
+  {
+       if(isset($_REQUEST[$param]))
+       {
+           return $_REQUEST[$param];
+       }
+       return ;
+  }
   final public  function _Default()
   {
-       
+       include_once(DEFAULT_ERROR_VIEW);
   }
   
    /*/* _tokenised

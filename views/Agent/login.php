@@ -11,17 +11,26 @@
     <div class="form">
 
         <fieldset>
-            <h2>Login Form</h2>
+            <div>
+            <h2>Secure Login</h2>
+           
+            
+            </div>
             <div cass="control-wrapper">
 
-                <form action="/TravelAgents/LoginAgent" method="post"><input name="__RequestVerificationToken" type="hidden" value="thLwnHl2K6v7aOtfqxkOdW7c_3T-fI6j0tS3gcNEgOn_cQgHr-YIPY8E-lQ6HyN27mZ3LF5V2F-ASJRDimWyKiBvCht3-enypnVaYS_vZ_Y1" />                    <div class="control">
-                        <div class="editor-field">
+              
+                   <?php 
+                     $object= new ArrayIterator();
+                     $object->offsetSet("method", "post");                     
+                         ContextManager::BeginForm("Agent", "Login", $object);
+                     ?>
+                     <div class="editor-field">
                             <span>
                                 <span class="field-validation-valid" data-valmsg-for="Error" data-valmsg-replace="true"></span>
                             </span>
 
                         </div>
-                    </div>
+                   
                     <div class="control">
 
                         <div class="editor-label">
@@ -49,11 +58,14 @@
                             <input type="submit" value="Log In" class="btn" />
                         </div>
                     </div>
-                </form>           
+             <?php ContextManager::EndForm(); ?>         
             </div>
 
         </fieldset>
 
-
+        <div class="note-wrapper">
+            Agent only are allow to use this form to login.
+            
+        </div>
     </div>
 </div>

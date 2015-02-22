@@ -1,21 +1,27 @@
 <!DOCTYPE html>
+<?php
+  
+?>
+
 
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>- Flights</title>  
+     <title>Flights-> <?php  echo $this->ViewBag("Title"); ?></title>  
      <link href="styles/bootstrap.css" rel="stylesheet" type="text/css" /> 
-      <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
+     <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
+      <link href="styles/site.css" rel="stylesheet" type="text/css" /> 
      <link href="styles/index.css" rel="stylesheet" type="text/css" /> 
      <link href="styles/menu.css" rel="stylesheet" type="text/css" /> 
      <link href="styles/form.css" rel="stylesheet" type="text/css" /> 
-      <script src="scripts/lib/jquery.js"></script>
+     <script src="scripts/lib/jquery.js"></script>
      
 </head>
 <body>
  
-    <div id='main-body-wrapper'>
+ <div id='main-body-wrapper'>
+     
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         
@@ -26,8 +32,10 @@
 </nav>
 
     
-    <div class='body-content'>
-        <?php ContextManager::RenderContext(); ?>
+    <div class='content-wrapper'>
+        <?php
+         ContextManager::RenderContext();
+        ?>
     </div>
         
          <div id="footer-wrapper" >

@@ -1,7 +1,7 @@
 
 html,body{
     font-family: Verdana, Geneva, sans-serif;
-    
+   
 }
 body {
     padding-top: 50px;
@@ -14,12 +14,15 @@ body {
 
 #main-body-wrapper
 {
-     min-height  :200px;
+    min-height  :10px;
     box-shadow:0px 0px 3px #7d7777;    
     padding:0;
-    width:800px;
-    margin :auto;
+    width:80%;
+    margin :10px auto;
     overflow:hidden;
+    z-index:2;
+    
+   
 }
 .navbar-inverse
 {
@@ -32,7 +35,8 @@ body {
 {
   margin:0;
   padding:0;
-    background-color:#eee;
+  background-color:#eee;
+   border-bottom:1px solid #AAA;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -40,6 +44,7 @@ body {
     padding-right: 15px;
     z-index:-1;
     margin-top:30px;
+  
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -51,15 +56,14 @@ textarea {
 
 .container-fluid
 {
-      
-   
-   
+  
+  
 }
 
 
 .container .page-header{  
    
-  margin:0;
+   margin:0;
    min-height:100px;
   
 }
@@ -67,7 +71,7 @@ textarea {
 .navbar-brand img
 {
     width:55px;
-    height:70px;
+    height:50px;
 }
 
 .navbar-nav
@@ -88,13 +92,23 @@ textarea {
 
 
 
-.body-content
+.content-wrapper
 {
  position:relative;
-margin-top:10px ;
+ margin-top:10px ;
+ border:0px solid #000;
+ overflow: hidden;
 }
 
+
+#footer-wrapper
+{
+    border-top:1px solid #AAA;
+    overflow:hidden;
+    background-color: #eee;
+}
 .copyright{
     font-size:10px;
     padding:5px;
+    
 }

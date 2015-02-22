@@ -7,7 +7,7 @@
 <div class="form">
 
         <fieldset>
-            <h2>Agent Registration Form</h2>
+            <h2>Search Flights</h2>
             <div cass="control-wrapper">
 
                 

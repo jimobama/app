@@ -91,7 +91,7 @@
  {
    border:1px solid #ebe4e4;
    width:150px;   
-   height:25px;
+   min-height:28px;
 }
 .form .control .editor-field input[type='text']:focus,
 .form .control .editor-field input[type='password']:focus,
@@ -107,7 +107,7 @@
    font-style:inherit;
    font-size:1.4em;
    padding:4px;
-   width:150px;   
+   width:200px;   
 }
  select 
  {

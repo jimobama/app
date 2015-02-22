@@ -1,4 +1,6 @@
+<?php
 
+?>
 
 <script>
     $(document).ready(function () {
@@ -16,11 +18,17 @@
             <fieldset>
                 <h2>Agent Registration Form</h2>
                 <div cass="control-wrapper">
-<form action="/TravelAgents/Create" method="post"><input name="__RequestVerificationToken" type="hidden" value="t77ohr5b_5tY7EE_un_nXQ6AYe5j7ICthh2Swp1s7i9UDO1aZcn6C744od2VGKrX3OAFMmA_TFWAnyigJ5b-DwUwwvt0DFidUf8d_ZHI8-s1" />                        <div class="control">
-                            <div class="editor-field">
+                    <?php 
+                       $attr= new ArrayIterator();
+                       $attr->offsetSet("method", "post");                       
+                       ContextManager::BeginForm($controller,$action,$attr);
+                    ?>
+
+    
+                           <div class="editor-field">
                                 <span class="field-validation-valid" data-valmsg-for="ErrorMessage" data-valmsg-replace="true"></span>
                             </div>
-                        </div>
+                      
                         <div class="control">
                             <div class="editor-label">
                                 <label for="FirstName">First Name</label>
@@ -86,11 +94,19 @@
 
                             </div>
                             <div class="editor-button">
-                                <input type="submit" value="Create Account" class="btn" />
+                                
+                                <?php 
+                                $paramInput= new ArrayIterator();
+                                $paramInput->offsetSet("class", "btn");
+                                $paramInput->offsetSet("type", "submit");
+                                $paramInput->offsetSet("value", "Create Account");
+                                ContextManager::HtmlInputField("btnSubmitAccount", $paramInput);
+                                ?>
+                               
                             </div>
 
                         </div>
-</form>
+                        <?php ContextManager::EndForm(); ?>
                 </div>
 
             </fieldset>

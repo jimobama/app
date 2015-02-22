@@ -1,4 +1,28 @@
 #context-wrapper
 {
-    
+  
+}
+
+.alert-warning
+{
+   padding:0;
+   max-width: 80%;
+   margin:0 auto 10px auto;
+   text-align:center;
+   
+}
+
+.alert-warning .note-wrapper
+{
+    background-color:#FFF;
+    font-size:12px;
+    margin:0;
+}
+
+.row .col-sm-4
+{
+    border:0px solid #000;
+    overflow: hidden;
+    padding:0 5px;
+    text-align: center;
 }
