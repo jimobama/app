@@ -236,7 +236,8 @@ private function loadParams()
   }
   final public  function _Default()
   {
-       include_once(DEFAULT_ERROR_VIEW);
+      
+      ContextManager::PartialView(DEFAULT_ACTION);
   }
   
    /*/* _tokenised

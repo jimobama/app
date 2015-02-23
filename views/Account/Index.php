@@ -54,7 +54,10 @@
     </div>
     
     <div id='profile_wrapper'>
-        sdafdfssdf
+     <?php ContextManager::PartialView("newflight", "Account");
+     
+        ContextManager::PartialView("newflight");
+     ?>
     </div>
     
 </div>

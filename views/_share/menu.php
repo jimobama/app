@@ -58,7 +58,7 @@
        <?php if(Session::get("db_username") ==null){?>   
         <li><?php ContextManager::ActionLink("<span class=\"glyphicon glyphicon-user\"></span> Travel Agent", "Agent", "Index")?> </li>        
         
-        <li> <?php ContextManager::ActionLink("Log In <span class=\"glyphicon glyphicon-log-in\"></span>", "Agent", "Login")?></li>
+        <li> <?php ContextManager::ActionLink("Log In <span class=\"glyphicon glyphicon-log-in\"></span>", "Agent", "LoginForm")?></li>
         
         <?php 
        }  else {

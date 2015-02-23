@@ -1,7 +1,9 @@
 <?php
 //The master file will enable you to include a paths
 require_once("helpers/Session.php");
+require_once ('api/PHPMailer/PHPMailerAutoload.php');
 require_once("app_data/DbConstants.php");
+include_once("config/constants.php");
 
 class GlobalMaster
 {
@@ -52,7 +54,25 @@ class GlobalMaster
     }
     
     
-    
+    public static function CreateLink($title,$controller,$actionmethod,  ArrayIterator $object=null)
+    {
+        $attributes="";
+        if($object !=null)
+        {
+           for($var=0; $var < $object->count(); $var++) 
+           {
+               $object->seek($var);
+               $attr = $object->key();
+               $value = $object->current();
+               $attributes = $attributes." $attr='$value'";
+           }
+        }
+         $_website = \filter_input(INPUT_SERVER,"HTTP_HOST");
+         
+        $strLink= "<a href='$_website/".URL."=$controller&action=$actionmethod'  $attributes >$title</a>";
+       return $strLink;
+        
+    }
     public static function ActionLink($title,$controller,$actionmethod,  ArrayIterator $object=null)
     {
         $attributes="";
@@ -67,7 +87,7 @@ class GlobalMaster
            }
         }
         
-        $strLink= "<a href='".URL."=$controller&action=$actionmethod'  $attributes >$title</a>";
+        $strLink= "<a href='".HOST_NAME.URL."=$controller&action=$actionmethod'  $attributes >$title</a>";
         echo html_entity_decode($strLink);
     }
     
@@ -163,7 +183,7 @@ class GlobalMaster
 }
 include_once("entities/object.php");
 require_once("config/Database.php");
-include_once("config/constants.php");
+
 include_once("helpers/Response.php");
 include_once "helpers/request.php";
 include_once "config/IContextView.php";

@@ -34,7 +34,7 @@ class Agent extends IModel {
       $lastname =$lastname=="null"?null:$lastname;
       $email =$email=="null"?null:$email;
       $password =$password=="null"?null:$password;
-     
+      $phone =$phone=="null"?null:$phone;
      
      $this->agentId=  Validator::UniqueKey();
      $this->firstname=$firstname;

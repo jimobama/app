@@ -22,4 +22,9 @@ class FlightController extends IController {
     {
         return $this->View(null,"Flight","Index");
     }
+    
+    function Create()
+    {
+        return "Creating flight details";
+    }
 }

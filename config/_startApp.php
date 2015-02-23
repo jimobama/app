@@ -8,7 +8,7 @@ class  ContextManager extends GlobalMaster
    private static $action= null; 
    private static  $context=null;
    
-   private static  $_viewBag=null;
+  // private static  $_viewBag=null;
    
    public static $Model = null;
    
@@ -22,16 +22,20 @@ class  ContextManager extends GlobalMaster
    
     public static function StartApplication()
     {
-        Session::init();
+         Session::init();
         self::Initialised();
-        self::$_viewBag= new ArrayObject(); 
+       //self::$_viewBag= new ArrayObject(); 
         self::$request = new Request();
         self::$context =new IContextView() ;
-        self::$context->View();     
+        self::_process();        
+        ContextManager::PartialView(DEFAULT_ACTION,DEFAULT_LOAD_CONTROLLER);
+        self::displayView();
+        
+        
      
     }
 
-     
+   /*  
    final static function ViewBag($key,$value=null)
     {
         if($value ==null)
@@ -54,19 +58,12 @@ class  ContextManager extends GlobalMaster
              self::$_viewBag->offsetSet($key, $value);
         }
     }
+    
+    */
+    
     public static function RenderContext()
     {  
-        if(self::$request->IsValid())
-        {    
-        
-         self::$controller =self::$request->Controller();      
-         self::$action =      self::$request->Action();
-       
-         return  self::_run();
-         
-        }
-       
-        self::$request->_Default();
+      self::__displayContext(self::$context); 
     }
     
     // this will run the context to display base of the control action called
@@ -85,16 +82,42 @@ class  ContextManager extends GlobalMaster
   
     }
     
+   private static function _process()
+   {
+        if(self::$request->IsValid())
+        {    
+        
+         self::$controller =self::$request->Controller();      
+         self::$action =      self::$request->Action();
+       
+         return  self::_run();         
+        }
+       
+       
+   }
+    
   static private function _exec($clsObject,$methodCall)
   {
-     $method = new  ReflectionMethod(self::$controller,self::$action);
-     
-      self::$context= $method ->invokeArgs($clsObject, self::$request->Parameters());                    
-      self::__displayContext(self::$context);
+     $method = new  ReflectionMethod(self::$controller,self::$action);     
+      self::$context= $method ->invokeArgs($clsObject, self::$request->Parameters());  
+      
+      
   }
-    
+   
+  private static function displayView()
+  {
+      if(is_a(self::$context, "IContextView"))
+        {
+            self::$context->View();     
+        }
+        else 
+        {       
+            self::__displayContext( self::$context);
+        }
+  }
     private static function __displayContext($context)
     {
+        if(self::$request->IsValid()){
          if(is_a($context, "IContextView"))
             {          
             
@@ -103,14 +126,18 @@ class  ContextManager extends GlobalMaster
         else 
             {
             
-            if(is_array($context))
+            if(is_object($context))
             {
-                print_r($context);
-            }else{
-                echo $context;
+               $context = json_encode($context);
             }
+           
+           echo $context;
+           
         }
          
+    }  else {
+         self::$request->_Default();
+    }
     }
     
     

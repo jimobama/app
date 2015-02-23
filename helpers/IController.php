@@ -52,8 +52,11 @@
          return $this->context;
        }
     public final function ViewBag($key=null,$value=null) 
-    {
+    { 
+        if($this->context !=null){
         return  $this->context->ViewBag($key, $value);
+        }
+        return null;
     }
     
     public final function ReDirectTo($controller,$action)

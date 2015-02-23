@@ -11,7 +11,9 @@
    text-align:center;
    
 }
-
+p{
+   text-indent: 30px;
+ }
 .alert-warning .note-wrapper
 {
     background-color:#FFF;

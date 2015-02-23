@@ -1,0 +1,15 @@
+#confirmation-wrapper
+{
+    width:380px;
+    margin:5px;
+}
+#confirmation-wrapper legend
+{
+    
+}
+#confirmation-wrapper .editor-field input[type="text"]
+{
+    width:300px;
+    float:left;
+    height:35px;
+}

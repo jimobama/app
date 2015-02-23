@@ -20,6 +20,7 @@ class BookingController extends IController{
     
     function Index()
     {
-        return $this->View();
+         $this->ViewBag("Title", "Mgr Booking");
+         return $this->View(null,"Booking","index");
     }
 }

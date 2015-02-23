@@ -16,13 +16,14 @@
         
       public  function Index()
         { 
-            
+           $this->ViewBag("Title","Home");
            return $this->View(null,"home","index");
         }
         
      public function ContactUs()
      {
-         $this->ViewBag("Title","Contact Page");
+         
+         $this->ViewBag("Title","Contact Us");
          
          return $this->View(null,"home","contactus");
      }
