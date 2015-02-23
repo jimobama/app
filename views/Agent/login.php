@@ -25,8 +25,8 @@
 
         <fieldset>
             <div>
-            <h2>Secure Login</h2>
-           
+               
+             <h2><span class="glyphicons glyphicons-lock"></span>Secure Login</h2>
             
             </div>
             <div cass="control-wrapper">
