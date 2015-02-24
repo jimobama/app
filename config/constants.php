@@ -4,8 +4,8 @@
 define ("HOST_NAME","http://localhost/Flights/");
 //SMTP SERVER INFORMATIONS
 define ("SMTP_HOST","smtp.gmail.com");
-define ("SMTP_PASSORD","ugbekile2009obaroisreal");
-define ("SMTP_EMAIL_ACCOUNT","jimobama2011@gmail.com");
+define ("SMTP_PASSORD","123456php");
+define ("SMTP_EMAIL_ACCOUNT","phpticket123@gmail.com");
 define ("SMTP_PORT",587);
 
 
