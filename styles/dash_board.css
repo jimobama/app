@@ -1,10 +1,11 @@
 #dash-board-wrapper
 {
     
-    min-height:200px;
+    display:block;
     border:0px solid #eee;
     overflow:hidden;   
     margin:0 auto;
+    width:100%;
     
 }
 
@@ -28,13 +29,12 @@
 
 #dash-board-wrapper  #dash-board
 {
-    float:right;
+    
     position:relative;
     border: 1px solid #eee;     
-    min-height:300px;
-    width:60.5%;
+    max-height:400px;    
     clear:none;
-    margin:10px 20px 10px auto;
+    
     border-top-left-radius: 9px;
     border-bottom-left-radius: 15px;
     overflow: hidden;
@@ -43,26 +43,12 @@
 
 #dash-board-wrapper  #dash-board legend
 {
-    padding:4px;
+    padding:5px;
     overflow: hidden;
 }
 
-#search_bar
-{
-    position:relative;
-    float:right;
-    border:0px solid #000;
-    overflow: hidden;
-}
 
-#search_bar  form{
-    display:inline; 
-}
 
-#search_bar  form input[type='text']
-{
-    min-width:450px;
-    border:1px solid #eee;
-    font-size:14px;
-    min-height:35px;
+table th,table tr th{
+    text-align:center;
 }

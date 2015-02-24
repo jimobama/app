@@ -16,6 +16,8 @@ class AccountController extends IController {
     
     function __construct() {
         parent::__construct(new IModel(), new IView());
+        include_once("models/AgentModel.php");
+        include_once("modelviews/AgentModelView.php");
     }
     
    public  function Index()
@@ -23,7 +25,9 @@ class AccountController extends IController {
        if(Session::get("db_username")!=null)
        {
         $this->ViewBag("Title","Account");
-        return  $this->View(null,"Account","Index");
+        $agentModel= new AgentModel();
+        $UserList =  $agentModel->GetUsers();
+        return  $this->View($UserList,"Account","Index");
        }
        return $this->ReDirectTo("Home", "Index");
     }

@@ -21,10 +21,12 @@ class Agent extends IModel {
     public $phonenumber;
     public $date_reqistered;
     public $password;
+    public $status;
    
     public function __construct()
     {
-      // parent::__construct();    
+      // parent::__construct();  
+        $status=0;
     }
    
     
@@ -36,7 +38,7 @@ class Agent extends IModel {
       $password =$password=="null"?null:$password;
       $phone =$phone=="null"?null:$phone;
      
-     $this->agentId=  Validator::UniqueKey();
+     $this->agentId=  Validator::UniqueKey()."".Validator::UniqueKey();
      $this->firstname=$firstname;
      $this->lastname=$lastname;
      $this->email=$email;

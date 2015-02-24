@@ -1,3 +1,7 @@
+<?php
+
+
+?>
 
 <link href="styles/home.css" rel="stylesheet" type="text/css" />
 

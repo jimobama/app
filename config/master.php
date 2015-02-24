@@ -4,6 +4,9 @@ require_once("helpers/Session.php");
 require_once ('api/PHPMailer/PHPMailerAutoload.php');
 require_once("app_data/DbConstants.php");
 include_once("config/constants.php");
+ require_once("api/qrbarcode/Image/QRCode.php");
+include_once("Image/Barcode.php");
+
 
 class GlobalMaster
 {
@@ -179,6 +182,54 @@ class GlobalMaster
             self::$include_global->offsetSet($labelname,$message);
         }
      }
+     static function CreateURL($controller,$action,  ArrayIterator $param=null)
+     {
+          $parameters="";
+         if($param !=null)
+         {
+            $parameters="&"; 
+             for($var=0; $var < $param->count();$var++)
+             {
+                 $param->seek($var);
+                 $field= $param->key();
+                 $value= $param->current();
+                 $parameters= $parameters."$field = $value";
+                 if(($var + 1) < $param->count())
+                 {
+                    $parameters = $parameters."&" ;
+                 }
+                
+             }
+            
+         }
+         
+         $url = HOST_NAME.URL."=$controller&action=$action $parameters";
+         return $url;
+     }
+    static function CreateQRBarcode($encodetext,$id=null,$imageType="png") 
+    {
+        
+                $qrbacode = new Image_QRCode();
+                $option =array 
+                        (
+                           "image_type" => $imageType,
+                           "output_type" => "return"
+                        );
+            $image=  $qrbacode->makeCode($encodetext,$option); 
+            $filename=$id;
+            if($id ==null)
+            {
+               $filename= sha1(addslashes($encodetext));  
+            }           
+            $filename=BARCODE_PATH.$filename.".png";
+            $bool= imagepng($image,$filename);
+        if($bool)
+        {
+          return $filename;  
+        }
+        return null;
+    }
+     
     
 }
 include_once("entities/object.php");

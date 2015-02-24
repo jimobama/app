@@ -1,4 +1,5 @@
 <?php
+
 //Host details
 define ("HOST_NAME","http://localhost/Flights/");
 //SMTP SERVER INFORMATIONS
@@ -8,7 +9,7 @@ define ("SMTP_EMAIL_ACCOUNT","jimobama2011@gmail.com");
 define ("SMTP_PORT",587);
 
 
-define("DEFAULT_LOAD_CONTROLLER", "Agent");
+define("DEFAULT_LOAD_CONTROLLER", "Home");
 define("DEFAULT_ACTION","Index");
 define ("URL","?url");
 //View constants
@@ -20,3 +21,6 @@ define("DEFAULT_ERROR_VIEW",VIEW."_share/_error.php");
 
 define ("CONTROLLER_PATH","controllers/");
 define ("CONTROLLER_SUFIX","Controller");
+
+//Barcode store locations;
+define("BARCODE_PATH","Images/barcodes/");

@@ -20,7 +20,8 @@ class FlightController extends IController {
     
     function Index()
     {
-        return $this->View(null,"Flight","Index");
+        $flightModelView=null;
+        return $this->View($flightModelView,"Home","Index");
     }
     
     function Create()

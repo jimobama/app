@@ -1,5 +1,11 @@
 <?php
-
+$userList= ContextManager::$Model;
+if(is_a($userList,"ArrayIterator"))
+ {
+    $userList=ContextManager::$Model;
+ }  else {
+     $userList= new ArrayIterator();
+}
 ?>
 
 <link href="styles/dash_board.css" rel="stylesheet" type="text/css" /> 
@@ -10,41 +16,53 @@
     
     <div id='dash-board'>
         <fieldset>
-            <legend>Dash Board :
-            <span id='search_bar'>  
-               <?php ContextManager::BeginForm("Search", "search")?>
-               
-                <input type='text' class='text' name='txtcriteria' placeholder='search items here ' id='txtSearchProduct'/>
-                <input type='submit' class='button' name='btnSubmitSearch' id='btnSubmitSearch' value='Find' />
-                
-                <?php ContextManager::EndForm()?>
-             </span>
+            <legend>User Database:
+            
             </legend>
             
             
             <div id='dash-context'>
             
-                <div class='row'>
+                <table width="100%">
+                    <tr>
+                    <th>S/N</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>                   
+                    <th>Status</th>
+                                 
+                    <th>#</th>
+                </tr>
+                <?php 
+                 for($var=0; $var < $userList->count(); $var++ )  
+                 {
+                     $userList->seek($var);
+                     $agent = $userList->current();
+                      $status="";
+                     if($agent->status==0 ||$agent->status=='0' )
+                     {
+                        $status="not active" ;
+                     }else
+                     {
+                      $status="active" ;   
+                     }
+                   echo "<tr>
+                        <td>$var</td>
+                        <td>$agent->firstname</td>
+                        <td>$agent->lastname</td>
+                        <td>$agent->email</td>
+                        <td>$agent->phonenumber</td>
+                        
+                        <td>$status</td>
+                        <td><input type='checkbox' value='$agent->agentId' name='chkboxes[]'></td>
+                    </tr>
+                    ";
+                  }
+                   ?>
                     
-                     <div class='col-sm-4'> 
-                       1
-                     </div>
-                     <div class='col-sm-4'> 
-                         2
-                      </div>
-                     <div class='col-sm-4'> 
-                     3
-                     </div>
-                     <div class='col-sm-4'> 
-                     4
-                     </div>
-                     <div class='col-sm-4'> 
-                     5
-                     </div>
-                    <div class='col-sm-4'>
-                        6
-                    </div>
-                </div>
+                </table>
+                     
             
             </div>
             

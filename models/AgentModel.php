@@ -19,6 +19,11 @@ class AgentModel extends IModel{
     //put your code here
     public  $agent=null;
     private $db =null;
+    
+    const BOTH =2;
+    const EMAIL=0;
+    const ID =1;
+    
     function __construct(Agent $model=null) {
         parent::__construct();
         $this->agent=$model;
@@ -105,15 +110,16 @@ class AgentModel extends IModel{
              }
         }
     }
-    public final function IsFound($email)
+    public final function IsFound($email,$option=  AgentModel::EMAIL)
     {
         
         if($this->db !=null)
         {
-            $query ="select *from tbl_agent where email=:email ";
+            $query = $this->getIdQuery($option);
             
              $stmtbj = $this->db->prepare($query);
              $stmtbj->bindValue(":email", addslashes(strtolower(trim($email))));
+             
              
              $stmtbj->execute();
              if( $stmtbj->rowCount()>0)
@@ -122,6 +128,22 @@ class AgentModel extends IModel{
              }
         }
         return false;
+    }
+    
+    private function getIdQuery($option)
+    {
+        $query="";
+        if($option==AgentModel::EMAIL)
+            {
+            $query ="select *from tbl_agent where email=:email ";
+            }else if($option==AgentModel::ID)
+            {
+              $query ="select *from tbl_agent where id=:email ";   
+            }else 
+            {
+                $query ="select *from tbl_agent where id=:email or email=:email";  
+            }
+            return $query;
     }
     public final function Create()
     {
@@ -154,12 +176,13 @@ class AgentModel extends IModel{
     }
     
     
-  public final function  IsActive($email)
+  public final function  IsActive($email,$option=  AgentModel::EMAIL)
     {
         if($this->db !=null)
         {
            
-            $query = "select * from tbl_agent where email=:email";
+            $query = $this->getIdQuery($option);
+            
             $stmt= $this->db->prepare($query);
             $stmt->bindValue(":email", addslashes(strtolower(trim($email))));   
             $stmt->execute();
@@ -191,13 +214,26 @@ class AgentModel extends IModel{
         }
     }
     
-    public final function IsVerificationCodeExist($email,$sessionID)
+    public final function IsVerificationCodeExist($email,$sessionID,$option)
     {
         if($this->IsFound($email))
         {
             if($this->db !=null)
             {
-             $query = "select*  from tbl_agent  where vcode =:code and email=:email";
+              
+            $query = "";
+            
+           if($option == AgentModel::EMAIL)
+            {
+            $query ="select *from tbl_agent where vcode =:code and email=:email ";
+            }else if($option==AgentModel::ID)
+            {
+              $query ="select *from tbl_agent where vcode =:code and id=:email ";   
+            }else 
+            {
+                $query ="select *from tbl_agent where  vcode =:code and (id=:email or email=:email)";  
+            }
+            
             $stmt= $this->db->prepare($query);
             $stmt->bindValue(":email", addslashes(strtolower(trim($email))));
             $stmt->bindValue(":code", addslashes(trim($sessionID))); 
@@ -213,7 +249,21 @@ class AgentModel extends IModel{
         return false;
     }
     
-    
+   function GetAccountEmail($email)
+    {
+       if($this->IsFound($email))
+       {
+         $query ="select *from tbl_agent where id=:email and email=:email "; 
+         $stmt= $this->db->prepare($query);
+         $stmt->bindValue(":email", addslashes(strtolower(trim($email))));
+         $stmt->bindValue(":code", addslashes(trim($sessionID))); 
+         $stmt->execute();
+         
+         $row= $stmt->fetch(PDO::FETCH_ASSOC);
+         return $row["email"];
+       }
+       return null;
+    }
     function DeleteAgent($email)
     {
          if($this->IsFound($email))
@@ -227,5 +277,44 @@ class AgentModel extends IModel{
              }
       
          }
+    }
+    
+    function GetUsers()
+    {
+        
+            if($this->db !=null)
+            {
+             $query = "select * from tbl_agent  where  email !='null'";
+             $stmt= $this->db->prepare($query);                    
+             $stmt->execute(); 
+            
+             
+           $arry= new ArrayIterator();
+           $counter=0;
+           while($row = $stmt->fetch(PDO::FETCH_BOTH))
+             {
+                            
+              
+               $agent = new Agent();
+               $agent->agentId=$row["id"];
+               $agent->firstname=$row["firstname"];              
+               $agent->lastname= $row["lastname"];
+               $agent->email= $row["email"];
+               $agent->phonenumber=$row["phone"];
+               $agent->status=$row["active"]; 
+               $arry->offsetSet($counter,$agent);
+               $counter++;
+              
+              
+            
+             
+             }
+           
+             return $arry;
+            
+            }
+      
+        
+         return null;
     }
 }

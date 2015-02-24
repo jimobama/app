@@ -43,7 +43,9 @@ class AgentController  extends IController{
               return $this->ReDirectTo("Account","Index");
             }else
             {
-            
+              Session::set("Warning", 
+                      "Your email account [$email] is not yet verified.");                    
+               
               return $this->ReDirectTo("Agent", "Confirmation");
             }
         } 
@@ -91,14 +93,25 @@ class AgentController  extends IController{
                   
                 try{
                     //else create the user
+                    
+                    
+                    
                     if($agentModel->Create())
                     {  
                         $sessionID=Session::getId();
                         $agentModel->SaveVerificationCode($email,$sessionID);
-                       if($this->_sendVerificationEmail($agent,$sessionID))
+                        
+                        //create a barcode
+                        $param= new ArrayIterator();
+                        $param->offsetSet("username", $agent->email);
+                        $param->offsetSet("verificationCode", $sessionID);                    
+                        $url=  ContextManager::CreateURL("Agent","Login",$param); 
+                        $imgPath= ContextManager::CreateQRBarcode($url,$agent->agentId); 
+                        
+                       if($this->_sendVerificationEmail($agent,$sessionID,$imgPath))
                        {
                         //navigate to comfirmation page
-                        return $this->View($agent,"Agent","Confirmation"); 
+                         return $this->View($agent,"Agent","Confirmation"); 
                        }  else {
                           ContextManager::ValidationFor("warning","could not send mail ");   
                           $agentModel->DeleteAgent($email);
@@ -130,26 +143,29 @@ class AgentController  extends IController{
         
         $agentModel = new AgentModel();
         
-        if($agentModel->IsFound($email))
-        {
-             if(!$agentModel->IsActive($email))
+        if($agentModel->IsFound($email,  AgentModel::BOTH))
+         {
+             if(!$agentModel->IsActive($email,AgentModel::BOTH))
              {
                  // check if the code provided is validated
-                 if($agentModel->IsVerificationCodeExist($email, $verifiedCode))
+                 if($agentModel->IsVerificationCodeExist($email, $verifiedCode,AgentModel::BOTH))
                  {
                     
-                     $agentModel->SetActive($email,1);
+                     $agentModel->SetActive($email,1,AgentModel::BOTH);
                  }
                 else {
                       ContextManager::ValidationFor("warning","Verification code is invalid");
-                       return $this->View($email, "Agent", "Confirmation");
+                       return $this->View($agentModel->GetAccountEmail($email), "Agent", "Confirmation");
                  }
                 
              }
              
             return $this->ReDirectTo("Agent", "LoginForm");
              
-        }  else {
+        } 
+        
+        
+        else {
             
         {
            ContextManager::ValidationFor("warning","The email [$email] address provided does not exists you can registered it if you wants");
@@ -161,7 +177,7 @@ class AgentController  extends IController{
     
     //helper methods
     
-    private function _sendVerificationEmail($agent,$code)
+    private function _sendVerificationEmail($agent,$code,$attachment=null)
     {
         
            date_default_timezone_set('Etc/UTC');
@@ -180,9 +196,12 @@ class AgentController  extends IController{
             $mail->Password = SMTP_PASSORD;
             //Set who the message is to be sent from
             $mail->setFrom('jimobama2011@gmail.com', 'Obaro Isreal');
-            $mail->addReplyTo('jimobama2011@gmail.com', 'Obaro Isreal');
-          
+            $mail->addReplyTo('jimobama2011@gmail.com', 'Obaro Isreal');          
             $mail->addAddress($agent->email, $agent->firstname." ".$agent->lastname);
+            if($attachment != null && file_exists($attachment))
+            {
+                $mail->addAttachment($attachment,"Your Barcode");
+            }
 
             $mail->Subject = 'Welcome to flights.com[verification send]';
             
@@ -192,7 +211,9 @@ class AgentController  extends IController{
                     . " Username : $agent->email <br> Password: $agent->password<br>"
                     . " Verification Code : $code"
                     . "<hr> Click on the below link to verify your account ".ContextManager::CreateLink("Verify my Account", "Agent", "Confirmation")
-                    ."</p> <br> or copy the user and paste on the browser URL  ".HOST_NAME."?url=Agent&action=VerifyUser&code=$code <hr>  ";
+                    ."</p> <br> or copy and paste on the browser  this URL  ".HOST_NAME."?url=Agent&action=VerifyUser&code=$code <hr>"
+                    . "<br>"
+                    . " <p>Alternatively scan the barcode with your phone or any device to quickly verified your email,, the barcode image is attached with this message</p> ";
             $mail->msgHTML($message);
             $status=  $mail->send();
            

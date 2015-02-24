@@ -2,7 +2,10 @@
 {
   
 }
-
+table
+{
+    width:100%;
+}
 .alert-warning
 {
    padding:0;

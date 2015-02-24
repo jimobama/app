@@ -9,7 +9,14 @@ if(!is_object($model))
 <link href="styles/Confirmation.css" rel="stylesheet" type="text/css" />
 <div id='confirmation-wrapper' class="row">
     <div class="editor-field">
-       <?php ContextManager::ValidationFor("warning");?>
+       <?php ;
+          $msg= Session::get("Warning");
+          if($msg !=null){
+           ContextManager::ValidationFor("warning",$msg);
+           Session::delete("Warning");
+          }
+          ContextManager::ValidationFor("warning")
+       ?>
      </div>
     <div class='form' >
         <?php 
