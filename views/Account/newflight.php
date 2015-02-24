@@ -56,11 +56,16 @@
                 
                 <div class="control">
                     <div class="editor-label">
-                         <label>Flight Class</label>                       
+                         <label>Number Of Stops</label>                       
                     </div>
                     <div class="editor-field">
                         <select id="flightclass">
-                            <option value="">Select flight class...</option>
+                            <option value="0">0</option>
+                             <option value="1">1</option>
+                              <option value="2">2</option>
+                               <option value="3">3</option>
+                                <option value="4">4</option>
+                                 <option value="5">5</option>
                         </select>
                         <span class="flightclass" id="error-reporter"> </span>  
                       
@@ -69,12 +74,10 @@
 
                 <div class="control">
                     <div class="editor-label">
-                         <label>Ticket type</label> 
+                         <label>Ticket price</label> 
                     </div>
                     <div class="editor-field">
-                        <select>
-
-                        </select>
+                        <input type='text' name='txtprice'/>
                          <span id="tickettype" class="error-reporter"> </span>  
                       
                     </div>
