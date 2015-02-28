@@ -148,7 +148,184 @@ static public function getStringFrom($keywords,$startPos,$endPos)
     
     return $newKeywords;
 }
-   
-   
+     private static function removeCharacter($time1,$char)
+        {
+            $time1 = trim($time1);
+            $result="";
+            for($var=0; $var < strlen($time1); $var++)
+            {
+                $char = $time1[$var];
+                if($char != $char)
+                {
+                    if(is_numeric($char)){
+                    $result = $result.$char;
+                    }
+                }
+            }
+            
+            return $result;
+        }
+ 
+    public static function TimeDifferent($time1, $time2) {
+        
+        $time1= intval(self::removeCharacter($time1,":"));
+        $time2=intval(self::removeCharacter($time2,":"));         
+        return $time1-$time2;
+        
+    }
+
+    public static function DateDifferent($param0, $param1) {
+        $date1 =intval(self::removeCharacter($param0,"/"));
+        $date2 =intval(self::removeCharacter($param1,"/"));
+        return ($date1- $date2);
+    }
+    
+    PUBLIC static function IsDate($date)
+    {
+        $okay=false;
+        $dd="";
+        $mm="";
+       $yyyy="";
+        if(is_string($date))
+        {
+          //language dd/mm/yyyy
+            $parseStr = trim($date);
+            $type =0;
+          
+            for($var=0;$var < strlen($date); $var++)
+            {
+                $char =  $parseStr[$var];
+                switch($char)
+                {
+                    case "/":
+                    {
+                         $type++;
+                    }break;
+                    default:
+                    {
+                        
+                        switch($type)
+                        {
+                            case 0:
+                            {
+                                if(strlen(trim($dd))<=1)
+                                {
+                                    $dd = $dd.$char;
+                                }
+                            }break;
+                            case 1:
+                            {
+                                 if(strlen(trim($mm))<=1)
+                                {
+                                    $mm = $mm.$char;
+                                }
+                            }break;
+                            case 2:
+                            {
+                                if(strlen(trim($yyyy))<=3)
+                                {
+                                    $yyyy = $yyyy.$char;
+                                }
+                            }break;
+                            default:
+                            break;
+                        }
+                    }break;
+                    
+                }
+            }
+        }
+        
+        if((strlen($dd)==2) && ((strlen($mm))==2) && ( (strlen($yyyy) ==2) ||(strlen($yyyy) ==4) ))
+        {
+            $okay=true;
+        }
+        return $okay;
+    }
+    
+    public static function IsTime($time)
+    {
+        $okay=false;
+        //Grammar syntax hh:mm:ss
+         $hh="";
+        $mm="";
+        $ss="";
+        if(is_string($time))
+        {
+            //0= hh , 1= mm, 2 mm
+            $current=0;
+           
+            $parserStr= trim($time);
+            for($var=0; $var < strlen($parserStr);$var++)
+            {
+                $char = $parserStr[$var];
+               switch ($char)     
+               {
+                   case ':':
+                   {
+                       $current++;  
+                   }break;
+                   default:
+                   {
+                       switch($current)
+                       {
+                           case 0:
+                           {
+                               if(strlen($hh) <=2)
+                               {
+                                   $hh =$hh.$char;
+                               } 
+                           }break;
+                           case 1:
+                           {
+                                if(strlen($mm) <=2)
+                               {
+                                   $mm =$mm.$char;
+                               } 
+                           }break;
+                           case 2:
+                           { 
+                               if(strlen($ss) <=2)
+                               {
+                                   $ss =$ss.$char;
+                               }
+                           }break;
+                           default:
+                           {
+                            
+                           }break;
+                       }
+                   }break;
+               }
+            }
+        
+        }
+        
+        if(strlen($hh)==2 | strlen($mm)==2)
+        {
+            if(strlen($ss)== 2 | (strlen($ss)==0))
+            {
+                $okay=true;
+            }
+        }
+        
+        return $okay;
+        
+    }
+
+    
+    static function IsDateInFuture($date)
+    { 
+      $now = date("d/m/Y");
+      $dformat = date_create_from_format("d/m/Y",$date);
+      $dformat2 = date_create_from_format("d/m/Y", $now);   
+    
+     $interval = $dformat2->diff($dformat);
+     
+     $interval =intval($interval->format("%R%a"));
+     return  $interval;   
+     
+                          
+    }
 }//end class
 

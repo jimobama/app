@@ -60,7 +60,7 @@
 }
 .form  .control .editor-label,.form  .control .editor-space
 {
-    height:220px;
+    overflow:hidden;
     display:inline;
     border:0px solid #000;
    
@@ -99,9 +99,15 @@
 .form .control .editor-field input[type='tel'] 
  {
    border:1px solid #ebe4e4;
-   width:200px;   
+     
    min-height:28px;
 }
+
+.form .control .editor-field input[type='text'].small,
+.form .control .editor-field input[type='password'].small,
+.form .control .editor-field input[type='tel'].small{
+  width:100px;  
+} 
 .form .control .editor-field input[type='text']:focus,
 .form .control .editor-field input[type='password']:focus,
 .form .control .editor-field input[type='tel']:focus
@@ -117,6 +123,24 @@
    font-size:1.4em;
    padding:4px;
    width:200px;   
+}
+
+
+.form .control .editor-field input[type='text'].small:focus,
+.form .control .editor-field input[type='password'].small:focus,
+.form .control .editor-field input[type='tel'].small:focus
+{
+  
+   cursor:text; 
+   border:0;
+   border-top:1px solid #cddef6;
+   box-shadow:0px 0px 3px #000 ; 
+   background: #f8f6f6;
+   font-size-adjust:initial;
+   font-style:inherit;
+   font-size:1.4em;
+   padding:4px;
+   width:100px;   
 }
  select 
  {

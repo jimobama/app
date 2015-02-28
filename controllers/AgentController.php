@@ -4,11 +4,12 @@
 
 class AgentController  extends IController{
   
-  
+ private  $agentModelView = null;
     function __construct() {
       
         include_once("models/AgentModel.php");
         include_once("modelviews/AgentModelView.php");
+       $this->agentModelView= new AgentModelView();
     }
     
     
@@ -36,11 +37,17 @@ class AgentController  extends IController{
             // The user has successfully login
             if($agentModel->IsActive($email))
             {
-              Session::set("db_username", "$email");              
-             
-              $agent->email=$email;
-              $agent->password=$email;              
-              return $this->ReDirectTo("Account","Index");
+               if(!$agentModel->IsSuspended($email))
+                {
+                Session::set("db_username", "$email");              
+
+                $agent->email=$email;
+                $agent->password=$email;              
+                return $this->ReDirectTo("Account","Index");
+               }  else {
+                     Session::set("Warning","This account as be fully suspected please contact administrator");
+                     return $this->ReDirectTo("Agent", "LoginForm");
+               }
             }else
             {
               Session::set("Warning", 
@@ -64,29 +71,32 @@ class AgentController  extends IController{
     }
     function Create($email,$firstname,$lastname,$phone,$password,$repassword,$sendButton=null)
     {
+        
+       
        $repassword =($repassword =="null")?null:$repassword;
        $agent = new Agent();
        $agent->set($firstname,$lastname,$email,$phone,$password);
+       $agentModel = new AgentModel($agent);
+       $list= $agentModel->GetUsers();
        
-       $agentModelView = new AgentModelView();
-       $agentModelView->agent=$agent;
-       
+       $this->agentModelView->agent=$agent;
+        $this->agentModelView->agentList=$list;
        if($agent->validated())
        {
           if($password != $repassword)
           {
-                ContextManager::ValidationFor("warning"," Password mis-matched, re-enter passwords again!");
-                 return $this->View($agentModelView,"Agent","Index");
+                 Session::set("warning"," Password mis-matched, re-enter passwords again!");
+                 return $this->View($this->agentModelView,"Agent","Index");
           }
          else {
           
-            $agentModel = new AgentModel($agent);
-            $agentModelView->agentDbModel=$agentModel;
+           
+            $this->agentModelView->agentDbModel=$agentModel;
 
             if($agentModel->Exists())
             {
               
-                ContextManager::ValidationFor("warning","The user with the given email address [$email] already exists!");
+                Session::set("warning","The user with the given email address [$email] already exists!");
             }
             else
             {
@@ -113,24 +123,24 @@ class AgentController  extends IController{
                         //navigate to comfirmation page
                          return $this->View($agent,"Agent","Confirmation"); 
                        }  else {
-                          ContextManager::ValidationFor("warning","could not send mail ");   
+                           Session::set("warning","could not send mail ");   
                           $agentModel->DeleteAgent($email);
                        }
                     }
                    
                 }catch(Exception $err)
                 {
-                   ContextManager::ValidationFor("warning",$err->getMessage()); 
+                    Session::set("warning",$err->getMessage()); 
                 }
             }
          }
           
           // create a database record here
        }  else {
-           ContextManager::ValidationFor("warning", $agent->getError()); 
+            Session::set("warning", $agent->getError()); 
        }
         
-         return $this->View($agentModelView,"Agent","Index"); 
+         return $this->View($this->agentModelView,"Account","Index"); 
       
         
        
@@ -154,7 +164,7 @@ class AgentController  extends IController{
                      $agentModel->SetActive($email,1,AgentModel::BOTH);
                  }
                 else {
-                      ContextManager::ValidationFor("warning","Verification code is invalid");
+                       Session::set("warning","Verification code is invalid");
                        return $this->View($agentModel->GetAccountEmail($email), "Agent", "Confirmation");
                  }
                 
@@ -168,7 +178,7 @@ class AgentController  extends IController{
         else {
             
         {
-           ContextManager::ValidationFor("warning","The email [$email] address provided does not exists you can registered it if you wants");
+            Session::set("warning","The email [$email] address provided does not exists you can registered it if you wants");
         }
        return $this->View($email, "Agent", "Confirmation");
     }
@@ -219,6 +229,63 @@ class AgentController  extends IController{
            
             return $status;
             
+    }
+    
+    
+    
+    function Modify()
+    {
+        
+         $checkList = Request::RequestParams("chkboxes");
+         $buttonCancel= Request::RequestParams("btnCancel");
+         $buttonModifer= Request::RequestParams("btnModifer");
+        if(isset($checkList) && is_array($checkList)) 
+        {
+         if(isset($buttonCancel))
+         {
+             foreach($checkList as $key=>$checkbox)
+             {
+                 $this->deleteAgent($checkbox);
+             }
+             
+         }
+         else if(isset($buttonModifer))
+         {
+             foreach($checkList as $key=>$checkbox)
+             {
+                 $this->suspendAgent($checkbox);
+             }
+         }
+       
+        
+        
+        }//end if seet array
+       
+        $agentModel = new AgentModel();
+        
+        $this->agentModelView->agentList= $agentModel->GetUsers();
+        return $this->View($this->agentModelView,"Account","Index");
+    }
+    
+    
+    private function suspendAgent($id)
+    {
+        $agentModel= new AgentModel();
+        if($agentModel->IsActive($id, AgentModel::ID))
+        {
+            $agentModel->SuspendAgent($id,0);
+        }
+        
+    }
+    
+    private function deleteAgent($id)
+    {
+          $agentModel= new AgentModel();
+          
+          if($agentModel->IsFound($id, AgentModel::ID))
+          {
+              $agentModel->DeleteAgent($id);
+          }
     }
     
     

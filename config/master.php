@@ -1,6 +1,6 @@
 <?php
 //The master file will enable you to include a paths
-require_once("helpers/Session.php");
+require_once("config/Session.php");
 require_once ('api/PHPMailer/PHPMailerAutoload.php');
 require_once("app_data/DbConstants.php");
 include_once("config/constants.php");
@@ -51,7 +51,7 @@ class GlobalMaster
         
         $file= VIEW.$controller."/$action".".php";
         if(file_exists($file))
-        {
+        {         
           include_once($file);
         }
     }
@@ -235,8 +235,8 @@ class GlobalMaster
 include_once("entities/object.php");
 require_once("config/Database.php");
 
-include_once("helpers/Response.php");
-include_once "helpers/request.php";
+include_once("config/Response.php");
+include_once "config/request.php";
 include_once "config/IContextView.php";
 include_once "helpers/iview.php";
 include_once "helpers/icontroller.php";

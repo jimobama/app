@@ -147,7 +147,7 @@ private function _methodBinding(ReflectionMethod $ref)
             
            $paramCounter = $this->params->count();
            
-           
+        
            if( $paramCounter >= $counter2  && $paramCounter <= $counter)
            {
               $paramter= array();             
@@ -166,10 +166,11 @@ private function _methodBinding(ReflectionMethod $ref)
               }
               $this->__parameters = $paramter;  
              
-           
+          
            }
          else
          {
+             
             $this->__parameters=  $this->initialiseParameters($counter2);
          }
      return  $this->__parameters;
@@ -226,13 +227,13 @@ private function loadParams()
       return $this->_action;      
   }
   
-  final public function RequestParams($param)
+ static public function RequestParams($param)
   {
        if(isset($_REQUEST[$param]))
        {
            return $_REQUEST[$param];
        }
-       return ;
+       return null;
   }
   final public  function _Default()
   {

@@ -197,6 +197,26 @@ class AgentModel extends IModel{
         }
     }
     
+    public final function  IsSuspended($email)
+    {
+        if($this->db !=null)
+        {
+           
+            $query = "select *from tbl_agent where email=:email   or id=:email";
+            
+            $stmt= $this->db->prepare($query);
+            $stmt->bindValue(":email", addslashes(strtolower(trim($email))));   
+            $stmt->execute();
+            $row= $stmt->fetch(PDO::FETCH_ASSOC);
+           
+            if(intval($row["status"]) <= 0)
+            {
+                return true;
+            }
+            return false; 
+         
+        }
+    }
     
     public final function SaveVerificationCode($email,$sessionID)
     {
@@ -266,14 +286,14 @@ class AgentModel extends IModel{
     }
     function DeleteAgent($email)
     {
-         if($this->IsFound($email))
+         if($this->IsFound($email,AgentModel::BOTH))
         {
             if($this->db !=null)
             {
-             $query = "delete from tbl_agent  where  email=:email";
-            $stmt= $this->db->prepare($query);
-            $stmt->bindValue(":email", addslashes(strtolower(trim($email))));           
-            $stmt->execute(); 
+             $query = "delete from tbl_agent  where  email=:email or id=:email ";
+                $stmt= $this->db->prepare($query);
+                $stmt->bindValue(":email", addslashes(strtolower(trim($email))));           
+                $stmt->execute(); 
              }
       
          }
@@ -317,4 +337,28 @@ class AgentModel extends IModel{
         
          return null;
     }
+    
+    
+    
+      public final function SuspendAgent($id,$status=1)
+    {
+       
+         if($this->db !=null)
+        {
+              
+             try{
+             $query ="update tbl_agent set status=:status  where id=:id ";            
+             $stmtbj = $this->db->prepare($query);
+             $stmtbj->bindValue(":id", addslashes(strtolower(trim($id))));    
+             $stmtbj->bindValue(":status",addslashes(strtolower(trim($status)))); 
+             $stmtbj->execute(); 
+          
+             }
+             catch(Exception $err)
+             {
+                 echo $err;
+             }
+        }
+    }
+    
 }

@@ -9,6 +9,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flights-> <?php echo  $this->ViewBag("Title"); ?></title>  
+     <link href="styles/jquery-ui/jquery-ui.css" rel="stylesheet" type="text/css" /> 
+      <link href="styles/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
      <link href="styles/bootstrap.css" rel="stylesheet" type="text/css" /> 
      <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
       <link href="styles/site.css" rel="stylesheet" type="text/css" /> 
@@ -46,7 +48,7 @@
  </div>
     <script src="scripts/lib/jquery-1.10.2.min.js"></script>
     <script src="scripts/lib/bootstrap.min.js"></script>
-    
-   
+     <script src="styles/jquery-ui/jquery-ui.js"></script>
+     <script src="styles/jquery-ui/jquery-ui.min.js"></script>
 </body>
 </html>

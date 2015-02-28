@@ -1,21 +1,22 @@
 <?php
  $agent= new Agent();
-
- if(ContextManager::$Model ==null)
-      {
-       if(is_a(ContextManager::$Model, "AgentModelView"))
-       {
-         ContextManager::$Model = new AgentModelView(); 
-         $agent = ContextManager::$Model->agent;
-       }
-      }  
-      else {
-         if(is_a(ContextManager::$Model, "AgentModelView"))
-         {
-            $agent = ContextManager::$Model->agent; 
-         }
-       }
-    
+ $userList = new ArrayIterator();
+ 
+ 
+if(ContextManager::$Model !=null && is_a(ContextManager::$Model, "AgentModelView"))
+    {
+       $userList=ContextManager::$Model->agentList;
+       $agent = ContextManager::$Model->agent; 
+    }  
+ 
+  if( $agent==null)
+  {
+     $agent= new Agent();  
+  }
+  else if( $userList==null)
+  {
+       $userList= new ArrayIterator();
+  }
 
 ?>
 
@@ -36,15 +37,19 @@
                 <h2>Agent Registration Form</h2>
                 <div cass="control-wrapper">
                     <?php 
-                       $attr= new ArrayIterator();
-                       $attr->offsetSet("method", "post");                       
-                       ContextManager::BeginForm($controller,$action,$attr);
+                        $attr= new ArrayIterator();
+                        $attr->offsetSet("method", "post");                       
+                        ContextManager::BeginForm("Agent","Create",$attr);
                     ?>
                    
     
                            <div class="editor-field">
                               
-                                      <?php ContextManager::ValidationFor("warning");?>
+                                      <?php
+                                      ContextManager::ValidationFor("warning",Session::get("warning"));
+                                      ContextManager::ValidationFor("warning");
+                                      Session::delete("warning");
+                                      ?>
                                
                             </div>
                        <div class="control">
@@ -130,7 +135,7 @@
 
             </fieldset>
   <div class="note-wrapper">
-      We have over 0  agencies world wide. Please read the rules and condition  before you registered with us .
+      We have over <?php  echo $userList->count();?>  agencies world wide. Please read the rules and condition  before you registered with us .
   </div>
 </div>
 

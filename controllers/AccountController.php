@@ -13,11 +13,12 @@
  */
 class AccountController extends IController {
     //put your code here
-    
+    private $agentViewModel=null;
     function __construct() {
         parent::__construct(new IModel(), new IView());
         include_once("models/AgentModel.php");
         include_once("modelviews/AgentModelView.php");
+        $this->agentViewModel= new AgentModelView();
     }
     
    public  function Index()
@@ -27,7 +28,9 @@ class AccountController extends IController {
         $this->ViewBag("Title","Account");
         $agentModel= new AgentModel();
         $UserList =  $agentModel->GetUsers();
-        return  $this->View($UserList,"Account","Index");
+        $this->agentViewModel->agentList=$UserList;
+        
+        return  $this->View($this->agentViewModel,"Account","Index");
        }
        return $this->ReDirectTo("Home", "Index");
     }

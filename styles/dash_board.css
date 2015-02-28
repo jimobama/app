@@ -27,21 +27,18 @@
   
 }
 
-#dash-board-wrapper  #dash-board
+#dash-board-wrapper  .dash-board
 {
     
     position:relative;
-    border: 1px solid #eee;     
-    max-height:400px;    
-    clear:none;
+    border: 1px solid #eee;    
     
-    border-top-left-radius: 9px;
-    border-bottom-left-radius: 15px;
+    clear:none;  
     overflow: hidden;
    
 }
 
-#dash-board-wrapper  #dash-board legend
+#dash-board-wrapper  .dash-board legend
 {
     padding:5px;
     overflow: hidden;

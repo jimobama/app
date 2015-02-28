@@ -56,15 +56,13 @@
      
       <ul class="nav navbar-nav navbar-right">
        <?php if(Session::get("db_username") ==null){?>   
-        <li><?php ContextManager::ActionLink("<span class=\"glyphicon glyphicon-user\"></span> Travel Agent", "Agent", "Index")?> </li>        
-        
-        <li> <?php ContextManager::ActionLink("Log In <span class=\"glyphicon glyphicon-log-in\"></span>", "Agent", "LoginForm")?></li>
+        <li><?php ContextManager::ActionLink("<span class=\"glyphicon glyphicon-user\"></span> Travel Agent", "Agent", "LoginForm")?> </li>     
         
         <?php 
        }  else {
                   
         ?>
-          <li><?php ContextManager::ActionLink("<span class=\"glyphicon glyphicon-user\"></span> Account", "Account", "Index")?> </li>        
+        <li><?php ContextManager::ActionLink("<span class=\"glyphicon glyphicon-user\"></span> Account", "Account", "Index")?> </li>        
         
         <li> <?php ContextManager::ActionLink("Log Out <span class=\"glyphicon glyphicon-log-in\"></span>", "Account", "Logout")?></li>
        <?php }?>

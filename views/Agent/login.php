@@ -31,7 +31,16 @@
             </div>
             <div cass="control-wrapper">
 
-              
+               <div class="editor-field">
+                    <?php ;
+                       $msg= Session::get("Warning");
+                       if($msg !=null){
+                        ContextManager::ValidationFor("warning",$msg);
+                        Session::delete("Warning");
+                       }
+                     
+                    ?>
+                 </div>
                    <?php 
                      $object= new ArrayIterator();
                      $object->offsetSet("method", "post");                     

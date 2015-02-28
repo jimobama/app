@@ -1,4 +1,10 @@
-
+<?php
+include_once("entities/Flight.php");
+include_once("models/FlightModel.php");
+   $model= new FlightModel();
+   $flightList= $model->GetAllDistinctFlights();
+   
+?>
 
 
 
@@ -46,7 +52,16 @@
                         <label>From</label>
                     </div>
                     <div class="editor-field">
-                        <input type="text" name ="txtForm" id="txtForm" />
+                        <select name="txtForm" class="combo">
+                            <option>   </option>                          
+                           <?php
+                            foreach($flightList as $flight)
+                            {
+                                echo "<option value='$flight->from' >$flight->from</option>";
+                            }
+                           ?>
+                        </select>
+                        
                         <span id="txtForm" class="error-reporter"> </span>
                     </div>
                 </div>
@@ -55,7 +70,15 @@
                          <label>To</label>
                     </div>
                     <div class="editor-field">
-                         <input type="text" name ="txtForm" id="txtTo"  />
+                         <select name="txtTo" class="combo">
+                            <option>   </option> 
+                             <?php
+                            foreach($flightList as $flight)
+                            {
+                                echo "<option value='$flight->to' >$flight->to</option>";
+                            }
+                           ?>
+                        </select>
                           <span id="txtTo" class="error-reporter"> </span>                      
                     </div>
                 </div>
@@ -89,7 +112,11 @@
                     </div>
                     <div class="editor-field">
                         <select id="flightclass">
-                            <option value="">Select flight class...</option>
+                            <option value="">...</option>
+                             <option value="1">Economics</option>
+                             <option value="2">Premier Economics</option>
+                             <option value="3">Business/Club</option>
+                             <option value="4">First</option>
                         </select>
                         <span class="flightclass" id="error-reporter"> </span>  
                       
@@ -102,7 +129,8 @@
                     </div>
                     <div class="editor-field">
                         <select>
-
+                            <option value="0">Lower Price</option>
+                            <option value="1">Flexible</option>
                         </select>
                          <span id="tickettype" class="error-reporter"> </span>  
                       

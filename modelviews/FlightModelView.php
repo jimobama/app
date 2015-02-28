@@ -7,18 +7,13 @@
  */
 
 /**
- * Description of AgentModelView
+ * Description of FlightModelView
  *
  * @author Obaro
  */
-
-
-class AgentModelView {
-    //put your code here    
-    public  $agent=null;
-    public  $agentDbModel=null;
-    public $agentList=null;
+class  FlightModelView
+{
+    public $flight;
+    public $flightDbModel;
+    public $flightList=null;
 }
-
-
-
