@@ -108,7 +108,7 @@ class AgentController  extends IController{
                     
                     if($agentModel->Create())
                     {  
-                        $sessionID=Session::getId();
+                        $sessionID=Validator::UniqueKey(20);
                         $agentModel->SaveVerificationCode($email,$sessionID);
                         
                         //create a barcode

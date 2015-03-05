@@ -1,7 +1,25 @@
-<?php
+<?php 
+$model = ContextManager::$Model;
+$list= new ArrayIterator();
+$planeTem = new Plane();
+ if($model ==null ||  !is_a($model,"PlaneModelView"))
+ {
+     include_once "modelviews/PlaneModelView.php";
+     include_once "models/PlaneModel.php";     
+     $model= new PlaneModelView();
+ }  
+ 
+ if($model->planeModel ==null)
+ {  
+ $model->planeModel= new PlaneModel();
 
+ }
+ $list=  $model->planeModel->GetAllPlanes();
+ if($model->plane!=null)
+ {
+     $planeTem=$model->plane;
+ }
 ?>
-
 <link href="styles/dash_board.css" rel="stylesheet" type="text/css" /> 
 
 
@@ -21,31 +39,41 @@
               <?php
                      $attr= new ArrayIterator();
                      $attr->offsetSet("method", "post");
-                      ContextManager::BeginForm("Flight", "Modify", $attr);
+                      ContextManager::BeginForm("Plane", "Modify", $attr);
                    ?>
                 <table width="100%">
                     <tr>
                     <th>S/N</th>
                     <th>Name</th>
                     <th>Total Seats</th>
-                    <th>Description</th>
-                    <th>Status</th>                    
+                    <th>Description</th>                                      
                     <th>#</th>
                 </tr>
                 <?php
+              
+                for ($i=0; $i < $list->count(); $i++)
+                {
+                     $list->seek($i); 
+                      $plane= new Plane();
+                      $plane = $list->current();
+                    $sn = $i +1 ;
+                    $checked="";
+                    if($planeTem->Id == $plane->Id)
+                    {
+                        if($planeTem->mode=='edit')
+                        {
+                             $checked="checked='checked'";
+                        }
+                    }
                    echo "<tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>$</td>                      
-                        <td></td>
-                        <td><input type='checkbox' value='' name='chkflights[]' ></td>
+                        <td>$sn</td>
+                        <td>$plane->name</td>
+                        <td>$plane->seats</td>
+                        <td>$plane->desc</td>                                         
+                        <td><input type='checkbox' value='$plane->Id' name='chkplanes[]'  $checked ></td>
                     </tr>
                     ";
-                  
+                } 
                   ?>
                     
                 </table>

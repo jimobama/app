@@ -169,6 +169,10 @@ class FlightController extends IController {
     
     function Search()
     {
+        if($_SERVER["REQUEST_METHOD"]=="POST")
+        {
+         Session::set("seach_find",1);
+        }
         return $this->View($this->flightModelView,"Home","Index");
     }
 }

@@ -18,7 +18,7 @@ include_once("models/FlightModel.php");
               <?php
                $object= new ArrayIterator();
                 $object->offsetSet("method", "post");
-                  ContextManager::BeginForm("Flight", "Index", $object)?>
+                  ContextManager::BeginForm("Flight", "Search", $object)?>
                 
                 <div class="control-collection-horizontal">
                     

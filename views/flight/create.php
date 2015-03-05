@@ -13,6 +13,10 @@ $model = ContextManager::$Model;
  {
      $model->flight=new Flight();
  }
+  include "entities/Plane.php";
+
+ $model->planes= new PlaneModel();
+ $planeList= $model->planes->GetAllPlanes();
 ?>
 
 <script>
@@ -53,7 +57,19 @@ $model = ContextManager::$Model;
                     </div>
                     <div class="editor-field">
                         <select type="text" name ="txtplane" id="txtplane">
-                            <option>...</option>
+                            <?php  
+                              echo "<option value=''></option>";
+                              foreach( $planeList as $plane)
+                              {
+                                  $selected="";
+                                  if($plane->Id== Session::get("modifier_plane"))                              
+                                  {
+                                      $selected ="selected";
+                                      Session::delete("modifier_plane");
+                                  }
+                                echo "<option value='$plane->Id'  $selected >$plane->name</option>";
+                              }
+                           ?>
                         </select>
                         <span id="txtForm" class="error-reporter"> </span>
                     </div>

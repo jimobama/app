@@ -24,3 +24,16 @@ define ("CONTROLLER_SUFIX","Controller");
 
 //Barcode store locations;
 define("BARCODE_PATH","Images/barcodes/");
+
+ function GetSeatType($id)
+ {
+     switch($id)
+     {
+         case 1:
+             return "Economic";
+         case 2:
+             return "Premier Economic";
+         case 3: return "Business/Club";
+         default: return "First";
+     }
+ }

@@ -35,8 +35,8 @@ class FlightModel extends IModel {
             if($this->db !=null)
             {
                 //add the flight to database
-                $query = "insert into tbl_flight (from_where,to_where,landingDate,BoardDate,LandingTime,BoardingTime,noofstop,price,id,seats)"
-                        . "Values(:from,:to,:landingDate,:BoardDate,:LandingTime,:BoardingTime,:noofstop,:price,:id,:seats)";
+                $query = "insert into tbl_flight (from_where,to_where,landingDate,BoardDate,LandingTime,BoardingTime,noofstop,price,id,seats,planeID)"
+                        . "Values(:from,:to,:landingDate,:BoardDate,:LandingTime,:BoardingTime,:noofstop,:price,:id,:seats,:planeID)";
       
                 
                 $stmt= $this->db->prepare($query);
@@ -50,6 +50,8 @@ class FlightModel extends IModel {
                  $stmt->bindValue(":noofstop", $this->flight->stops);
                 $stmt->bindValue(":price", $this->flight->ticketPrice);
                $stmt->bindValue(":seats", $this->flight->seats);
+               $stmt->bindValue(":planeID", $this->flight->planeID);
+              
                 try
                 {
                     $stmt->execute();
@@ -113,7 +115,7 @@ class FlightModel extends IModel {
              {
                             
               
-               $flight = new Flight();
+              $flight = new Flight();
               $flight->Id=$row["id"];
               $flight->Landingtime=$row["LandingTime"];              
               $flight->boardingTime= $row["BoardingTime"];
@@ -125,6 +127,7 @@ class FlightModel extends IModel {
               $flight->to=$row["to_where"];
               $flight->seats=$row["seats"]; 
              $flight->status=$row["status"]; 
+              $flight->planeID=$row["planeID"]; 
               $arry->offsetSet($counter,$flight);
              $counter++;
                           
@@ -163,7 +166,7 @@ class FlightModel extends IModel {
                   $flight->to=$row["to_where"];
                   $flight->seats=$row["seats"]; 
                  $flight->status=$row["status"]; 
-                 
+                 $flight->planeID=$row["planeID"]; 
                  return $flight;
                  
              }
@@ -205,12 +208,13 @@ class FlightModel extends IModel {
         return false;
     }
     
-    public function UpdateFlight($id,Flight $flight)
+    public function Update($id,Flight $flight)
     {
         if($this->IsExistId($id))
         {
-            $query ="update tbl_flight set id=:id , from_where =:from , to_where =:to, landingDate =:landingDate,"
-                    . "BoardDate =:BoardDate, LandingTime=:LandingTime,	BoardingTime=:BoardingTime,noofstop=:noofstop,	price=:price";
+            $query ="update tbl_flight set from_where =:from , to_where =:to, landingDate =:landingDate,"
+                    . "BoardDate =:BoardDate, LandingTime=:LandingTime,	BoardingTime=:BoardingTime,noofstop=:noofstop,"
+                    . "	price=:price, planeID =:planeid  where id=:id ";
                    
             
             $stmt= $this->db->prepare($query);
@@ -223,7 +227,7 @@ class FlightModel extends IModel {
              $stmt->bindValue(":BoardingTime",$flight->boardingTime);
              $stmt->bindValue(":noofstop",$flight->stops);
              $stmt->bindValue(":price",$flight->ticketPrice);
-             
+             $stmt->bindValue(":planeid",$flight->planeID);
              $stmt->execute();
              if($stmt->rowCount()>0)
              {
@@ -262,6 +266,7 @@ class FlightModel extends IModel {
               $flight->to=$row["to_where"];
               $flight->seats=$row["seats"]; 
              $flight->status=$row["status"]; 
+              $flight->planeID=$row["planeID"]; 
               $arry->offsetSet($counter,$flight);
              $counter++;
                           

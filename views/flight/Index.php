@@ -5,6 +5,9 @@ if($flightList !=null && is_a($flightList,"ArrayIterator"))
     $flightList=ContextManager::$Model->flightList;
  }  else {
     $flightList= new ArrayIterator();}
+  
+include_once("models/PlaneModel.php");
+$aplanes  = new PlaneModel();    
 ?>
 
 <link href="styles/dash_board.css" rel="stylesheet" type="text/css" /> 
@@ -31,6 +34,7 @@ if($flightList !=null && is_a($flightList,"ArrayIterator"))
                 <table width="100%">
                     <tr>
                     <th>S/N</th>
+                    <th>Flight Name</th>
                     <th>Source</th>
                     <th>Destination</th>
                     <th>Boarding Date</th>
@@ -54,7 +58,7 @@ if($flightList !=null && is_a($flightList,"ArrayIterator"))
                      $checked="";
                      if($checkFlight->checked==true && $flight->Id==$checkFlight->Id )
                      {
-                         echo $flight->checked;
+                         //echo $flight->checked;
                          $checked="checked='checked'";
                      }
                       $status="";
@@ -65,8 +69,11 @@ if($flightList !=null && is_a($flightList,"ArrayIterator"))
                      {
                       $status="active" ;   
                      }
+                     
+                   $name=  $aplanes->GetName($flight->planeID);
                    echo "<tr>
                         <td>$var</td>
+                        <td>$name</td>
                         <td>$flight->from</td>
                         <td>$flight->to</td>
                         <td>$flight->deptureDate</td>

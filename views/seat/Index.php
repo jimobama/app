@@ -1,5 +1,21 @@
 <?php
+$model = ContextManager::$Model;
 
+ if($model ==null ||  !is_a($model,"SeatModelView"))
+ {
+     include_once "modelviews/SeatModelView.php";
+     include_once "entities/Seat.php"; 
+     $model= new SeatModelView();
+    
+    
+ }  
+ 
+ if($model->seatModel==null)
+ {
+     $model->seatModel=new SeatModel();
+ }
+
+$aSeats= $model->seatModel->All();
 ?>
 
 <link href="styles/dash_board.css" rel="stylesheet" type="text/css" /> 
@@ -21,31 +37,41 @@
               <?php
                      $attr= new ArrayIterator();
                      $attr->offsetSet("method", "post");
-                      ContextManager::BeginForm("Flight", "Modify", $attr);
+                      ContextManager::BeginForm("Seat", "Modify", $attr);
                    ?>
                 <table width="100%">
                     <tr>
                     <th>S/N</th>
-                    <th>Name</th>
-                    <th>Total Seats</th>
-                    <th>Description</th>
-                    <th>Status</th>                    
+                    <th>Type</th>
+                    <th>Seat N<u>o</u></th>
+                    <th>Description</th>                              
                     <th>#</th>
                 </tr>
                 <?php
+                
+                for($v=0;$v < $aSeats->count(); $v++)
+                {
+                    $sn= $v +1;
+                    $temSeat= new Seat();
+                    $aSeats->seek($v);
+                    $temSeat= $aSeats->current();
+                    $type= GetSeatType($temSeat->type);
+                     $selected="";
+                    if(Session::get("id_seatSelected")==$temSeat->id)
+                    {
+                        $selected ="checked='checked'";
+                        Session::delete("id_seatSelected");
+                    }
+                   
                    echo "<tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>$</td>                      
-                        <td></td>
-                        <td><input type='checkbox' value='' name='chkflights[]' ></td>
+                        <td> $sn</td>
+                        <td>$type</td>
+                        <td>$temSeat->seatNo</td>
+                        <td>$temSeat->desc</td>                        
+                        <td><input type='checkbox' value='$temSeat->id' name='chkseats[]' $selected ></td>
                     </tr>
                     ";
-                  
+                }
                   ?>
                     
                 </table>

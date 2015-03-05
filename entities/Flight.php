@@ -27,14 +27,15 @@ class Flight {
     public $status=1;
     public $mode=null;
     public $checked=false;
+    public $planeID;
     
     function __construct()
     {
-      $this->set(null,null,null,null,null,null,null,null);
+      $this->set(null,null,null,null,null,null,null,null,null);
       $mode="create";
     }
     
-    public function set($from,$to,$deptdate,$landingDate,$boardingTime,$LandingTime,$ticketPrice,$stops)
+    public function set($planeId,$from,$to,$deptdate,$landingDate,$boardingTime,$LandingTime,$ticketPrice,$stops)
     {
        $this->from=$from;
        $this->to=$to;
@@ -45,11 +46,16 @@ class Flight {
        $this->ticketPrice=$ticketPrice;
        $this->stops=$stops;
        $this->Id = Validator::UniqueKey();
+       $this->planeID=$planeId;
     }
     public function validate()
     {
         $okay=false;
-        if($this->from ==null && !Validator::isWord($this->from))
+      if(trim($this->planeID)=="" || trim($this->planeID)==null)
+      {
+           $this->error="Select flight name" ;
+      }
+      else if($this->from ==null && !Validator::isWord($this->from))
         {
             $this->error="Enter a valid name of the current location where the flight will board from";
            

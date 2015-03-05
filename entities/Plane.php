@@ -35,8 +35,22 @@ class Plane extends IModel{
     }
     
     
-    public function validate()
+    public function validated()
     {
-        
+        $okay=false;
+        if($this->name ==null  || !Validator::isWord(trim($this->name)))
+        {
+            $this->setError("Enter a valid name for the plane");
+            
+        }else if($this->seats ==null || !Validator::isNumber($this->seats) || (intval($this->seats) <=0) )
+        {
+            $this->setError("Enter the total count of the plan seats ");
+        }  else {
+            $okay=true;
+        }
+        return $okay;
     }
 }
+
+
+

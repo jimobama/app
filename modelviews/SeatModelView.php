@@ -7,14 +7,14 @@
  */
 
 /**
- * Description of FlightModelView
+ * Description of SeatModelView
  *
  * @author Obaro
  */
-class  FlightModelView
-{
-    public $flight;
-    public $flightDbModel;
-    public $flightList=null;
+class SeatModelView {
+    //put your code here
+    
+    public $seat=null;
+    public $seatModel=null;
     public $planes=null;
 }

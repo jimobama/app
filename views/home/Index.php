@@ -10,12 +10,21 @@
 <script>   
 $(document).ready(function(){
     
-    
-    
-
+var x = document.getElementById("demo");
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(showPosition);
+    } else {
+        x.innerHTML = "Geolocation is not supported by this browser.";
+    }
+}
+function showPosition(position) {
+    x.innerHTML = "Latitude: " + position.coords.latitude +
+    "<br>Longitude: " + position.coords.longitude;
+}
 });
 </script> 
-
+<div id="demo"></div>
  <div id="index-context" class="row">
     
 <div id="index-left-context" class="col-lg-4">   
