@@ -33,14 +33,14 @@ class FlightController extends IController {
         return $this->View($this->flightModelView,"Flight","Index");
     }
     
-   public  function Create($from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option=null)
+   public  function Create($planeId,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option=null)
     {
         $id=null;
         $this->filter($id,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option);
-         
+       
          
          $flight = new Flight();
-         $flight->set($from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$ticketPrice,$noOfStops);
+         $flight->set($planeId,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$ticketPrice,$noOfStops);
           $flightModel = new FlightModel($flight);
           $this->flightModelView->flight= $flight;
           
@@ -114,6 +114,7 @@ class FlightController extends IController {
                  $flight= $flightModel->GetFlightById($indexID);
                  $flight->mode="edit";
                  $flight->checked=true;
+                  Session::set("modifier_plane",$flight->planeID);
                  $this->flightModelView->flight=$flight;
                   
                }  
@@ -126,13 +127,16 @@ class FlightController extends IController {
     }
     
     
-    function SaveChange($id,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option=null)
+    function SaveChange($id,$planeId,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option=null)
     {
-        $this->filter($id,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option);
+         
+        
+       
          
         $flight = new Flight();
-        $flight->set($from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$ticketPrice,$noOfStops);
+        $flight->set($planeId,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$ticketPrice,$noOfStops);
         $flight->Id=$id;
+      
        $this->flightModelView->flight=$flight;
        $flight->mode="edit";
         $flightModel= new FlightModel();
@@ -140,7 +144,8 @@ class FlightController extends IController {
         
         if($flightModel->IsExistId($id))
         {
-            $flightModel->UpdateFlight($id,$flight);
+            
+            $flightModel->Update($flight->Id,$flight);
         }
         $this->flightModelView->flightList=$flightModel->GetAllFlights();
         return $this->View($this->flightModelView,"Flight","Index");
@@ -159,6 +164,12 @@ class FlightController extends IController {
          $boardingtime =($boardingtime=="null")?null:$boardingtime;
          $landingTime =($ticketPrice=="null")?null:$landingTime;
          
+    }
+    
+    
+    function Search()
+    {
+        return $this->View($this->flightModelView,"Home","Index");
     }
 }
 
