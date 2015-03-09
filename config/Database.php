@@ -1,7 +1,7 @@
 <?php
 class Database extends PDO{
     //put your code here
- 
+   private $response =array();
     public function __construct() { 
         //connect to the server and to the specific database  
         try
@@ -10,7 +10,10 @@ class Database extends PDO{
         }
         catch(PDOException $err)
         {
-          die("Database connection error:".$err->getMessage()); 
+            $response["Status"]="200";
+            $response["ErrorMessage"]=$err->getMessage();            
+            $json= json_encode($response);
+            die("<pre>$json</pre>");
         }
             
     }//end functions
