@@ -16,11 +16,24 @@ class BookingController extends IController{
     
     function __construct() {
         parent::__construct(new IModel(), new IView());
+        
     }
     
     function Index()
     {
-         $this->ViewBag("Title", "Mgr Booking");
+        if(Session::get("db_username") ==null || Session::get("db_username") =="")
+        {
+            $this->ViewBag("Title","Ticket"); 
+            return $this->View(null,"Booking", "SearchByRef");
+        }
+        
+         $this->ViewBag("Title","Mgr Booking"); 
          return $this->View(null,"Booking","index");
+    }
+    
+    function SearchByRef()
+    {
+        $this->ViewBag("Title","Find Booking"); 
+        return $this->View(null,"Booking","SearchByRef");
     }
 }

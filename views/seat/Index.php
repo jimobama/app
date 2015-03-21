@@ -39,7 +39,7 @@ $aSeats= $model->seatModel->All();
                      $attr->offsetSet("method", "post");
                       ContextManager::BeginForm("Seat", "Modify", $attr);
                    ?>
-                <table width="100%" class="table">
+                <table width="100%" class="table table-striped table-hover table-responsive">
                     <tr>
                     <th>S/N</th>
                     <th>Type</th>

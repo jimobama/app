@@ -164,5 +164,37 @@ class SeatModel {
       
       return $seat;
   }
+  
+  
+  
+public function Update()
+  {
+      if($this->IsIdExists($this->seat->id) && $this->seat !=null)
+      {
+         
+      $query = "update tbl_seat set desc_note=:desc_note, planeID=:planeID, seatNo=:seatNo,type=:type, price=:price "
+              . " where seatID = :id";  
+     
+      $stmt= $this->db->prepare($query);
+      
+      $stmt->bindValue(":planeID",$this->seat->planeID );  
+            $stmt->bindValue(":seatNo",$this->seat->seatNo );  
+            $stmt->bindValue(":type",$this->seat->type);  
+            $stmt->bindValue(":price",$this->seat->rate );  
+            $stmt->bindValue(":desc_note",$this->seat->desc );  
+            $stmt->bindValue(":id",$this->seat->id);  
+           $status=  $stmt->execute();
+           
+      if(!$status)
+        {
+            print_r($stmt->errorInfo());
+            return false;
+        }
+      else{
+          return true;
+      }
+             
+      }
+  }
  
 }

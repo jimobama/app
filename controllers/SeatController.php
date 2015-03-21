@@ -102,7 +102,25 @@ class SeatController extends IController {
     
     public function Update($seatId, $planeID, $seatNo, $rate, $type, $Desc,$press=null)
     {
-        echo $Desc;
+       
+        $seat = new Seat();
+        $seat->set($seatNo, $planeID, $Desc, $type, $rate);
+        $seat->id=$seatId;
+        $seat->mode="edit";
+        $this->modelview->seat = $seat;
+        
+        Session::set("selected_plane_id", $planeID);
+        Session::set("type_plane", $type);
+        $model = new SeatModel($seat,$this->db);
+        
+        if(!$model->IsIdExists($seatId))
+        {
+          ContextManager::ValidationFor("warning", "Oops! there is no flight seats selected to modify");
+          return $this->View($this->modelview, "Seat","Index");  
+        }
+        
+        $model->Update();        
+        $this->modelview->seatModel=$model;
         return $this->View($this->modelview, "Seat","Index");
     }
 

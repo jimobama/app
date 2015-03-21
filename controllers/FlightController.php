@@ -52,13 +52,15 @@ class FlightController extends IController {
    public  function Create($planeId,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option=null)
     {
         $id=null;
-        $this->filter($id,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option);
+         $this->filter($id,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option);
        
          
          $flight = new Flight();
          $flight->set($planeId,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$ticketPrice,$noOfStops);
-          $flightModel = new FlightModel($flight);
+          $flightModel = new FlightModel($flight,$this->db);
           $this->flightModelView->flight= $flight;
+          
+         Session::set("modifier_plane",$planeId);
           
         
         
@@ -77,7 +79,9 @@ class FlightController extends IController {
                }else
                {
                     //else if did not exists
+                   
                     $referenceNumber=  $flightModel->AddFlight();
+                    
                     if($referenceNumber != null)
                     {
                        $content=$flight->toString();
@@ -85,8 +89,9 @@ class FlightController extends IController {
 
                     }else
                     {
+                    ContextManager::ValidationFor("warning", "Transaction fails : ".$flightModel->GetError());
                      $flightModel->Rollback($flight->Id) ; 
-                     ContextManager::ValidationFor("warning", "Transaction fails : ".$flightModel->GetError());
+                    
                     }
                }
                
@@ -183,11 +188,11 @@ class FlightController extends IController {
     }
     
     
-    function Search()
+    function Search($returnType, $from,$to,$depatureDate,$ReturnDate,$ticketClass, $price,$adult,$child,$press=null)
     {
         if($_SERVER["REQUEST_METHOD"]=="POST")
         {
-         Session::set("seach_find",1);
+           Session::set("seach_find",3);
         }
         return $this->View($this->flightModelView,"Home","Index");
     }

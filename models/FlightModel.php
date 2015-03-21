@@ -35,13 +35,14 @@ class FlightModel extends IModel {
     {
         if($this->flight !=null && $this->flight->validate())
         {
+            
             if($this->db !=null)
             {
                 //add the flight to database
                 $query = "insert into tbl_flight (from_where,to_where,landingDate,BoardDate,LandingTime,BoardingTime,noofstop,price,id,seats,planeID)"
                         . "Values(:from,:to,:landingDate,:BoardDate,:LandingTime,:BoardingTime,:noofstop,:price,:id,:seats,:planeID)";
       
-                
+               
                 $stmt= $this->db->prepare($query);
                 $stmt->bindValue(":id", $this->flight->Id);
                 $stmt->bindValue(":from", $this->flight->from);
@@ -57,12 +58,12 @@ class FlightModel extends IModel {
               
                 try
                 {
-                    $stmt->execute();
-                   
-                    if($stmt->rowCount() > 0)
-                    {     
-                        return $this->flight->Id;
+                   $status= $stmt->execute();
+                    if(!$status)
+                    {
+                        print_r($stmt->errorInfo());
                     }
+                 return $this->flight->Id;                   
                     
                       
                 }
@@ -71,6 +72,10 @@ class FlightModel extends IModel {
                   
                     $this->error = $err->getMessage();
                 }
+            }else
+            {
+                
+                $this->setError("Database object not set");
             }
         }
         
