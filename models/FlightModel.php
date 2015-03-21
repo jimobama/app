@@ -16,10 +16,13 @@ class FlightModel extends IModel {
     private $flight=null;
     private $db=null;
     private $error=null;
-    function __construct(Flight $flight=null) {
+    function __construct(Flight $flight=null,Database $db=null) {
         parent::__construct();
         $this->flight=$flight;
+        if($db ==null){
         $this->db= new Database();
+        }
+        $this->db=$db;
     }
     
     public function Rollback($id=null)

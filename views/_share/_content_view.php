@@ -13,9 +13,9 @@
       <link href="styles/jquery-ui/jquery-ui.min.css" rel="stylesheet" type="text/css" />
      <link href="styles/bootstrap.css" rel="stylesheet" type="text/css" /> 
      <link href="styles/bootstrap.min.css" rel="stylesheet" type="text/css" /> 
+      <link href="styles/index.css" rel="stylesheet" type="text/css" /> 
       <link href="styles/site.css" rel="stylesheet" type="text/css" /> 
-     <link href="styles/index.css" rel="stylesheet" type="text/css" /> 
-     <link href="styles/menu.css" rel="stylesheet" type="text/css" /> 
+      <link href="styles/menu.css" rel="stylesheet" type="text/css" /> 
      <link href="styles/form.css" rel="stylesheet" type="text/css" /> 
      <script src="scripts/lib/jquery.js"></script>
      

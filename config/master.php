@@ -3,6 +3,7 @@
 require_once("config/Session.php");
 require_once ('api/PHPMailer/PHPMailerAutoload.php');
 require_once("app_data/DbConstants.php");
+require_once("app_data/Database.php");
 include_once("config/constants.php");
  require_once("api/qrbarcode/Image/QRCode.php");
 include_once("Image/Barcode.php");
@@ -233,7 +234,7 @@ class GlobalMaster
     
 }
 include_once("entities/object.php");
-require_once("config/Database.php");
+
 
 include_once("config/Response.php");
 include_once "config/request.php";

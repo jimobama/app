@@ -5,18 +5,34 @@
 class AgentController  extends IController{
   
  private  $agentModelView = null;
+ private $db= null;
+ 
     function __construct() {
       
         include_once("models/AgentModel.php");
         include_once("modelviews/AgentModelView.php");
        $this->agentModelView= new AgentModelView();
+       
+       $this->db= new Database();
+       //create the table      
+       $this->db->createFields("email", "varchar(40)", "not null");
+        $this->db->createFields("phone", "varchar(17)", "not null");
+         $this->db->createFields("firstname", "varchar(20)", "not null");
+       $this->db->createFields("lastname", "varchar(20)", "not null");
+       $this->db->createFields("password", "varchar(50)", "not null");
+        $this->db->createFields("active", "int", "");
+       $this->db->createFields("id", "varchar(40)", "primary key");
+       $this->db->createFields("status", "int", "default 1");
+        $this->db->createFields("vcode", "varchar(50)", "not null");
+       $this->db->createTable("tbl_agent");
+       
     }
     
     
     function Index()
     {
          $this->ViewBag("Title", "Mgr Booking");
-         return $this->View(null,"Agent","index");
+         return $this->View(null,"Agent","Create");
     }
        
     function LoginForm()
@@ -71,7 +87,8 @@ class AgentController  extends IController{
     }
     function Create($email,$firstname,$lastname,$phone,$password,$repassword,$sendButton=null)
     {
-        
+        if(Session::get("db_username")==null || Session::get("db_username")=="")
+            return $this->ReDirectTo("Index","Index");
        
        $repassword =($repassword =="null")?null:$repassword;
        $agent = new Agent();
@@ -152,15 +169,18 @@ class AgentController  extends IController{
     {
         
         $agentModel = new AgentModel();
+         
         
         if($agentModel->IsFound($email,  AgentModel::BOTH))
          {
+            
              if(!$agentModel->IsActive($email,AgentModel::BOTH))
              {
+                 
                  // check if the code provided is validated
                  if($agentModel->IsVerificationCodeExist($email, $verifiedCode,AgentModel::BOTH))
                  {
-                    
+                 
                      $agentModel->SetActive($email,1,AgentModel::BOTH);
                  }
                 else {

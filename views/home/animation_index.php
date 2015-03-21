@@ -5,7 +5,7 @@ if (Session::get("seach_find") >0)
 {
     
 ?>
- <table width="100%">
+ <table  class="table table-datatable table-heading" style="margin:2px;">
                     <tr>
                      <th>S/N</th>
                      <th>Flight Name</th>

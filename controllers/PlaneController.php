@@ -14,11 +14,22 @@
 class PlaneController extends IController{
     //put your code here
     private $modelView= null;
+    private $db=null;
     function __construct() {        
         parent::__construct(new IModel(), new IView());
 		include_once("entities/plane.php");
                 include_once("models/PlaneModel.php");
                 include_once("modelviews/PlaneModelView.php");
+                
+                $this->db= new Database();
+                $this->db->createFields("planeID", "varchar(40)", "primary key");
+                $this->db->createFields("noofseats", "int", "not null");
+                $this->db->createFields("desc_note", "text", "");
+                $this->db->createFields("name", "varchar(40)","not null");
+                $this->db->createFields("status", "int","default 0");
+                $this->db->createTable("tbl_plane");
+              
+                
                 $this->modelView= new PlaneModelView();
     }
     

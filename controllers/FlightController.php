@@ -14,12 +14,28 @@
 class FlightController extends IController {
     //put your code here
    private   $flightModelView=null;
+   private $db= null;
+   
     function __construct() {
         parent::__construct(new IModel(), new IView());
         include_once("entities/Flight.php");
          include_once("models/FlightModel.php");
         include_once("modelviews/FlightModelView.php");
-        
+        $this->db= new Database();
+       
+        $this->db->createFields("from_where","varchar(40)", "not null");
+        $this->db->createFields("to_where","varchar(40)" ,"not null");
+        $this->db->createFields("landingDate","varchar(40)", "not null");
+        $this->db->createFields("BoardDate", "varchar(40)","not null");
+        $this->db->createFields("LandingTime", "varchar(30)","not null");
+        $this->db->createFields("BoardingTime", "varchar(30)","not null");
+        $this->db->createFields("noofstop", "int", "default 0");
+        $this->db->createFields("price", "double", "default 0.0");
+        $this->db->createFields("id","varchar(40)","primary key");
+        $this->db->createFields("seats","int", "default 0");
+        $this->db->createFields("planeID", "varchar(40)", "not null");
+        $this->db->createFields("status", "int","default 0");
+        $this->db->createTable("tbl_flight");
         $this->flightModelView= new FlightModelView();
     }
     

@@ -38,8 +38,17 @@ $pList= $model->planes->GetAllPlanes();
               <?php
                 $attr= new ArrayIterator();
                 $attr->offsetSet("method", "post");  
-                
+                if($model->seat->mode=="edit")
+                {
+                    ContextManager::BeginForm("Seat","Update",$attr); 
+                    $fieldsArray= new ArrayIterator();
+                    $fieldsArray->offsetSet("type", "hidden");
+                    $fieldsArray->offsetSet("value", $model->seat->id);
+                    
+                    ContextManager::HtmlInputField("txtid", $fieldsArray);
+                }else{
                 ContextManager::BeginForm("Seat","Create",$attr);
+                }
                
                 ?>
                         <div class="editor-field">
@@ -143,12 +152,24 @@ $pList= $model->planes->GetAllPlanes();
                        
                     </div>
                     <div class="editor-button">
+                        
+                        
                         <?php 
+                        if($model->seat->mode=="edit")
+                        {
+                            $paramInput= new ArrayIterator();
+                            $paramInput->offsetSet("class", "btn");
+                             $paramInput->offsetSet("type", "submit");
+                             $paramInput->offsetSet("value", "Update");
+                             ContextManager::HtmlInputField("btnUpdateSeat", $paramInput);
+                            
+                        }else{
                             $paramInput= new ArrayIterator();
                             $paramInput->offsetSet("class", "btn");
                              $paramInput->offsetSet("type", "submit");
                              $paramInput->offsetSet("value", "Add");
-                             ContextManager::HtmlInputField("btnSubmitAccount", $paramInput);
+                             ContextManager::HtmlInputField("btnCreateSeat", $paramInput);
+                        }
                        ?>
                     </div>
                 </div>

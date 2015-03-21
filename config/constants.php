@@ -1,7 +1,7 @@
 <?php
 
 //Host details
-define ("HOST_NAME","http://localhost/Flights/");
+define ("HOST_NAME","http://localhost/tickets/");
 //SMTP SERVER INFORMATIONS
 define ("SMTP_HOST","smtp.gmail.com");
 define ("SMTP_PASSORD","123456php");

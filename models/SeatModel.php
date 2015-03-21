@@ -26,12 +26,15 @@ class SeatModel {
     {
         if($this->db !=null && $this->seat !=null)
         {
-            $query = "select *from tbl_seat where (seatID=:id or seatNo=:number) and planeID=:planeId";
+            $query = "select *from tbl_seat where (seatID=:id OR seatNo=:number) and planeID=:planeId";
             $stmt= $this->db->prepare($query);
             $stmt->bindValue(":id",$this->seat->id);
              $stmt->bindValue(":number",$this->seat->seatNo);
              $stmt->bindValue(":planeId",$this->seat->planeID);
-            $stmt->execute();
+            $status= $stmt->execute();
+            if(!$status){
+                print_r($stmt->errorInfo());
+            }
             if($stmt->rowCount()>0)
             {
                 return true;

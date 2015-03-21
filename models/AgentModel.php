@@ -24,10 +24,14 @@ class AgentModel extends IModel{
     const EMAIL=0;
     const ID =1;
     
-    function __construct(Agent $model=null) {
+    function __construct(Agent $model=null,Database $db=null) {
         parent::__construct();
         $this->agent=$model;
-        $this->db= new Database();
+        $this->db= $db;
+        if($this->db ==null)
+        {
+            $this->db= new Database();
+        }
         
        
     }
@@ -49,7 +53,10 @@ class AgentModel extends IModel{
            
            try
            {
-              $stmt->execute();            
+             if(!$stmt->execute()) 
+             {
+                 print_r($stmt->errorInfo());
+             }
             if($stmt->rowCount()>0)
              {
                 return true;
@@ -257,7 +264,10 @@ class AgentModel extends IModel{
             $stmt= $this->db->prepare($query);
             $stmt->bindValue(":email", addslashes(strtolower(trim($email))));
             $stmt->bindValue(":code", addslashes(trim($sessionID))); 
-            $stmt->execute();
+           $status=  $stmt->execute();
+           if(!$status){
+            print_r($stmt->errorInfo());
+           }
             if($stmt->rowCount() > 0)
             {
                 return true;
@@ -276,11 +286,20 @@ class AgentModel extends IModel{
          $query ="select *from tbl_agent where id=:email and email=:email "; 
          $stmt= $this->db->prepare($query);
          $stmt->bindValue(":email", addslashes(strtolower(trim($email))));
-         $stmt->bindValue(":code", addslashes(trim($sessionID))); 
+         //$stmt->bindValue(":code", addslashes(trim($sessionID))); 
          $stmt->execute();
          
          $row= $stmt->fetch(PDO::FETCH_ASSOC);
-         return $row["email"];
+         
+              $agent = new Agent();
+               $agent->agentId=$row["id"];
+               $agent->firstname=$row["firstname"];              
+               $agent->lastname= $row["lastname"];
+               $agent->email= $row["email"];
+               $agent->phonenumber=$row["phone"];
+               $agent->status=$row["active"]; 
+               
+               return $agent;
        }
        return null;
     }

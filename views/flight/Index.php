@@ -31,7 +31,7 @@ $aplanes  = new PlaneModel();
                      $attr->offsetSet("method", "post");
                       ContextManager::BeginForm("Flight", "Modify", $attr);
                    ?>
-                <table width="100%">
+                <table width="100%" class="table">
                     <tr>
                     <th>S/N</th>
                     <th>Flight Name</th>

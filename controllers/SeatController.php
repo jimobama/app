@@ -15,13 +15,23 @@ class SeatController extends IController {
 
     //put your code here
     private $modelview = null;
+    private $db=null;
 
     function __construct() {
         parent::__construct(new IModel(), new IView());
         include_once("entities/seat.php");
         include_once("models/SeatModel.php");
         include_once("modelviews/SeatModelView.php");
-
+       $this->db= new Database();
+       $this->db->createFields("planeID", "varchar(40)", "not null");
+       $this->db->createFields("seatNo", "int", "");
+       $this->db->createFields("type", "varchar(40)", "");
+       $this->db->createFields("price", "double", "default 0.0");
+       $this->db->createFields("desc_note", "text", "");
+       $this->db->createFields("seatID", "varchar(40)", "primary key");
+       $this->db->createFields("status", "int", "default 0"); 
+       $this->db->createTable("tbl_seat");
+       
         $this->modelview = new SeatModelView();
     }
 
@@ -38,7 +48,7 @@ class SeatController extends IController {
         $this->modelview->seat = $seat;
         Session::set("selected_plane_id", $planeID);
         Session::set("type_plane", $type);
-        $model = new SeatModel($seat);
+        $model = new SeatModel($seat,$this->db);
 
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
@@ -86,6 +96,14 @@ class SeatController extends IController {
         }
 
         return $this->View($this->modelview, "Seat", "Index");
+    }
+    
+    
+    
+    public function Update($seatId, $planeID, $seatNo, $rate, $type, $Desc,$press=null)
+    {
+        echo $Desc;
+        return $this->View($this->modelview, "Seat","Index");
     }
 
 }

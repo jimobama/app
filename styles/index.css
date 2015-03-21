@@ -109,4 +109,11 @@ textarea {
     
 }
 
+table{
+    margin:2px;
+    padding:1px;
+}
 
+table td, table th{
+    font-size:2em;
+}
