@@ -18,5 +18,40 @@ class Database extends PDO{
             
     }//end functions
     
- 
+   public function createFields($name, $type, $constraints)
+       {
+           if(Validator::IsWord(trim($name)))
+           {
+                $fields ="$name  $type  $constraints";
+                $this->buildQuery($fields);
+           }
+           
+           
+       }
+       public function createTable($tablename)
+       {
+          $query= "Create Table If Not Exists $tablename (".$this->queryFields().")";        
+         
+          $stmt= $this->prepare($query);         
+         $abool= $stmt->execute();
+         if(!$abool)
+         {
+              print_r($stmt->errorInfo());
+         }
+        
+       }
+      
+     function buildQuery($field)
+     {
+         if(is_string($field))
+         {
+             $this->queryString= $this->queryString."$field ,";
+         }
+     }
+     function  queryFields()
+       {
+           $this->queryString = trim( $this->queryString,",") ;
+           return  $this->queryString;
+       }
+       
 }//end

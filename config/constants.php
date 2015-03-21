@@ -7,7 +7,7 @@ define ("SMTP_HOST","smtp.gmail.com");
 define ("SMTP_PASSORD","123456php");
 define ("SMTP_EMAIL_ACCOUNT","phpticket123@gmail.com");
 define ("SMTP_PORT",587);
-
+define ("CREDIT_CARD_API","https://developer.visa.com/vpp/documents/json/Visa_Direct_API.html");
 
 define("DEFAULT_LOAD_CONTROLLER", "Home");
 define("DEFAULT_ACTION","Index");
