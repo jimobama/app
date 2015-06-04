@@ -37,8 +37,9 @@ class SeatController extends IController {
 
     function Index() {
         $this->ViewBag("Title", "Seats");
-
-        return $this->View(null, "Seat", "Index");
+        $this->ViewBag("Controller","Seat");
+        $this->ViewBag("Page","Index");
+        return $this->View(null, "Account", "Index");
     }
 
     function Create($planeID, $seatNo, $rate, $type, $Desc, $buttonPressed = null) {
@@ -65,7 +66,11 @@ class SeatController extends IController {
                 ContextManager::ValidationFor("warning", $seat->getError());
             }
         }
-        return $this->View($this->modelview, "Seat", "Index");
+        
+        $this->ViewBag("Title", "Seats");
+        $this->ViewBag("Controller","Seat");
+        $this->ViewBag("Page","Index");  
+        return $this->View($this->modelview, "Account", "Index");
     }
 
     function Modify() {
@@ -95,7 +100,10 @@ class SeatController extends IController {
             }
         }
 
-        return $this->View($this->modelview, "Seat", "Index");
+        $this->ViewBag("Title", "Seats");
+        $this->ViewBag("Controller","Seat");
+        $this->ViewBag("Page","Index");       
+        return $this->View($this->modelview, "Account", "Index");
     }
     
     
@@ -121,7 +129,12 @@ class SeatController extends IController {
         
         $model->Update();        
         $this->modelview->seatModel=$model;
-        return $this->View($this->modelview, "Seat","Index");
+        
+       $this->ViewBag("Title", "Seats");
+        $this->ViewBag("Controller","Seat");
+        $this->ViewBag("Page","Index");       
+        return $this->View($this->modelview, "Account", "Index");
+        
     }
 
 }

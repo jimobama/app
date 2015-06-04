@@ -53,7 +53,9 @@ class Request  {
          
          if( $this->_request_array->valid())
          {
-          $action = $this->_request_array->current(); 
+          $action = $this->_request_array->current();
+          
+          
           $this->loadParams();         
          }else
          {

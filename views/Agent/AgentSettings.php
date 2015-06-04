@@ -1,21 +1,3 @@
-<?php
-$userList = ContextManager::$Model->agentList;
-if($userList !=null && is_a($userList,"ArrayIterator"))
- {
-    $userList=ContextManager::$Model->agentList;
- }  else {
-    $userList= new ArrayIterator();
-}
-?>
-
-<link href="styles/dash_board.css" rel="stylesheet" type="text/css" /> 
-
-
-
-<div id='dash-board-wrapper' class="row">
-    
-     
-    
     <div class="col-lg-8">
         <div class='dash-board'>
         <fieldset>
@@ -87,21 +69,3 @@ if($userList !=null && is_a($userList,"ArrayIterator"))
         
         
     </div>
-    
-    <div id='profile_wrapper' class="col-lg-4">
-     <?php ContextManager::PartialView("Create", "Agent");
-     
-        ContextManager::PartialView("Create");
-     ?>
-    </div>
-    
-    
-    <div class="operation_panel" >
-    
-    
-    
-    </div>
-    
-  
-    
-</div>

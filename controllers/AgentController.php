@@ -18,8 +18,9 @@ class AgentController  extends IController{
        $this->db->createFields("email", "varchar(40)", "not null");
         $this->db->createFields("phone", "varchar(17)", "not null");
          $this->db->createFields("firstname", "varchar(20)", "not null");
-       $this->db->createFields("lastname", "varchar(20)", "not null");
-       $this->db->createFields("password", "varchar(50)", "not null");
+        $this->db->createFields("lastname", "varchar(20)", "not null");
+        $this->db->createFields("password", "varchar(50)", "not null");
+        $this->db->createFields("date_registered", "varchar(50)", "not null");
         $this->db->createFields("active", "int", "");
        $this->db->createFields("id", "varchar(40)", "primary key");
        $this->db->createFields("status", "int", "default 1");
@@ -32,9 +33,13 @@ class AgentController  extends IController{
     function Index()
     {
          $this->ViewBag("Title", "Mgr Booking");
-         return $this->View(null,"Agent","Create");
+         return $this->ReDirectTo("Agent","Create");
     }
        
+    function ForgetPassword($email_address=null)
+    {
+        return $this->View(null, "Agent", "ForgetPassword");
+    }
     function LoginForm()
     {
         $this->ViewBag("Title","Log in");
@@ -87,9 +92,8 @@ class AgentController  extends IController{
     }
     function Create($email,$firstname,$lastname,$phone,$password,$repassword,$sendButton=null)
     {
-        if(Session::get("db_username")==null || Session::get("db_username")=="")
-            return $this->ReDirectTo("Index","Index");
-       
+  
+      
        $repassword =($repassword =="null")?null:$repassword;
        $agent = new Agent();
        $agent->set($firstname,$lastname,$email,$phone,$password);
@@ -103,7 +107,7 @@ class AgentController  extends IController{
           if($password != $repassword)
           {
                  Session::set("warning"," Password mis-matched, re-enter passwords again!");
-                 return $this->View($this->agentModelView,"Agent","Index");
+                 return $this->View($this->agentModelView,"Agent","Create");
           }
          else {
           
@@ -157,14 +161,18 @@ class AgentController  extends IController{
             Session::set("warning", $agent->getError()); 
        }
         
-         return $this->View($this->agentModelView,"Account","Index"); 
-      
-        
-       
+      return $this->View($this->agentModelView,"Agent","Create"); 
+     }
+    
+    
+     function Profile()
+     {
+         return $this->View(null, "Agent","Profile");
+     }
+    function CreateAgent()
+    {
+        return $this->View(null, "Agent","CreateAgent");
     }
-    
-    
-    
     function VerifyUser($email,$verifiedCode)
     {
         

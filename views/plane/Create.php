@@ -22,14 +22,11 @@ $model = ContextManager::$Model;
     
     })
 </script>
-<div class="form">
 
-        <fieldset>
-            <h2>Add Aeroplane Informations</h2>
-            <div cass="control-wrapper">
-              <?php
+  <?php
                 $attr= new ArrayIterator();
                 $attr->offsetSet("method", "post");  
+                $attr->offsetSet("class", "form form-horizontal");  
                 if( $model->plane->mode !='edit')
                 {
                 ContextManager::BeginForm("Plane","Create",$attr);
@@ -42,65 +39,47 @@ $model = ContextManager::$Model;
                      ContextManager::HtmlInputField("id", $attrFlied);
                 }
                
-                ?>
-                        <div class="editor-field">
+                
+ ?>
+<div class='title'>Add new plane...</div>
+                        <div class="form-group">
                               
                             <?php  ContextManager::ValidationFor("warning");?>                               
                         </div>
                 
-                 <div class="control">
-                    <div class="editor-label">
-                        <label>Name/Title</label>
-                    </div>
-                    <div class="editor-field">
-                        <input type="text" name ="txtplane" id="txtplane" value="<?php echo $model->plane->name ?>"/>
-                        
-                        <span id="txtForm" class="error-reporter"> </span>
-                    </div>
+                 <div class="form-group inline-fields sm-1">
+                  <label>Name/Title</label>                   
+                  <input type="text"  class='form-control' name ="txtplane" id="txtplane" value="<?php echo $model->plane->name ?>"/>
+                    
                 </div>
                 
                 
-                <div class="control">
-                    <div class="editor-label">
-                        <label>Total Seats</label>
-                    </div>
-                    <div class="editor-field">
-                        <input type="text" class="small" name ="txtseats" id="txtseats" value="<?php echo $model->plane->seats ?>" />
-                        <span id="txtForm" class="error-reporter"> </span>
-                    </div>
+                <div class="form-group inline-fields sm-2">
+                    
+                   <label>Total Seats</label>
+                    <input type="number" class="form-control" name ="txtseats" id="txtseats" value="<?php echo $model->plane->seats ?>" />
+                     
                 </div>
-                <div class="control">
-                    <div class="editor-label">
-                         <label>Description</label>
-                    </div>
-                    <div class="editor-field">
-                        <textarea name='txtaDesc' ><?php echo $model->plane->desc ?></textarea>
-                          <span id="txtTo" class="error-reporter"> </span>                      
-                    </div>
+                <div class="form-group inline-fields sm-1">
+                 <label>Description</label>
+                  <textarea name='txtaDesc' class='form-control' ><?php echo $model->plane->desc ?></textarea>
                 </div>
+                    
 
-            
-             
-                </div>
-             
-
-
-                <div class="control">
-                    <div class="editor-space">
-                       
-                    </div>
-                    <div class="editor-button">
+               
+               <div class="form-group inline-fields button">
                         <?php 
+                         $paramInput= new ArrayIterator();
+                          $paramInput->offsetSet("class", "btn btn-primary");
                           if( $model->plane->mode !='edit')
                           {
-                             $paramInput= new ArrayIterator();
-                             $paramInput->offsetSet("class", "btn");
+                            
                              $paramInput->offsetSet("type", "submit");
                              $paramInput->offsetSet("value", "Add");
                              ContextManager::HtmlInputField("btnSubmitAccount", $paramInput);
                           }  else {
-                             $paramInput= new ArrayIterator();
-                             $paramInput->offsetSet("class", "btn");
+                            
+                            
                              $paramInput->offsetSet("type", "submit");
                              $paramInput->offsetSet("value", "Save Changes");
                              ContextManager::HtmlInputField("btnSaveChanages", $paramInput); 
@@ -109,10 +88,12 @@ $model = ContextManager::$Model;
                     </div>
                 </div>
                 
-                <?php ContextManager::EndForm() ?>
-             </fieldset>
-            </div>
+<?php ContextManager::EndForm() ?>
+            
 
      
 
+ <?php
+  include_once("index.php");
+ ?>               
 

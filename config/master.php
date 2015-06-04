@@ -6,7 +6,7 @@ require_once("app_data/DbConstants.php");
 require_once("app_data/Database.php");
 include_once("config/constants.php");
  require_once("api/qrbarcode/Image/QRCode.php");
-include_once("Image/Barcode.php");
+//include_once("Image/Barcode.php");
 
 
 class GlobalMaster
@@ -43,6 +43,7 @@ class GlobalMaster
             
             //set it again
             self::$include_global->offsetSet($view_name,$controller_name);
+             
         }
     }
     
@@ -68,12 +69,12 @@ class GlobalMaster
                $object->seek($var);
                $attr = $object->key();
                $value = $object->current();
-               $attributes = $attributes." $attr='$value'";
+               $attributes = $attributes."&$attr='$value'";
            }
         }
          $_website = \filter_input(INPUT_SERVER,"HTTP_HOST");
          
-        $strLink= "<a href='$_website/".URL."=$controller&action=$actionmethod'  $attributes >$title</a>";
+        $strLink= "<a href='".URL."=$controller&action=$actionmethod&$attributes >$title</a>";
        return $strLink;
         
     }
@@ -127,7 +128,7 @@ class GlobalMaster
            }
         }
         
-        $strLink= "<labe name='$name' id='$name'  $attributes >$label</label>";
+        $strLink= "<label name='$name' class='$name'  $attributes >$label</label>";
         echo html_entity_decode($strLink);
     }
     public static function BeginForm($controller,$action, ArrayIterator $object=null)
@@ -233,17 +234,14 @@ class GlobalMaster
      
     
 }
-include_once("entities/object.php");
-
-
+include_once("entities/Object.php");
 include_once("config/Response.php");
 include_once "config/request.php";
 include_once "config/IContextView.php";
-include_once "helpers/iview.php";
-include_once "helpers/icontroller.php";
-include_once "models/imodel.php";
+include_once "helpers/IView.php";
+include_once "helpers/IController.php";
+include_once "models/IModel.php";
 include_once "helpers/Validator.php";
-
-include_once("entities/agent.php");
+include_once("entities/Agent.php");
 
 

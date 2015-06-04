@@ -8,7 +8,7 @@ class Database extends PDO{
         $this->queryString="";
         try
         {
-        parent::__construct("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USERNAME, DB_PASSWORD);
+         parent::__construct("mysql:host=".DB_HOST.";dbname=".DB_NAME, DB_USERNAME, DB_PASSWORD);
         }
         catch(PDOException $err)
         {

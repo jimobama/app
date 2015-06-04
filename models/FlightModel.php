@@ -19,10 +19,11 @@ class FlightModel extends IModel {
     function __construct(Flight $flight=null,Database $db=null) {
         parent::__construct();
         $this->flight=$flight;
-        if($db ==null){
-        $this->db= new Database();
+        if($db == null){
+            $this->db= new Database();
+        }else{
+            $this->db=$db;
         }
-        $this->db=$db;
     }
     
     public function Rollback($id=null)
@@ -152,6 +153,7 @@ class FlightModel extends IModel {
     
     public function GetFlightById($indexID)
     {
+        
         if($this->db !=null)
         {
              $query = "select * from tbl_flight  where  id= :id";

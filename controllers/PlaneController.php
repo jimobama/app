@@ -36,9 +36,19 @@ class PlaneController extends IController{
     function Index()
     {
          $this->ViewBag("Title", "Plane");
-        return $this->View(null,"Plane","Index");
+          $this->ViewBag("Controller", "Plane"); 
+         $this->ViewBag("Page", "Index");
+        return $this->View(null,"Account","Index");
     }
 	
+    function addNew()
+    {
+        $this->ViewBag("Title", "Add Plane");
+        $this->ViewBag("Controller", "Plane");
+        $this->ViewBag("Page", "Create");
+        
+       return $this->View(null,"Account","Index"); 
+    }
 	function Create($name,$seats,$description,$buttonPress)
 	{      
 		
@@ -73,8 +83,10 @@ class PlaneController extends IController{
                      ContextManager::ValidationFor("warning",$plane->getError());
                    }
 		 
-		
-		 return $this->View($this->modelView,"Plane","Index");
+	$this->ViewBag("Title", "Add Plane");
+        $this->ViewBag("Controller", "Plane");
+        $this->ViewBag("Page", "Index");
+	return $this->View($this->modelView,"Account","Index");
 	}
         
         
@@ -110,7 +122,11 @@ class PlaneController extends IController{
             }
         }
         
-        return $this->View($this->modelView,"Plane","Index");
+        $this->ViewBag("Title", "Modify Plane");
+        $this->ViewBag("Controller", "Plane");
+        $this->ViewBag("Page", "Index");
+	return $this->View($this->modelView,"Account","Index");
+       
      }
      
      
@@ -138,6 +154,9 @@ class PlaneController extends IController{
              ContextManager::ValidationFor("warning",$this->modelView->plane->getError());
          }
                   
-         return $this->View($this->modelView,"plane", "index");
+        $this->ViewBag("Title", "Save Changes");
+        $this->ViewBag("Controller", "Plane");
+        $this->ViewBag("Page", "Index");
+	return $this->View($this->modelView,"Account","Index");
      }
 }

@@ -1,190 +1,105 @@
+	.form 
+	{
+		border:1px solid #bbb;
+		min-height:200px;
+		box-shadow:0px 1px 0px #000;
+		border-radius:10px;
+		padding:0px;
+		margin:auto;	
+		overflow:hidden;
+		
+	}
+	.form .title
+	{
+		background-color:#eee;
+		min-height:2.1em;
+		font-weight:bold;
+		text-align:center;
+		font-size:1.6em;
+		border-top-left-radius:10px;
+		border-top-right-radius:10px;
+		text-shadow:0px 1px 1px #000;
+		box-shadow:0px 0px 1px #000;
+		width:100%;
+		
+		
+	}
+	.form .field 
+	{
+		padding:0;
+		margin:1.2em 1em 1em 0em;		
+		overflow:hidden;
+		border:1px solid #bbb;		
+		border-radius:5px;
+		border-top:1px solid #E8E8E8;
+		
+	}
+	
+	.form .field input[type='text'],.form .field input[type='password']
+	{
+		height:2.8em;	
+		display:block;
+		width:100%;
+		margin:0 auto;
+		border:0px;
+		font-size:1.01em;
+		padding:0.1em 2em 0px 1em ;
+		
+		
+	}
+	
+	.no-trace{
+		border:0px ;
+		box-shadow:0px 0px  0px #000;
+		border-radius:0px;
+		
+	}
+	.form .label 
+	{
+		border:0px;
+		box-shadow:0px 0px 0px #000;
+		margin:0em 0em 0em 2em;
+	}
+	.form .button{
+		border:0px;
+		box-shadow:0px 0px 0px #000;
+		margin:0em;
+				
+	}
+	
+	.form .button input, .form .button button
+	{
+		width:25%;
+		height:2.8em;
+		border-radius:2px;
+		padding:1em;
+		box-shadow:0em 0em 3em solid #000;
+		text-align:center;
+		font-size:17px;
+	}
+	
+	.form .phonenumber input[type='text'],.form .phonenumber input[type='password']
+	{
+		
+		width:15%;
+		border-right:1px 	solid #eee;	
+		float:left;
+		
+	}
+	.form .phonenumber input[type='text'].first
+	{
+		width:5%;
+		
+	}
+	
+	.form .phonenumber input[type='text'].fourth
+	{
+		width:25%;	
+	}
+	
 
-.form
-{
-    border:0px solid #eee;
-    border-radius:2px;
-    min-height:100px;
-    min-width:200px;
-    margin:10px 0 10px 0;
-    overflow:hidden;    
-    margin:0 auto;
-    font-size:10px;
-}
-.form fieldset
-{
-   margin:0;
-   padding:10px;
-   border:0px solid #eee;
-    border-radius:5px;
-   box-shadow: 0px 0px 0px #000;
-}
-.form legend,.form h2{
-   padding:10px;
-   background-color:#eee;
-   border-radius:5px;
-   margin:0;
-   font-size:15px;
-   
-}
-
-.form .control-wrapper
-{
-    overflow:hidden;
-    margin:0 auto;
-}
-.control-collection-horizontal 
-{
-    display:block;
-     border:0px solid #000;
-     overflow:hidden;
-
-}
-
-.control-collection-horizontal  .control
-{
-    float:right;
-    padding:5px;
-   
-}
-
-.control-collection-horizontal  .control .editor-label
-{
-    margin:0  10px 0 10px;
-}
-.form  .control
-{    
-    border:0px solid #000;
-    padding:2px 10px 2px 2px;
-    overflow:hidden;
-
-}
-.form  .control .editor-label,.form  .control .editor-space
-{
-    overflow:hidden;
-    display:inline;
-    border:0px solid #000;
-   
-}
-
-.form  .control .editor-label label
-{
- font-weight:100;
-}
-.form  .control .editor-field
-{
-    float:right;
-    overflow:hidden;
-    border:0px solid #000;
-    min-height:30px;
-   
-}
-
-.form  .control .editor-field .field-validation-error,.form  .control .editor-field span
-{
-    color:#943737;
-    display:block;
-    font-size:10px;
-    text-align: center;
-}
-
-.error{
-   padding:4px;
-   color:#943737;
-    display:block;
-    font-size:10px;
-    text-align: center;
-}
-.form .control .editor-field input[type='text'],
-.form .control .editor-field input[type='password'],
-.form .control .editor-field input[type='tel'] 
- {
-   border:1px solid #ebe4e4;
-     
-   min-height:28px;
-}
-
-.form .control .editor-field input[type='text'].small,
-.form .control .editor-field input[type='password'].small,
-.form .control .editor-field input[type='tel'].small{
-  width:100px;  
-} 
-.form .control .editor-field input[type='text']:focus,
-.form .control .editor-field input[type='password']:focus,
-.form .control .editor-field input[type='tel']:focus
-{
-  
-   cursor:text; 
-   border:0;
-   border-top:1px solid #cddef6;
-   box-shadow:0px 0px 3px #000 ; 
-   background: #f8f6f6;
-   font-size-adjust:initial;
-   font-style:inherit;
-   font-size:1.4em;
-   padding:4px;
-   width:200px;   
-}
-
-
-.form .control .editor-field input[type='text'].small:focus,
-.form .control .editor-field input[type='password'].small:focus,
-.form .control .editor-field input[type='tel'].small:focus
-{
-  
-   cursor:text; 
-   border:0;
-   border-top:1px solid #cddef6;
-   box-shadow:0px 0px 3px #000 ; 
-   background: #f8f6f6;
-   font-size-adjust:initial;
-   font-style:inherit;
-   font-size:1.4em;
-   padding:4px;
-   width:100px;   
-}
- select 
- {
-   border:1px solid #ebe4e4;
-    width:200px;  
-   height:25px;
-}
- select:focus
- {
-   cursor:text; 
-   border:0;
-   border-top:1px solid #cddef6;
-   box-shadow:0px 0px 3px #000 ; 
-   background: #f8f6f6;
-   font-size-adjust:initial;
-   font-style:inherit;
-   font-size:1.4em;
-   padding:4px;
-   width:202px;    
- }
-                             
-.form .control .editor-button input[type='submit'],
-.form .control .editor-button button
-{
-    float:right;
-    padding:5px;
-    margin:5px 0 0 0;
-    border:1px solid #eee;
-   
-    border-radius: 5px;
-    min-width:100px;
-    background-color:#eee;
-}
-
-.form .control .editor-button input[type='submit']:hover,
-.form .control .editor-button button:hover
-{
-     
-     cursor:pointer;
-     font-weight:bold;
-    
-}
-
-.note-wrapper
+        
+.form .note
 {
     padding:5px;
     font-size:9px;

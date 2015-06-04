@@ -281,27 +281,31 @@ class AgentModel extends IModel{
     
    function GetAccountEmail($email)
     {
+       $agent = null;
        if($this->IsFound($email))
        {
-         $query ="select *from tbl_agent where id=:email and email=:email "; 
+         $query ="select *from tbl_agent where id=:email or email=:email "; 
          $stmt= $this->db->prepare($query);
          $stmt->bindValue(":email", addslashes(strtolower(trim($email))));
          //$stmt->bindValue(":code", addslashes(trim($sessionID))); 
-         $stmt->execute();
-         
-         $row= $stmt->fetch(PDO::FETCH_ASSOC);
-         
-              $agent = new Agent();
+        $status= $stmt->execute();    
+        if(!$status)
+        {
+            print_r($stmt->errorInfo());
+            return null;
+        }
+               $row= $stmt->fetch(PDO::FETCH_ASSOC);                
+               $agent=   new Agent();              
                $agent->agentId=$row["id"];
                $agent->firstname=$row["firstname"];              
                $agent->lastname= $row["lastname"];
                $agent->email= $row["email"];
                $agent->phonenumber=$row["phone"];
                $agent->status=$row["active"]; 
-               
+                $agent->date_reqistered=$row["date_registered"]; 
                return $agent;
        }
-       return null;
+       return $agent;
     }
     function DeleteAgent($email)
     {

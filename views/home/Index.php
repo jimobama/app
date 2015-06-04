@@ -6,20 +6,20 @@
 <link href="styles/home.css" rel="stylesheet" type="text/css" />
 
 
-<div id="home-index">
+
 <script>   
 
 </script> 
-<div id="demo"></div>
- <div id="index-context" class="row">
+
+<div  class="row">
     
-<div id="index-left-context" class="col-lg-4">   
+<div  class="col-lg-4 search-panel">   
   <?php require_once("search_flight.php"); ?>   
 </div>
      
-     <div id="index-right-context" class="col-lg-8">   
-<?php require_once("animation_index.php"); ?>
+<div  class="col-lg-6" >   
+<?php 
+ ContextManager::Display($this->ViewBag("Controller"), $this->ViewBag("Page"));
+?>
 </div>
  </div>
-
-</div>

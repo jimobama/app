@@ -21,8 +21,7 @@ class FlightController extends IController {
         include_once("entities/Flight.php");
          include_once("models/FlightModel.php");
         include_once("modelviews/FlightModelView.php");
-        $this->db= new Database();
-       
+        $this->db= new Database();       
         $this->db->createFields("from_where","varchar(40)", "not null");
         $this->db->createFields("to_where","varchar(40)" ,"not null");
         $this->db->createFields("landingDate","varchar(40)", "not null");
@@ -46,8 +45,13 @@ class FlightController extends IController {
        $listOfFlights = $flightModel->GetAllFlights();
        $this->flightModelView->flightList=$listOfFlights ;
        
-        return $this->View($this->flightModelView,"Flight","Index");
+      $this->ViewBag("Title","Flight List");
+      $this->ViewBag("Controller","Flight");
+      $this->ViewBag("Page","Index");
+       
+        return $this->View($this->flightModelView,"Account","Index");
     }
+
     
    public  function Create($planeId,$from,$to,$depatureDate,$landingDate,$boardingtime,$landingTime,$noOfStops,$ticketPrice,$option=null)
     {
@@ -60,9 +64,11 @@ class FlightController extends IController {
           $flightModel = new FlightModel($flight,$this->db);
           $this->flightModelView->flight= $flight;
           
-         Session::set("modifier_plane",$planeId);
+      Session::set("modifier_plane",$planeId);
           
-        
+      $this->ViewBag("Title","New Flight");
+      $this->ViewBag("Controller","Flight");
+      $this->ViewBag("Page","Create");
         
         if(isset($option) && $option !='null')
         {
@@ -105,10 +111,13 @@ class FlightController extends IController {
         }
        $listOfFlights = $flightModel->GetAllFlights();
        $this->flightModelView->flightList=$listOfFlights ;          
-       return  $this->View($this->flightModelView,"Flight","Index");
+       return  $this->View($this->flightModelView,"Account","Index");
     }
     
-    
+    function Destinations()
+    {
+        return $this->View(null, "Flight", "Destination");
+    }
     function Modify()
     {
         $checkboxes = Request::RequestParams("chkflights");
@@ -116,7 +125,7 @@ class FlightController extends IController {
         $btnDelete = Request::RequestParams("btnDelete");
         
         $flightModel= new FlightModel();
-      
+          
         
       if(isset( $checkboxes))
       {
@@ -144,7 +153,11 @@ class FlightController extends IController {
            
       }
        $this->flightModelView->flightList=$flightModel->GetAllFlights();
-       return $this->View($this->flightModelView,"Flight","Index");
+        $this->ViewBag("Title","New Flight");
+      $this->ViewBag("Controller","Flight");
+      $this->ViewBag("Page","Index");
+      
+       return $this->View($this->flightModelView,"Account","Index");
     }
     
     
@@ -188,13 +201,82 @@ class FlightController extends IController {
     }
     
     
-    function Search($returnType, $from,$to,$depatureDate,$ReturnDate,$ticketClass, $price,$adult,$child,$press=null)
+    function Search()
     {
+         $arry = new ArrayIterator();
+     
+          $chkOptionType = Request::RequestParams("rbticketType");
+          $txtForm=Request::RequestParams("txtForm");
+          $txtTo=Request::RequestParams("txtTo");
+          $txtDepatureDate=Request::RequestParams("txtDepatureDate");
+          $txtreturndate=Request::RequestParams("txtreturndate");
+          $sltflight=Request::RequestParams("sltflight");
+          $sltTicketType=Request::RequestParams("sltTicketType");
+          $txtadults=Request::RequestParams("txtadults");
+          $txtchildren=Request::RequestParams("txtchildren");
+       
+          Session::set("children",$txtchildren);
+          Session::set("adults",$txtadults);
         if($_SERVER["REQUEST_METHOD"]=="POST")
         {
-           Session::set("seach_find",3);
+           //search on flights base on the given informations
+            
+            $this->db= new Database();
+            $statement="select *from tbl_flight where to_where =:to_where or from_where=:from_where or "
+                    . " landingDate =:landingDate or BoardDate =:BoardDate or BoardingTime =:BoardingTime or "
+                    . " price =:price ";
+                  
+            $smt= $this->db->prepare($statement);
+            $smt->bindValue(":to_where", $txtTo);
+            $smt->bindValue(":from_where", $txtForm);
+            $smt->bindValue(":landingDate", $statement);
+            $smt->bindValue(":BoardDate", $txtDepatureDate) ;       
+            $smt->bindValue(":BoardingTime",$txtreturndate)  ;
+            $smt->bindValue(":price", $statement)  ;
+           $status=  $smt->execute();
+           if(!$status)
+           {
+               print_r($smt->errorInfo());
+           } 
+           //get all the results
+         //  $flight= new Flight();
+           Session::set("Searching","1");
+           $counter=0;
+           while($row = $smt->fetch(PDO::FETCH_ASSOC))
+           {
+              $flight = new Flight();
+              $flight->Id=$row["id"];
+              $flight->Landingtime=$row["LandingTime"];              
+              $flight->boardingTime= $row["BoardingTime"];
+              $flight->deptureDate= $row["BoardDate"];
+              $flight->from=$row["from_where"];
+              $flight->landindDate=$row["landingDate"]; 
+              $flight->stops=$row["noofstop"];
+              $flight->ticketPrice=$row["price"];
+              $flight->to=$row["to_where"];
+              $flight->seats=$row["seats"]; 
+             $flight->status=$row["status"]; 
+              $flight->planeID=$row["planeID"]; 
+              $arry->offsetSet($counter,$flight);
+              $counter++;
+           }
         }
-        return $this->View($this->flightModelView,"Home","Index");
+        
+       $this->ViewBag("Title", "Search");
+       $this->ViewBag("Controller", "Flight");
+       $this->ViewBag("Page", "SearchFlights");
+       $this->flightModelView->flightList= $arry;
+       
+       
+       return $this->View($this->flightModelView,"Home","Index");
     }
+    
+    
+    function TimesTable()
+    {
+        return $this->View(null, "Flight", "TimesTable");
+    }
+    
+    
 }
 

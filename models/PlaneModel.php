@@ -193,6 +193,43 @@ class PlaneModel extends IModel {
         return "...";
         
   }
+  
+  function getHighestPrice($id)
+  {
+       if($this->IsIDExists($id))
+        {
+           $query= "select max(price) as maxprice from tbl_seat where planeID=:id " ;
+           $stmt= $this->db->prepare($query);
+           $stmt->bindValue(":id",  trim($id));           
+           $stmt->execute();
+           
+           if($stmt->rowCount()>0)
+           {
+               $row= $stmt->fetch(PDO::FETCH_ASSOC);
+               return $row["maxprice"];
+           }
+        }
+        return "...";
+  }
+  
+  
+  function getLowerPrice($id)
+  {
+       if($this->IsIDExists($id))
+        {
+           $query= "select min(price) as minprice from tbl_seat where planeID=:id " ;
+           $stmt= $this->db->prepare($query);
+           $stmt->bindValue(":id",  trim($id));           
+           $stmt->execute();
+           
+           if($stmt->rowCount()>0)
+           {
+               $row= $stmt->fetch(PDO::FETCH_ASSOC);
+               return $row["minprice"];
+           }
+        }
+        return "...";
+  }
 }
 
 

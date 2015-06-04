@@ -49,3 +49,10 @@
 table th,table tr th{
     text-align:center;
 }
+
+
+.page .agent-form
+{
+    
+    border:1px solid #000;
+}

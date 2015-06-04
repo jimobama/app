@@ -35,7 +35,7 @@
      
      
 //display the view 
-     public final function View($model=null, $controller=null, $actions=null)
+     public final function View($model=null, $controller=null, $actions=null,$subpage=null)
        {
          if($model ==null)
          {
@@ -43,14 +43,15 @@
          }
          if($this->context==null)
          {
-             $this->context= new IContextView($model,$controller,$actions);
+             $this->context= new IContextView($model,$controller,$actions,$subpage);
          }  else
          {
-         $this->context->attach($model,$controller,$actions);  
+            $this->context->attach($model,$controller,$actions,$subpage);  
          }
          
          return $this->context;
        }
+       
     public final function ViewBag($key=null,$value=null) 
     { 
         if($this->context !=null){
@@ -59,9 +60,14 @@
         return null;
     }
     
-    public final function ReDirectTo($controller,$action)
+    public final function ReDirectTo($controller,$action,$subpage=null)
     {
+        if($subpage==null){
          header("Location:" . URL . "=$controller&action=$action");
+        }else
+        {
+         header("Location:" . URL . "=$controller&action=$action&subpage=$subpage");
+        }
     }
     
  }

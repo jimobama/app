@@ -1,16 +1,16 @@
 
 
-<div id="form-ref-search">
     
-    <form class="ui-content modal-dialog">
-        <fieldset>
-            <legend>Search my booking</legend>
-            <div class='ui-content'>
-                
-                <div class ='form-group'>
-                    
-                    <label id='lblreferenceNo'>Reference Number:</label>
-                    <input class ='form-control' type='text' name='txtref'>
+   <?php 
+     $parem = new ArrayIterator();
+     $parem->offsetSet("class", "form form-horizontal form-wrapper form-4-sm");
+     ContextManager::BeginForm("Booking", "SearchByRef",$parem);
+   ?>
+           <div class="panel title">Search my booking</div>
+            
+            <div class='form-group'>
+                <label id='lblreferenceNo'>Reference Number:</label>
+                <input class ='form-control' type='text' name='txtref'>
                 </div>
                 <div class ='form-group'>
                     
@@ -18,14 +18,13 @@
                     <input class ='form-control' type='text' name='fullname'>
                 </div>
                 
-                <div class ='form-group'>
-                    
-                   
-                    <input class ='form-control' type='submit' value="Search" name='btnSubmit'>
+                <div class ='form-group'>                    
+                   <input class ='btn btn-primary' type='submit' value="Search" name='btnSubmit'>
                 </div>
-            </div>
+      
             
-        </fieldset>
-    </form>
-    
+   
+   <?ph 
+    ContextManager::EndForm();
+   ?>
 </div>

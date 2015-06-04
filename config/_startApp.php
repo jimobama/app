@@ -22,9 +22,9 @@ class  ContextManager extends GlobalMaster
    
     public static function StartApplication()
     {
-         Session::init();
+     
         self::Initialised();
-       //self::$_viewBag= new ArrayObject(); 
+        //self::$_viewBag= new ArrayObject(); 
         self::$request = new Request();
         self::$context =new IContextView() ;
         self::_process();        
@@ -108,7 +108,8 @@ class  ContextManager extends GlobalMaster
   {
       if(is_a(self::$context, "IContextView"))
         {
-            self::$context->View();     
+            self::$context->View();
+            
         }
         else 
         {       
@@ -140,5 +141,16 @@ class  ContextManager extends GlobalMaster
     }
     }
     
+   
     
+    static function Display($controller,$page)
+    {
+        $_view  = new IContextView();
+       if($_view->isExist($controller,$page))
+       {
+           $_view->display($controller,$page);
+       }else{
+          $_view->display($controller,DEFAULT_ERROR_VIEW);
+       }
+    }
 }

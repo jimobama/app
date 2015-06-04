@@ -13,26 +13,29 @@ $aplanes  = new PlaneModel();
 <link href="styles/dash_board.css" rel="stylesheet" type="text/css" /> 
 
 
-<?php include_once("views/Account/menu_list.php"); ?>
+
 <div id='dash-board-wrapper' class="row">
     
      
     
-    <div class="col-lg-8">
-        <div class='dash-board'>
-        <fieldset>
-            <legend>Flights: 
-           <?  ContextManager::ValidationFor("warning-l"); ?>
-            </legend>            
-            
-            <div id='dash-context'>
+    <div class="col-lg-12">
+        
+      <div id='container'>
+                
+           <div class='title'>
+       
+             Flight List :
+              <?  ContextManager::ValidationFor("warning-l"); ?>
+            </div>   
+                
+                
               <?php
                      $attr= new ArrayIterator();
                      $attr->offsetSet("method", "post");
                       ContextManager::BeginForm("Flight", "Modify", $attr);
                    ?>
-                <table width="100%" class="table">
-                    <tr>
+                <table width="100%" class="table  table-heading borderless">
+                    <tr class ="">
                     <th>S/N</th>
                     <th>Flight Name</th>
                     <th>Source</th>
@@ -92,14 +95,14 @@ $aplanes  = new PlaneModel();
                     
                 </table>
                 <div id="btn_panel_modifier">
-                  <input type="submit" value="Edit/Modify" name="btnEdit"/>
-                   <input type="submit" value="Delete" name="btnDelete"/>
+                  <input type="submit" class="btn btn-primary" value="Edit/Modify" name="btnEdit"/>
+                   <input type="submit" class="btn btn-primary" value="Delete" name="btnDelete"/>
                 </div>
                 
             <?php ContextManager::EndForm()?>
             </div>
             
-        </fieldset>    
+      
         
        </div>   
         
@@ -111,20 +114,5 @@ $aplanes  = new PlaneModel();
         
     </div>
     
-    <div id='profile_wrapper' class="col-lg-4">
-     <?php ContextManager::PartialView("Create", "Flight");
-     
-        ContextManager::PartialView("Create");
-     ?>
-    </div>
     
-    
-    <div class="operation_panel" >
-    
-    
-    
-    </div>
-    
-  
-    
-</div>
+
