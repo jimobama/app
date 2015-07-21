@@ -12,15 +12,17 @@
  * @author Obaro
  */
 class Response {
+
     //put your code here  
-    
-    private  $__model=null;
-    private $content=null;
-    public $Model =null;
-    
-    function __construct($model=null) {
-        $this-> content="";
+
+    private $__model = null;
+    private $content = null;
+    public $Model = null;
+
+    function __construct($model = null) {
+        $this->content = "";
         $this->__model = $model;
-        $this->_viewBag= new ArrayObject();         
+        $this->_viewBag = new ArrayObject();
     }
+
 }

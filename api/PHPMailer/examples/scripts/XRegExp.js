@@ -25,9 +25,9 @@ if (XRegExp) {
     // converts to type XRegExp
     XRegExp = function (pattern, flags) {
         var output = [],
-            currScope = XRegExp.OUTSIDE_CLASS,
-            pos = 0,
-            context, tokenResult, match, chr, regex;
+                currScope = XRegExp.OUTSIDE_CLASS,
+                pos = 0,
+                context, tokenResult, match, chr, regex;
 
         if (XRegExp.isRegExp(pattern)) {
             if (flags !== undefined)
@@ -40,11 +40,15 @@ if (XRegExp) {
             throw Error("can't call the XRegExp constructor within token definition functions");
 
         flags = flags || "";
-        context = { // `this` object for custom tokens
+        context = {// `this` object for custom tokens
             hasNamedCapture: false,
             captureNames: [],
-            hasFlag: function (flag) {return flags.indexOf(flag) > -1;},
-            setFlag: function (flag) {flags += flag;}
+            hasFlag: function (flag) {
+                return flags.indexOf(flag) > -1;
+            },
+            setFlag: function (flag) {
+                flags += flag;
+            }
         };
 
         while (pos < pattern.length) {
@@ -98,26 +102,26 @@ if (XRegExp) {
     //---------------------------------
 
     var replacementToken = /\$(?:(\d\d?|[$&`'])|{([$\w]+)})/g,
-        flagClip = /[^gimy]+|([\s\S])(?=[\s\S]*\1)/g, // Nonnative and duplicate flags
-        quantifier = /^(?:[?*+]|{\d+(?:,\d*)?})\??/,
-        isInsideConstructor = false,
-        tokens = [],
-        // Copy native globals for reference ("native" is an ES3 reserved keyword)
-        nativ = {
-            exec: RegExp.prototype.exec,
-            test: RegExp.prototype.test,
-            match: String.prototype.match,
-            replace: String.prototype.replace,
-            split: String.prototype.split
-        },
-        compliantExecNpcg = nativ.exec.call(/()??/, "")[1] === undefined, // check `exec` handling of nonparticipating capturing groups
-        compliantLastIndexIncrement = function () {
-            var x = /^/g;
-            nativ.test.call(x, "");
-            return !x.lastIndex;
-        }(),
-        hasNativeY = RegExp.prototype.sticky !== undefined,
-        nativeTokens = {};
+            flagClip = /[^gimy]+|([\s\S])(?=[\s\S]*\1)/g, // Nonnative and duplicate flags
+            quantifier = /^(?:[?*+]|{\d+(?:,\d*)?})\??/,
+            isInsideConstructor = false,
+            tokens = [],
+            // Copy native globals for reference ("native" is an ES3 reserved keyword)
+            nativ = {
+                exec: RegExp.prototype.exec,
+                test: RegExp.prototype.test,
+                match: String.prototype.match,
+                replace: String.prototype.replace,
+                split: String.prototype.split
+            },
+    compliantExecNpcg = nativ.exec.call(/()??/, "")[1] === undefined, // check `exec` handling of nonparticipating capturing groups
+            compliantLastIndexIncrement = function () {
+                var x = /^/g;
+                nativ.test.call(x, "");
+                return !x.lastIndex;
+            }(),
+            hasNativeY = RegExp.prototype.sticky !== undefined,
+            nativeTokens = {};
 
     // `nativeTokens` match native multicharacter metasequences only (including deprecated octals,
     // excluding character classes)
@@ -171,7 +175,7 @@ if (XRegExp) {
     // of the provided regex in its own handling, but updates the property for compatibility
     XRegExp.execAt = function (str, regex, pos, anchored) {
         var r2 = clone(regex, "g" + ((anchored && hasNativeY) ? "y" : "")),
-            match;
+                match;
         r2.lastIndex = pos = pos || 0;
         match = r2.exec(str); // Run the altered `exec` (required for `lastIndex` fix, etc.)
         if (anchored && match && match.index !== pos)
@@ -202,7 +206,7 @@ if (XRegExp) {
     // `String.prototype.replace` or repeatedly calling `exec` within a `while` loop
     XRegExp.iterate = function (str, regex, callback, context) {
         var r2 = clone(regex, "g"),
-            i = -1, match;
+                i = -1, match;
         while (match = r2.exec(str)) { // Run the altered `exec` (required for `lastIndex` fix, etc.)
             if (regex.global)
                 regex.lastIndex = r2.lastIndex; // Doing this to follow expectations if `lastIndex` is checked within `callback`
@@ -225,17 +229,17 @@ if (XRegExp) {
     //     /[^\/]+$/ // filenames (strip directory paths)
     // ]);
     XRegExp.matchChain = function (str, chain) {
-        return function recurseChain (values, level) {
+        return function recurseChain(values, level) {
             var item = chain[level].regex ? chain[level] : {regex: chain[level]},
-                regex = clone(item.regex, "g"),
-                matches = [], i;
+            regex = clone(item.regex, "g"),
+                    matches = [], i;
             for (i = 0; i < values.length; i++) {
                 XRegExp.iterate(values[i], regex, function (match) {
                     matches.push(item.backref ? (match[item.backref] || "") : match[0]);
                 });
             }
             return ((level === chain.length - 1) || !matches.length) ?
-                matches : recurseChain(matches, level + 1);
+                    matches : recurseChain(matches, level + 1);
         }([str], 0);
     };
 
@@ -291,7 +295,7 @@ if (XRegExp) {
                 for (var i = 1; i < match.length; i++) {
                     name = this._xregexp.captureNames[i - 1];
                     if (name)
-                       match[name] = match[i];
+                        match[name] = match[i];
                 }
             }
             // Fix browsers that increment `lastIndex` after zero-length matches
@@ -339,7 +343,7 @@ if (XRegExp) {
     // third (`flags`) parameter
     String.prototype.replace = function (search, replacement) {
         var isRegex = XRegExp.isRegExp(search),
-            captureNames, result, str, origLastIndex;
+                captureNames, result, str, origLastIndex;
 
         // There are too many combinations of search/replacement types/values and browser bugs that
         // preclude passing to native `replace`, so don't try
@@ -379,11 +383,15 @@ if (XRegExp) {
                     // Numbered backreference (without delimiters) or special variable
                     if ($1) {
                         switch ($1) {
-                            case "$": return "$";
-                            case "&": return args[0];
-                            case "`": return args[args.length - 1].slice(0, args[args.length - 2]);
-                            case "'": return args[args.length - 1].slice(args[args.length - 2] + args[0].length);
-                            // Numbered backreference
+                            case "$":
+                                return "$";
+                            case "&":
+                                return args[0];
+                            case "`":
+                                return args[args.length - 1].slice(0, args[args.length - 2]);
+                            case "'":
+                                return args[args.length - 1].slice(args[args.length - 2] + args[0].length);
+                                // Numbered backreference
                             default:
                                 // What does "$10" mean?
                                 // - Backreference 10, if 10 or more capturing groups exist
@@ -403,7 +411,7 @@ if (XRegExp) {
                                 }
                                 return ($1 ? args[$1] || "" : "$") + literalNumbers;
                         }
-                    // Named backreference or delimited numbered backreference
+                        // Named backreference or delimited numbered backreference
                     } else {
                         // What does "${n}" mean?
                         // - Backreference to numbered capture n. Two differences from "$n":
@@ -438,9 +446,9 @@ if (XRegExp) {
             return nativ.split.apply(this, arguments);
 
         var str = this + "", // Type conversion
-            output = [],
-            lastLastIndex = 0,
-            match, lastLength;
+                output = [],
+                lastLastIndex = 0,
+                match, lastLength;
 
         // Behavior for `limit`: if it's...
         // - `undefined`: No limit
@@ -496,7 +504,7 @@ if (XRegExp) {
     // Supporting function for `XRegExp`, `XRegExp.copyAsGlobal`, etc. Returns a copy of a `RegExp`
     // instance with a fresh `lastIndex` (set to zero), preserving properties required for named
     // capture. Also allows adding new flags in the process of copying the regex
-    function clone (regex, additionalFlags) {
+    function clone(regex, additionalFlags) {
         if (!XRegExp.isRegExp(regex))
             throw TypeError("type RegExp expected");
         var x = regex._xregexp;
@@ -510,17 +518,17 @@ if (XRegExp) {
         return regex;
     }
 
-    function getNativeFlags (regex) {
-        return (regex.global     ? "g" : "") +
-               (regex.ignoreCase ? "i" : "") +
-               (regex.multiline  ? "m" : "") +
-               (regex.extended   ? "x" : "") + // Proposed for ES4; included in AS3
-               (regex.sticky     ? "y" : "");
+    function getNativeFlags(regex) {
+        return (regex.global ? "g" : "") +
+                (regex.ignoreCase ? "i" : "") +
+                (regex.multiline ? "m" : "") +
+                (regex.extended ? "x" : "") + // Proposed for ES4; included in AS3
+                (regex.sticky ? "y" : "");
     }
 
-    function runTokens (pattern, index, scope, context) {
+    function runTokens(pattern, index, scope, context) {
         var i = tokens.length,
-            result, match, t;
+                result, match, t;
         // Protect against constructing XRegExps within token handler and trigger functions
         isInsideConstructor = true;
         // Must reset `isInsideConstructor`, even if a `trigger` or `handler` throws
@@ -547,7 +555,7 @@ if (XRegExp) {
         return result;
     }
 
-    function indexOf (array, item, from) {
+    function indexOf(array, item, from) {
         if (Array.prototype.indexOf) // Use the native array method if available
             return array.indexOf(item, from);
         for (var i = from || 0; i < array.length; i++) {
@@ -567,83 +575,89 @@ if (XRegExp) {
 
     // Comment pattern: (?# )
     XRegExp.addToken(
-        /\(\?#[^)]*\)/,
-        function (match) {
-            // Keep tokens separated unless the following token is a quantifier
-            return nativ.test.call(quantifier, match.input.slice(match.index + match[0].length)) ? "" : "(?:)";
-        }
+            /\(\?#[^)]*\)/,
+            function (match) {
+                // Keep tokens separated unless the following token is a quantifier
+                return nativ.test.call(quantifier, match.input.slice(match.index + match[0].length)) ? "" : "(?:)";
+            }
     );
 
     // Capturing group (match the opening parenthesis only).
     // Required for support of named capturing groups
     XRegExp.addToken(
-        /\((?!\?)/,
-        function () {
-            this.captureNames.push(null);
-            return "(";
-        }
+            /\((?!\?)/,
+            function () {
+                this.captureNames.push(null);
+                return "(";
+            }
     );
 
     // Named capturing group (match the opening delimiter only): (?<name>
     XRegExp.addToken(
-        /\(\?<([$\w]+)>/,
-        function (match) {
-            this.captureNames.push(match[1]);
-            this.hasNamedCapture = true;
-            return "(";
-        }
+            /\(\?<([$\w]+)>/,
+            function (match) {
+                this.captureNames.push(match[1]);
+                this.hasNamedCapture = true;
+                return "(";
+            }
     );
 
     // Named backreference: \k<name>
     XRegExp.addToken(
-        /\\k<([\w$]+)>/,
-        function (match) {
-            var index = indexOf(this.captureNames, match[1]);
-            // Keep backreferences separate from subsequent literal numbers. Preserve back-
-            // references to named groups that are undefined at this point as literal strings
-            return index > -1 ?
-                "\\" + (index + 1) + (isNaN(match.input.charAt(match.index + match[0].length)) ? "" : "(?:)") :
-                match[0];
-        }
+            /\\k<([\w$]+)>/,
+            function (match) {
+                var index = indexOf(this.captureNames, match[1]);
+                // Keep backreferences separate from subsequent literal numbers. Preserve back-
+                // references to named groups that are undefined at this point as literal strings
+                return index > -1 ?
+                        "\\" + (index + 1) + (isNaN(match.input.charAt(match.index + match[0].length)) ? "" : "(?:)") :
+                        match[0];
+            }
     );
 
     // Empty character class: [] or [^]
     XRegExp.addToken(
-        /\[\^?]/,
-        function (match) {
-            // For cross-browser compatibility with ES3, convert [] to \b\B and [^] to [\s\S].
-            // (?!) should work like \b\B, but is unreliable in Firefox
-            return match[0] === "[]" ? "\\b\\B" : "[\\s\\S]";
-        }
+            /\[\^?]/,
+            function (match) {
+                // For cross-browser compatibility with ES3, convert [] to \b\B and [^] to [\s\S].
+                // (?!) should work like \b\B, but is unreliable in Firefox
+                return match[0] === "[]" ? "\\b\\B" : "[\\s\\S]";
+            }
     );
 
     // Mode modifier at the start of the pattern only, with any combination of flags imsx: (?imsx)
     // Does not support x(?i), (?-i), (?i-m), (?i: ), (?i)(?m), etc.
     XRegExp.addToken(
-        /^\(\?([imsx]+)\)/,
-        function (match) {
-            this.setFlag(match[1]);
-            return "";
-        }
+            /^\(\?([imsx]+)\)/,
+            function (match) {
+                this.setFlag(match[1]);
+                return "";
+            }
     );
 
     // Whitespace and comments, in free-spacing (aka extended) mode only
     XRegExp.addToken(
-        /(?:\s+|#.*)+/,
-        function (match) {
-            // Keep tokens separated unless the following token is a quantifier
-            return nativ.test.call(quantifier, match.input.slice(match.index + match[0].length)) ? "" : "(?:)";
-        },
-        XRegExp.OUTSIDE_CLASS,
-        function () {return this.hasFlag("x");}
+            /(?:\s+|#.*)+/,
+            function (match) {
+                // Keep tokens separated unless the following token is a quantifier
+                return nativ.test.call(quantifier, match.input.slice(match.index + match[0].length)) ? "" : "(?:)";
+            },
+            XRegExp.OUTSIDE_CLASS,
+            function () {
+                return this.hasFlag("x");
+            }
     );
 
     // Dot, in dotall (aka singleline) mode only
     XRegExp.addToken(
-        /\./,
-        function () {return "[\\s\\S]";},
-        XRegExp.OUTSIDE_CLASS,
-        function () {return this.hasFlag("s");}
+            /\./,
+            function () {
+                return "[\\s\\S]";
+            },
+            XRegExp.OUTSIDE_CLASS,
+            function () {
+                return this.hasFlag("s");
+            }
     );
 
 
@@ -653,12 +667,12 @@ if (XRegExp) {
 
     // Uncomment the following block for compatibility with XRegExp 1.0-1.2:
     /*
-    XRegExp.matchWithinChain = XRegExp.matchChain;
-    RegExp.prototype.addFlags = function (s) {return clone(this, s);};
-    RegExp.prototype.execAll = function (s) {var r = []; XRegExp.iterate(s, this, function (m) {r.push(m);}); return r;};
-    RegExp.prototype.forEachExec = function (s, f, c) {return XRegExp.iterate(s, this, f, c);};
-    RegExp.prototype.validate = function (s) {var r = RegExp("^(?:" + this.source + ")$(?!\\s)", getNativeFlags(this)); if (this.global) this.lastIndex = 0; return s.search(r) === 0;};
-    */
+     XRegExp.matchWithinChain = XRegExp.matchChain;
+     RegExp.prototype.addFlags = function (s) {return clone(this, s);};
+     RegExp.prototype.execAll = function (s) {var r = []; XRegExp.iterate(s, this, function (m) {r.push(m);}); return r;};
+     RegExp.prototype.forEachExec = function (s, f, c) {return XRegExp.iterate(s, this, f, c);};
+     RegExp.prototype.validate = function (s) {var r = RegExp("^(?:" + this.source + ")$(?!\\s)", getNativeFlags(this)); if (this.global) this.lastIndex = 0; return s.search(r) === 0;};
+     */
 
 })();
 

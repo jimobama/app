@@ -1,10 +1,17 @@
-<?php 
-ContextManager::PartialView("Create","Agent");
-
+<?php
+ContextManager::PartialView("Create", "Agent");
+ContextManager::PartialView("AdvanceSettings", "Agent");
 ?>
 
- <div class="createagent_wrapper">
+<div class="row container-fluid">
 
-<?php ContextManager::PartialView("Create")?>
+    <div class='col-sm-6'>
+
+        <?php ContextManager::PartialView("Create") ?>
+    </div>
+    <div class='col-sm-6'>
+        <?php ContextManager::PartialView("AdvanceSettings"); ?>
+
+    </div>
 
 </div>

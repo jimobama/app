@@ -1,104 +1,104 @@
-	.form 
-	{
-		border:1px solid #bbb;
-		min-height:200px;
-		box-shadow:0px 1px 0px #000;
-		border-radius:10px;
-		padding:0px;
-		margin:auto;	
-		overflow:hidden;
-		
-	}
-	.form .title
-	{
-		background-color:#eee;
-		min-height:2.1em;
-		font-weight:bold;
-		text-align:center;
-		font-size:1.6em;
-		border-top-left-radius:10px;
-		border-top-right-radius:10px;
-		text-shadow:0px 1px 1px #000;
-		box-shadow:0px 0px 1px #000;
-		width:100%;
-		
-		
-	}
-	.form .field 
-	{
-		padding:0;
-		margin:1.2em 1em 1em 0em;		
-		overflow:hidden;
-		border:1px solid #bbb;		
-		border-radius:5px;
-		border-top:1px solid #E8E8E8;
-		
-	}
-	
-	.form .field input[type='text'],.form .field input[type='password']
-	{
-		height:2.8em;	
-		display:block;
-		width:100%;
-		margin:0 auto;
-		border:0px;
-		font-size:1.01em;
-		padding:0.1em 2em 0px 1em ;
-		
-		
-	}
-	
-	.no-trace{
-		border:0px ;
-		box-shadow:0px 0px  0px #000;
-		border-radius:0px;
-		
-	}
-	.form .label 
-	{
-		border:0px;
-		box-shadow:0px 0px 0px #000;
-		margin:0em 0em 0em 2em;
-	}
-	.form .button{
-		border:0px;
-		box-shadow:0px 0px 0px #000;
-		margin:0em;
-				
-	}
-	
-	.form .button input, .form .button button
-	{
-		width:25%;
-		height:2.8em;
-		border-radius:2px;
-		padding:1em;
-		box-shadow:0em 0em 3em solid #000;
-		text-align:center;
-		font-size:17px;
-	}
-	
-	.form .phonenumber input[type='text'],.form .phonenumber input[type='password']
-	{
-		
-		width:15%;
-		border-right:1px 	solid #eee;	
-		float:left;
-		
-	}
-	.form .phonenumber input[type='text'].first
-	{
-		width:5%;
-		
-	}
-	
-	.form .phonenumber input[type='text'].fourth
-	{
-		width:25%;	
-	}
-	
+.form 
+{
+    border:1px solid #bbb;
+    min-height:200px;
+    box-shadow:0px 1px 0px #000;
+    border-radius:10px;
+    padding:0px;
+    margin:auto;	
+    overflow:hidden;
 
-        
+}
+.form .title
+{
+    background-color:#eee;
+    min-height:2.1em;
+    font-weight:bold;
+    text-align:center;
+    font-size:1.6em;
+    border-top-left-radius:10px;
+    border-top-right-radius:10px;
+    text-shadow:0px 1px 1px #000;
+    box-shadow:0px 0px 1px #000;
+    width:100%;
+
+
+}
+.form .field 
+{
+    padding:0;
+    margin:1.2em 1em 1em 0em;		
+    overflow:hidden;
+    border:1px solid #bbb;		
+    border-radius:5px;
+    border-top:1px solid #E8E8E8;
+
+}
+
+.form .field input[type='text'],.form .field input[type='password']
+{
+    height:2.8em;	
+    display:block;
+    width:100%;
+    margin:0 auto;
+    border:0px;
+    font-size:1.01em;
+    padding:0.1em 2em 0px 1em ;
+
+
+}
+
+.no-trace{
+    border:0px ;
+    box-shadow:0px 0px  0px #000;
+    border-radius:0px;
+
+}
+.form .label 
+{
+    border:0px;
+    box-shadow:0px 0px 0px #000;
+    margin:0em 0em 0em 2em;
+}
+.form .button{
+    border:0px;
+    box-shadow:0px 0px 0px #000;
+    margin:0em;
+
+}
+
+.form .button input, .form .button button
+{
+    width:25%;
+    height:2.8em;
+    border-radius:2px;
+    padding:1em;
+    box-shadow:0em 0em 3em solid #000;
+    text-align:center;
+    font-size:17px;
+}
+
+.form .phonenumber input[type='text'],.form .phonenumber input[type='password']
+{
+
+    width:15%;
+    border-right:1px 	solid #eee;	
+    float:left;
+
+}
+.form .phonenumber input[type='text'].first
+{
+    width:5%;
+
+}
+
+.form .phonenumber input[type='text'].fourth
+{
+    width:25%;	
+}
+
+
+
 .form .note
 {
     padding:5px;

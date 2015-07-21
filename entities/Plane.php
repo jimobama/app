@@ -11,46 +11,38 @@
  *
  * @author Obaro
  */
-class Plane extends IModel{
+class Plane extends IModel {
+
     //put your code here
-    
+
     public $Id;
     public $name;
     public $seats;
     public $desc;
     public $mode;
-    
+
     public function __construct() {
-      $this->set(null,null,null,null);
+        $this->set(null, null, null, null);
     }
-    
-    
-    public function set($name,$seat,$desc)
-    {
-         $this->Id=  Validator::UniqueKey();
-         $this->desc= $desc;
-         $this->seats= $seat;
-         $this->name=$name;
-         $this->mode=null;         
+
+    public function set($name, $seat, $desc) {
+        $this->Id = Validator::UniqueKey();
+        $this->desc = $desc;
+        $this->seats = $seat;
+        $this->name = $name;
+        $this->mode = null;
     }
-    
-    
-    public function validated()
-    {
-        $okay=false;
-        if($this->name ==null  || !Validator::isWord(trim($this->name)))
-        {
+
+    public function validated() {
+        $okay = false;
+        if ($this->name == null || !Validator::isWord(trim($this->name))) {
             $this->setError("Enter a valid name for the plane");
-            
-        }else if($this->seats ==null || !Validator::isNumber($this->seats) || (intval($this->seats) <=0) )
-        {
+        } else if ($this->seats == null || !Validator::isNumber($this->seats) || (intval($this->seats) <= 0)) {
             $this->setError("Enter the total count of the plan seats ");
-        }  else {
-            $okay=true;
+        } else {
+            $okay = true;
         }
         return $okay;
     }
+
 }
-
-
-

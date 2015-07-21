@@ -32,11 +32,9 @@
  * @version   SVN: $Id$
  * @link      http://code.google.com/p/pearqrcode/
  */
-
 /**
  * Base class for exceptions in PEAR
  */
-
 require_once 'PEAR/Exception.php';
 
 /**
@@ -50,8 +48,8 @@ require_once 'PEAR/Exception.php';
  * @version  Release: 0.1
  * @link     http://code.google.com/p/pearqrcode/
  */
-
-class Image_QRCode_Exception extends PEAR_Exception
-{
+class Image_QRCode_Exception extends PEAR_Exception {
+    
 }
+
 ?>

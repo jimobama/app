@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This example shows making an SMTP connection without using authentication.
  */

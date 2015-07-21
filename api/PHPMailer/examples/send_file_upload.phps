@@ -1,4 +1,5 @@
 <?php
+
 /**
  * PHPMailer simple file upload and send example
  */
@@ -32,18 +33,18 @@ if (array_key_exists('userfile', $_FILES)) {
 ?>
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <title>PHPMailer Upload</title>
-</head>
-<body>
+    <head>
+        <meta charset="utf-8"/>
+        <title>PHPMailer Upload</title>
+    </head>
+    <body>
 <?php if (empty($msg)) { ?>
-    <form method="post" enctype="multipart/form-data">
-        <input type="hidden" name="MAX_FILE_SIZE" value="100000"> Send this file: <input name="userfile" type="file">
-        <input type="submit" value="Send File">
-    </form>
+        <form method="post" enctype="multipart/form-data">
+            <input type="hidden" name="MAX_FILE_SIZE" value="100000"> Send this file: <input name="userfile" type="file">
+            <input type="submit" value="Send File">
+        </form>
 <?php } else {
     echo $msg;
 } ?>
-</body>
+    </body>
 </html>

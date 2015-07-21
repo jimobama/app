@@ -1,4 +1,5 @@
 <?php
+
 /**
  * QRCode_AllTests
  * 
@@ -9,7 +10,6 @@
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1 
  * @link      http://code.google.com/p/pearqrcode
  */
-
 if ($fp = @fopen('PHPUnit/Autoload.php', 'r', true)) {
     require_once 'PHPUnit/Autoload.php';
 } elseif ($fp = @fopen('PHPUnit/Framework.php', 'r', true)) {
@@ -42,10 +42,9 @@ require_once 'Image/QRCodeTest.php';
  * @license   http://www.gnu.org/copyleft/lesser.html LGPL License 2.1
  * @link      http://code.google.com/p/pearqrcode
  */
-class QRCode_AllTests extends PHPUnit_Framework_TestSuite
-{
-    public static function main()
-    {
+class QRCode_AllTests extends PHPUnit_Framework_TestSuite {
+
+    public static function main() {
         if (!function_exists('phpunit_autoload')) {
             require_once 'PHPUnit/TextUI/TestRunner.php';
         }
@@ -57,12 +56,12 @@ class QRCode_AllTests extends PHPUnit_Framework_TestSuite
      * 
      * @return PHPUnit_Framework_TestSuite
      */
-    static public function suite()
-    {
+    static public function suite() {
         $suite = new PHPUnit_Framework_TestSuite('Image_QRCode Unit Test Suite');
         $suite->addTestSuite('Image_QRCodeTest');
         return $suite;
     }
+
 }
 
 if ($call_main) {

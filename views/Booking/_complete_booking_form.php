@@ -1,45 +1,102 @@
 
+<?php
+include_once("entities/BookInfo.php");
+if ($flight == null) {
+    $flight = new Flight();
+}
 
-<div id="">
-    
- <form class="form-horizontal" role="form">
-  <div class="form-group">
-      <label class="control-label" for="adults">N<u>o</u> of adults</label>
- 
-       <input type="text" style="width:30%" value="<?php echo (Session::get("adults")=="")?0:Session::get("adults"); ?>" class="form-control" id="adults" >
-   
-  </div>
-  <div class="form-group">
-    <label class="control-label col-sm-2" for="pwd">Children:</label>
-   
-    <input type="text" style="width:30%" value="<?php echo (Session::get("children")=="")?0:Session::get("children"); ?>" class="form-control" id="adults"  >
-  
-  
-  </div>
-     <div class="form-group">
-    <label class="control-label col-sm-2" for="pwd">Ticket Category: </label>
-    
-         <select id="flightclass" class ='form-control' name='sltflight'>
-            <option value="">...</option>
-            <option value="1">Economics</option>
-            <option value="2">Premier Economics</option>
-            <option value="3">Business/Club</option>
-            <option value="4">First</option>
-         </select>
-   
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label><input type="checkbox"> Remember me</label>
-      </div>
+$bookinfo = Session::get("BOOKINFO");
+if ($bookinfo == NULL) {
+    $bookinfo = new BookInfo();
+}
+?>
+
+<div class='container' >
+    <div class='title'>Ticket's informations...</div>
+
+
+
+    <?php
+    $form_args = new ArrayIterator();
+    $form_args->offsetSet("method", "POST");
+    $form_args->offsetSet("class", "form form-horizontal");
+    ContextManager::BeginForm("Booking", "ProcceedToPayment", $form_args);
+
+    ContextManager::ValidationFor("warning");
+    ?>
+
+    <div class='form-group'>
+
+        <input class="form-control" name="flightid" type="hidden"  value="<?php echo $flight->Id; ?>" />
+
+    </div> 
+
+    <div class='form-group inline-fields sm-2'>
+        <label>Ticket Amount Per/Each</label>
+        <label><?php echo "£" . $flight->ticketPrice; ?> </label>
+
     </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Process</button>
+    <div class="form-group inline-fields sm-2">
+        <label>N<u>o</u> of adults</label>
+
+        <input type="text"  value="<?php echo $bookinfo->adult_no ?>" class="form-control" name="adults" />
+
+        <label class="control-label col-sm-2" for="pwd">Children:</label>
+        <input type="text" style="width:30%" value="<?php echo $bookinfo->children_no; ?>" class="form-control"  name="children"  />
+
     </div>
-  </div>
-</form>
-    
+
+    <div class="form-group  inline-fields sm-1">
+        <label class="control-label col-sm-2" for="pwd">Ticket Category: </label>
+
+        <select id="ticketcategory" class ='form-control' name='ticketcategory'>
+            <option value="">select...</option>
+            <option value="1" <?php
+            if ($bookinfo->ticket_cat == "1") {
+                echo"selected";
+            }
+            ?>>Economics</option>
+            <option value="2" <?php
+            if ($bookinfo->ticket_cat == "2") {
+                echo"selected";
+            }
+            ?>>Premier Economics</option>
+            <option value="3" <?php
+            if ($bookinfo->ticket_cat == "3") {
+                echo"selected";
+            }
+            ?>>Business/Club</option>
+            <option value="4" <?php
+            if ($bookinfo->ticket_cat == "4") {
+                echo"selected";
+            }
+            ?>>First Class</option>
+        </select>
+
+    </div>
+    <div class="form-group inline-fields sm-1 ">     
+        <label>Ticket's type</label>
+        <select class="form-control" type="checkbox"  name="typeticket"> 
+            <option value="0" <?php
+            if ($bookinfo->ticket_type == "0") {
+                echo"selected";
+            }
+            ?>>With return  </option>
+            <option value="1" <?php
+            if ($bookinfo->ticket_type == "1") {
+                echo"selected";
+            }
+            ?>>One-way pass  </option>          
+        </select>
+
+    </div>
+
+    <div class="form-group inline-fields button">
+
+        <button type="submit" class="btn btn-primary" name="btnProceed">Make Calculation</button>
+
+    </div>
+
+    <?php ContextManager::EndForm(); ?>
+
 </div>

@@ -6,8 +6,8 @@
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once 'Image/QRCode.php';
 
-class Image_QRCodeTest extends PHPUnit_Framework_TestCase
-{
+class Image_QRCodeTest extends PHPUnit_Framework_TestCase {
+
     public $image_qrcode = null;
 
     /**
@@ -15,8 +15,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function setUp()
-    {
+    public function setUp() {
         if (!extension_loaded('gd')) {
             $this->markTestSkipped('gd not installed');
         }
@@ -28,8 +27,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function tearDown()
-    {
+    public function tearDown() {
         $this->image_qrcode = null;
     }
 
@@ -39,8 +37,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetVersionTooLow()
-    {
+    public function testSetVersionTooLow() {
         $arr = array(
             "version" => -1
         );
@@ -53,8 +50,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetVersionTooHigh()
-    {
+    public function testSetVersionTooHigh() {
         $arr = array(
             "version" => 41
         );
@@ -67,8 +63,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetInvalidErrorCorrection()
-    {
+    public function testSetInvalidErrorCorrection() {
         $arr = array(
             "error_correct" => "A" // should be L, M, Q, H
         );
@@ -81,8 +76,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetInvalidImageType()
-    {
+    public function testSetInvalidImageType() {
         $arr = array(
             "image_type" => "xxx"
         );
@@ -95,8 +89,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetModuleSizeTooLow()
-    {
+    public function testSetModuleSizeTooLow() {
         $arr = array(
             "module_size" => -1
         );
@@ -109,8 +102,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetModuleSizeTooHigh()
-    {
+    public function testSetModuleSizeTooHigh() {
         $arr = array(
             "module_size" => 999999
         );
@@ -123,8 +115,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetInvalidOutputType()
-    {
+    public function testSetInvalidOutputType() {
         $arr = array(
             "output_type" => "xxx"
         );
@@ -137,8 +128,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetInvalidImagePath()
-    {
+    public function testSetInvalidImagePath() {
         $arr = array(
             "image_path" => "."
         );
@@ -152,8 +142,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetInvalidDataPath()
-    {
+    public function testSetInvalidDataPath() {
         $arr = array(
             "path" => "."
         );
@@ -167,8 +156,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      * @expectedException Image_QRCode_Exception
      * @return void
      */
-    public function testSetEmptyData()
-    {
+    public function testSetEmptyData() {
         $this->image_qrcode->makeCode("");
     }
 
@@ -177,8 +165,7 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testReturnGDResource()
-    {
+    public function testReturnGDResource() {
         $arr = array(
             "output_type" => "return"
         );
@@ -192,12 +179,12 @@ class Image_QRCodeTest extends PHPUnit_Framework_TestCase
      *
      * @return void
      */
-    public function testBugReport19142OverflowException()
-    {
+    public function testBugReport19142OverflowException() {
         $arr = array(
             "output_type" => "return"
         );
         $gd = $this->image_qrcode->makeCode("http://www.example.com/php/", $arr);
         $this->assertInternalType("resource", $gd);
     }
+
 }

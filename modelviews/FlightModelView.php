@@ -11,10 +11,11 @@
  *
  * @author Obaro
  */
-class  FlightModelView
-{
+class FlightModelView {
+
     public $flight;
     public $flightDbModel;
-    public $flightList=null;
-    public $planes=null;
+    public $flightList = null;
+    public $planes = null;
+
 }

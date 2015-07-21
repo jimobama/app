@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This uses the SMTP class alone to check that a connection can be made to an SMTP server,
  * authenticate, then disconnect

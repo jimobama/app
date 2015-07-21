@@ -12,28 +12,30 @@
  * what to make such that all my objects have the following methods
  */
 abstract class Object {
-   private $error=null;
-  abstract function __construct();  
-   function __destruct()
-    {
+
+    private $error = "";
+
+    abstract function __construct();
+
+    function __destruct() {
         
     }
-  function toString()
-    {
+
+    function toString() {
         return "";
     }
- protected function setError($err)
-  {   if(trim($err)=="")
-      return null;
-      $this->error=$err;
-  }
- public function getError()
-  {
-      return $this->error;
-  }
- 
-  abstract  function validated();
-  
+
+    protected function setError($err) {
+        if (trim($err) == "")
+            return null;
+        $this->error = $err;
+    }
+
+    public function getError() {
+        return $this->error;
+    }
+
+    abstract function validated();
 }
 
 ?>

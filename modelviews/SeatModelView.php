@@ -12,9 +12,11 @@
  * @author Obaro
  */
 class SeatModelView {
+
     //put your code here
-    
-    public $seat=null;
-    public $seatModel=null;
-    public $planes=null;
+
+    public $seat = null;
+    public $seatModel = null;
+    public $planes = null;
+
 }

@@ -6,8 +6,6 @@ Session::init();
 //This will load the current web template to use
 
 ContextManager::StartApplication();
-
-
 ?>
 
 

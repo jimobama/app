@@ -1,4 +1,5 @@
 <?php
+
 /*
  * ntlm_sasl_client.php
  *
@@ -13,58 +14,53 @@ define("SASL_NTLM_STATE_DONE", 3);
 define("SASL_FAIL", -1);
 define("SASL_CONTINUE", 1);
 
-class ntlm_sasl_client_class
-{
+class ntlm_sasl_client_class {
+
     public $credentials = array();
     public $state = SASL_NTLM_STATE_START;
 
-    public function initialize(&$client)
-    {
-        if (!function_exists($function = "mcrypt_encrypt")
-            || !function_exists($function = "mhash")
+    public function initialize(&$client) {
+        if (!function_exists($function = "mcrypt_encrypt") || !function_exists($function = "mhash")
         ) {
             $extensions = array(
                 "mcrypt_encrypt" => "mcrypt",
                 "mhash" => "mhash"
             );
             $client->error = "the extension " . $extensions[$function] .
-                " required by the NTLM SASL client class is not available in this PHP configuration";
+                    " required by the NTLM SASL client class is not available in this PHP configuration";
             return (0);
         }
         return (1);
     }
 
-    public function ASCIIToUnicode($ascii)
-    {
+    public function ASCIIToUnicode($ascii) {
         for ($unicode = "", $a = 0; $a < strlen($ascii); $a++) {
             $unicode .= substr($ascii, $a, 1) . chr(0);
         }
         return ($unicode);
     }
 
-    public function typeMsg1($domain, $workstation)
-    {
+    public function typeMsg1($domain, $workstation) {
         $domain_length = strlen($domain);
         $workstation_length = strlen($workstation);
         $workstation_offset = 32;
         $domain_offset = $workstation_offset + $workstation_length;
         return (
-            "NTLMSSP\0" .
-            "\x01\x00\x00\x00" .
-            "\x07\x32\x00\x00" .
-            pack("v", $domain_length) .
-            pack("v", $domain_length) .
-            pack("V", $domain_offset) .
-            pack("v", $workstation_length) .
-            pack("v", $workstation_length) .
-            pack("V", $workstation_offset) .
-            $workstation .
-            $domain
-        );
+                "NTLMSSP\0" .
+                "\x01\x00\x00\x00" .
+                "\x07\x32\x00\x00" .
+                pack("v", $domain_length) .
+                pack("v", $domain_length) .
+                pack("V", $domain_offset) .
+                pack("v", $workstation_length) .
+                pack("v", $workstation_length) .
+                pack("V", $workstation_offset) .
+                $workstation .
+                $domain
+                );
     }
 
-    public function NTLMResponse($challenge, $password)
-    {
+    public function NTLMResponse($challenge, $password) {
         $unicode = $this->ASCIIToUnicode($password);
         $md4 = mhash(MHASH_MD4, $unicode);
         $padded = $md4 . str_repeat(chr(0), 21 - strlen($md4));
@@ -85,8 +81,7 @@ class ntlm_sasl_client_class
         return $response;
     }
 
-    public function typeMsg3($ntlm_response, $user, $domain, $workstation)
-    {
+    public function typeMsg3($ntlm_response, $user, $domain, $workstation) {
         $domain_unicode = $this->ASCIIToUnicode($domain);
         $domain_length = strlen($domain_unicode);
         $domain_offset = 64;
@@ -106,37 +101,36 @@ class ntlm_sasl_client_class
         $session_length = strlen($session);
         $session_offset = $ntlm_offset + $ntlm_length;
         return (
-            "NTLMSSP\0" .
-            "\x03\x00\x00\x00" .
-            pack("v", $lm_length) .
-            pack("v", $lm_length) .
-            pack("V", $lm_offset) .
-            pack("v", $ntlm_length) .
-            pack("v", $ntlm_length) .
-            pack("V", $ntlm_offset) .
-            pack("v", $domain_length) .
-            pack("v", $domain_length) .
-            pack("V", $domain_offset) .
-            pack("v", $user_length) .
-            pack("v", $user_length) .
-            pack("V", $user_offset) .
-            pack("v", $workstation_length) .
-            pack("v", $workstation_length) .
-            pack("V", $workstation_offset) .
-            pack("v", $session_length) .
-            pack("v", $session_length) .
-            pack("V", $session_offset) .
-            "\x01\x02\x00\x00" .
-            $domain_unicode .
-            $user_unicode .
-            $workstation_unicode .
-            $lm .
-            $ntlm
-        );
+                "NTLMSSP\0" .
+                "\x03\x00\x00\x00" .
+                pack("v", $lm_length) .
+                pack("v", $lm_length) .
+                pack("V", $lm_offset) .
+                pack("v", $ntlm_length) .
+                pack("v", $ntlm_length) .
+                pack("V", $ntlm_offset) .
+                pack("v", $domain_length) .
+                pack("v", $domain_length) .
+                pack("V", $domain_offset) .
+                pack("v", $user_length) .
+                pack("v", $user_length) .
+                pack("V", $user_offset) .
+                pack("v", $workstation_length) .
+                pack("v", $workstation_length) .
+                pack("V", $workstation_offset) .
+                pack("v", $session_length) .
+                pack("v", $session_length) .
+                pack("V", $session_offset) .
+                "\x01\x02\x00\x00" .
+                $domain_unicode .
+                $user_unicode .
+                $workstation_unicode .
+                $lm .
+                $ntlm
+                );
     }
 
-    public function start(&$client, &$message, &$interactions)
-    {
+    public function start(&$client, &$message, &$interactions) {
         if ($this->state != SASL_NTLM_STATE_START) {
             $client->error = "NTLM authentication state is not at the start";
             return (SASL_FAIL);
@@ -156,8 +150,7 @@ class ntlm_sasl_client_class
         return ($status);
     }
 
-    public function step(&$client, $response, &$message, &$interactions)
-    {
+    public function step(&$client, $response, &$message, &$interactions) {
         switch ($this->state) {
             case SASL_NTLM_STATE_IDENTIFY_DOMAIN:
                 $message = $this->TypeMsg1($this->credentials["realm"], $this->credentials["workstation"]);
@@ -166,10 +159,7 @@ class ntlm_sasl_client_class
             case SASL_NTLM_STATE_RESPOND_CHALLENGE:
                 $ntlm_response = $this->NTLMResponse(substr($response, 24, 8), $this->credentials["password"]);
                 $message = $this->TypeMsg3(
-                    $ntlm_response,
-                    $this->credentials["user"],
-                    $this->credentials["realm"],
-                    $this->credentials["workstation"]
+                        $ntlm_response, $this->credentials["user"], $this->credentials["realm"], $this->credentials["workstation"]
                 );
                 $this->state = SASL_NTLM_STATE_DONE;
                 break;
@@ -182,4 +172,5 @@ class ntlm_sasl_client_class
         }
         return (SASL_CONTINUE);
     }
+
 }

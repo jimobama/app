@@ -1,4 +1,5 @@
 <?php
+
 /**
  * EasyPeasyICS Simple ICS/vCal data generator.
  * @author Marcus Bointon <phpmailer@synchromedia.co.uk>
@@ -17,13 +18,14 @@
  * @package phpmailer
  * @subpackage easypeasyics
  */
-class EasyPeasyICS
-{
+class EasyPeasyICS {
+
     /**
      * The name of the calendar
      * @type string
      */
     protected $calendarName;
+
     /**
      * The array of events to add to this calendar
      * @type array
@@ -34,8 +36,7 @@ class EasyPeasyICS
      * Constructor
      * @param string $calendarName
      */
-    public function __construct($calendarName = "")
-    {
+    public function __construct($calendarName = "") {
         $this->calendarName = $calendarName;
     }
 
@@ -49,8 +50,7 @@ class EasyPeasyICS
      * @param string $uid A unique identifier for the event - generated automatically if not provided
      * @return array An array of event details, including any generated UID
      */
-    public function addEvent($start, $end, $summary = '', $description = '', $url = '', $uid = '')
-    {
+    public function addEvent($start, $end, $summary = '', $description = '', $url = '', $uid = '') {
         if (empty($uid)) {
             $uid = md5(uniqid(mt_rand(), true)) . '@EasyPeasyICS';
         }
@@ -69,16 +69,14 @@ class EasyPeasyICS
     /**
      * @return array Get the array of events.
      */
-    public function getEvents()
-    {
+    public function getEvents() {
         return $this->events;
     }
 
     /**
      * Clear all events.
      */
-    public function clearEvents()
-    {
+    public function clearEvents() {
         $this->events = array();
     }
 
@@ -86,8 +84,7 @@ class EasyPeasyICS
      * Get the name of the calendar.
      * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->calendarName;
     }
 
@@ -95,8 +92,7 @@ class EasyPeasyICS
      * Set the name of the calendar.
      * @param $name
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->calendarName = $name;
     }
 
@@ -105,8 +101,7 @@ class EasyPeasyICS
      * @param bool $output Whether to output the calendar data directly (the default).
      * @return string The complete rendered vlal
      */
-    public function render($output = true)
-    {
+    public function render($output = true) {
         //Add header
         $ics = 'BEGIN:VCALENDAR
 METHOD:PUBLISH
@@ -137,7 +132,7 @@ END:VCALENDAR';
             $filename = $this->calendarName;
             //Filename needs quoting if it contains spaces
             if (strpos($filename, ' ') !== false) {
-                $filename = '"'.$filename.'"';
+                $filename = '"' . $filename . '"';
             }
             header('Content-type: text/calendar; charset=utf-8');
             header('Content-Disposition: inline; filename=' . $filename . '.ics');
@@ -145,4 +140,5 @@ END:VCALENDAR';
         }
         return $ics;
     }
+
 }

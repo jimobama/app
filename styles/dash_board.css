@@ -1,12 +1,12 @@
 #dash-board-wrapper
 {
-    
+
     display:block;
     border:0px solid #eee;
     overflow:hidden;   
     margin:0 auto;
     width:100%;
-    
+
 }
 
 ﻿
@@ -23,19 +23,19 @@
     border:0px solid #eee;
     padding:5px;   
     min-height:200px;
-   
-  
+
+
 }
 
 #dash-board-wrapper  .dash-board
 {
-    
+
     position:relative;
     border: 1px solid #eee;    
-    
+
     clear:none;  
     overflow: hidden;
-   
+
 }
 
 #dash-board-wrapper  .dash-board legend
@@ -53,6 +53,6 @@ table th,table tr th{
 
 .page .agent-form
 {
-    
+
     border:1px solid #000;
 }

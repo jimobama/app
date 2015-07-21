@@ -12,9 +12,11 @@
  * @author Obaro
  */
 class PlaneModelView {
+
     //put your code here
-    
-    public $plane=null;
-    public $planeModel=null;
-    public $list=null;
+
+    public $plane = null;
+    public $planeModel = null;
+    public $list = null;
+
 }

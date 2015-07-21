@@ -11,14 +11,11 @@
  *
  * @author Obaro
  */
-
-
 class AgentModelView {
+
     //put your code here    
-    public  $agent=null;
-    public  $agentDbModel=null;
-    public $agentList=null;
+    public $agent = null;
+    public $agentDbModel = null;
+    public $agentList = null;
+
 }
-
-
-

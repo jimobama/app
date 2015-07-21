@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This example shows how to use POP-before-SMTP for authentication.
  */

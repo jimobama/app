@@ -1,15 +1,15 @@
 
 html,body{
     font-family: Verdana, Geneva, sans-serif;
-   
+
 }
 body {
     padding-top: 50px;
     padding-bottom: 20px;
     margin:0;
     padding:0; 
-   
-    
+
+
 }
 
 #main-body-wrapper
@@ -21,22 +21,22 @@ body {
     margin :10px auto;
     overflow:hidden;
     z-index:2;
-    
-   
+
+
 }
 .navbar-inverse
 {
-  background-color:#fff;  
-  border:0;
-  margin:0;
-  padding:0;
+    background-color:#fff;  
+    border:0;
+    margin:0;
+    padding:0;
 }
 .page-header
 {
-  margin:0;
-  padding:0;
-  background-color:#eee;
-   border-bottom:1px solid #AAA;
+    margin:0;
+    padding:0;
+    background-color:#eee;
+    border-bottom:1px solid #AAA;
 }
 /* Set padding to keep content from hitting the edges */
 .body-content {
@@ -44,22 +44,22 @@ body {
     padding-right: 15px;
     z-index:-1;
     margin-top:30px;
-  
+
 }
 
 
 .container-fluid
 {
-  
-  
+
+
 }
 
 
 .container .page-header{  
-   
-   margin:0;
-   min-height:100px;
-  
+
+    margin:0;
+    min-height:100px;
+
 }
 
 .navbar-brand img
@@ -70,13 +70,13 @@ body {
 
 .navbar-nav
 {
-   margin:20px auto;
+    margin:20px auto;
 }
 .navbar-nav .dropdown-menu
 {
     box-shadow: 0px 0px 3px #AAA;
     border:0px;
-    
+
 }
 
 
@@ -84,10 +84,10 @@ body {
 
 .content-wrapper
 {
- position:relative;
- margin-top:10px ;
- border:0px solid #000;
- overflow: hidden;
+    position:relative;
+    margin-top:10px ;
+    border:0px solid #000;
+    overflow: hidden;
 }
 
 
@@ -100,7 +100,7 @@ body {
 .copyright{
     font-size:10px;
     padding:5px;
-    
+
 }
 
 table{
@@ -109,5 +109,5 @@ table{
 }
 
 table tr td, table tr th{
-   font-size:10px;
+    font-size:10px;
 }

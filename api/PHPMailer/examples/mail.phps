@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This example shows sending a message using PHP's mail() function.
  */
