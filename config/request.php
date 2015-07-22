@@ -28,7 +28,7 @@ class Request {
 
         $this->_website = \filter_input(INPUT_SERVER, "HTTP_HOST");
         $this->_request_array = new ArrayIterator($_REQUEST);
-
+       ;
 
         $this->params = new ArrayIterator(array());
         $this->_parser();
@@ -44,12 +44,11 @@ class Request {
             //the rest are parameters
 
             $controller = $this->_request_array->current();
+            
             $this->_request_array->next();
 
             if ($this->_request_array->valid()) {
                 $action = $this->_request_array->current();
-
-
                 $this->loadParams();
             } else {
                 $action = "Index";
@@ -67,7 +66,9 @@ class Request {
         $controller_full = $this->_controller . CONTROLLER_SUFIX;
         $controller_path = CONTROLLER_PATH . $controller_full . ".php";
 
+   
         if (file_exists(strtolower($controller_path))) {
+               echo $controller_path;
             include_once($controller_path);
             if (class_exists($controller_full)) {
                 $this->_controller = $controller_full;

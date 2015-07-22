@@ -319,7 +319,9 @@
             <?php require_once("_header.php") ?>
 
             <div class='panel panel-body changeble-main'>
-                <?php ContextManager::RenderContext() ?>
+                <?php ContextManager::RenderContext();
+                        
+                      ?>
             </div>
 
             <div class=''>

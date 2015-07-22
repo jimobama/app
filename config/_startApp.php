@@ -91,6 +91,8 @@ class ContextManager extends GlobalMaster {
     }
 
     private static function __displayContext($context) {
+        
+       
         if (self::$request->IsValid()) {
             if (is_a($context, "IContextView")) {
 
@@ -99,12 +101,14 @@ class ContextManager extends GlobalMaster {
 
                 if (is_object($context)) {
                     $context = json_encode($context);
+                   
                 }
 
                 echo $context;
             }
         } else {
             self::$request->_Default();
+           
         }
     }
 
